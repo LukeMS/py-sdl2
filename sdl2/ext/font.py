@@ -1,4 +1,6 @@
 """Font and text rendering routines."""
+
+import ctypes
 import os
 from .. import surface, rect, pixels
 from .common import SDLError
@@ -355,3 +357,28 @@ class FontManager(object):
         if not sf:
             raise SDLError(sdlttf.TTF_GetError())
         return sf.contents
+
+    def text_size(self, text, alias, size):
+        """Calculate the resulting surface size of the UTF8 encoded text.
+
+        This method uses the font designated by the alias to calculate the
+        surface size. No actual rendering is done on the c side of the method,
+        however correct kerning is done to get the actual width.
+
+        Args:
+            text (str): the string to size up
+            alias (str): the name of the font to be used
+            size (int): the font size to be used
+
+        Returns:
+            tuple (int w, int h): a 2-tuple of ints for width and height of
+            the calculated surface.
+        """
+        w = ctypes.c_int(0)
+        h = ctypes.c_int(0)
+        alias = os.path.splitext(alias)[0]
+        font = self.fonts[alias][size]
+        sdlttf.TTF_SizeUTF8(font, text.encode('utf-8'), w, h)
+        w = w.value
+        h = h.value
+        return w, h
