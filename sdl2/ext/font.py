@@ -379,6 +379,4 @@ class FontManager(object):
         alias = os.path.splitext(alias)[0]
         font = self.fonts[alias][size]
         sdlttf.TTF_SizeUTF8(font, text.encode('utf-8'), w, h)
-        w = w.value
-        h = h.value
         return w.value, h.value
