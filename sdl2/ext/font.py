@@ -371,7 +371,7 @@ class FontManager(object):
             size (int): the font size to be used
 
         Returns:
-            tuple (int w, int h): a 2-tuple of ints for width and height of
+            tuple (int w, int h): a 2-tuple of ints with width and height of
             the calculated surface.
         """
         w = ctypes.c_int(0)
@@ -381,4 +381,4 @@ class FontManager(object):
         sdlttf.TTF_SizeUTF8(font, text.encode('utf-8'), w, h)
         w = w.value
         h = h.value
-        return w, h
+        return w.value, h.value
