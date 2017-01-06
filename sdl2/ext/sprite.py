@@ -11,6 +11,8 @@ from .image import load_image
 from .. import blendmode, surface, rect, video, pixels, render, rwops
 from ..stdinc import Uint8, Uint32
 
+from .rect import to_sdl_rect
+
 __all__ = ["Sprite", "SoftwareSprite", "TextureSprite", "SpriteFactory",
            "SoftwareSpriteRenderSystem", "SpriteRenderSystem",
            "TextureSpriteRenderSystem", "Renderer", "TEXTURE", "SOFTWARE"
@@ -299,17 +301,97 @@ class Renderer(object):
                 raise SDLError()
 
 
-
-class Sprite(object):
+class Sprite(object, metaclass=abc.ABCMeta):
     """A simple 2D object."""
-    __metaclass__ = abc.ABCMeta
+
+    _frame_rect = None
 
     def __init__(self):
-        """Creates a new Sprite."""
+        """Create a new Sprite."""
         super(Sprite, self).__init__()
         self.x = 0
         self.y = 0
         self.depth = 0
+
+    @property
+    def frame_rect(self):
+        """..."""
+        return self._frame_rect
+
+    @frame_rect.setter
+    def frame_rect(self, val):
+        self._frame_rect = to_sdl_rect(val) if val else None
+
+    @property
+    def w(self):
+        """..."""
+        return self.get_rect().width
+
+    @property
+    def width(self):
+        """..."""
+        return self.get_rect().width
+
+    @property
+    def h(self):
+        """..."""
+        return self.get_rect().h
+
+    @property
+    def height(self):
+        """..."""
+        return self.get_rect().height
+
+    @property
+    def bottomright(self):
+        """..."""
+        return self.get_rect().bottomright
+
+    @property
+    def topleft(self):
+        """..."""
+        return self.get_rect().topleft
+
+    def get_rect(self, **kwargs):
+        """Get the rectangular area of the sprite.
+
+        Returns a new rectangle covering the sprite area. This rectangle will
+        have the sprite's x, y, width and height.
+
+        You can pass keyword argument values to this function. These named
+        values will be applied to the attributes of the Rect before it is
+        returned. An example would be ‘mysurf.get_rect(center=(100,100))’
+        to create a rectangle for the Surface centered at a given position.
+
+        Usage:
+            get_rect()
+
+        Returns:
+            Rect
+        """
+        frame_rect = self.frame_rect
+        if frame_rect is not None:
+            r = Rect(*[getattr(frame_rect, v) for v in ("x", "y", "w", "h")])
+        else:
+            r = Rect(self.position, self.size)
+        for k, v in kwargs.items():
+            setattr(r, k, v)
+        return r
+
+    def set_rect(self, rect):
+        """Set the position and size of the sprite from a Rect.
+
+        Args:
+            rect: a Rect from which position and size will be taken.
+        """
+        tl = rect.topleft if rect else (0, 0)
+        self.position = tl
+        # TODO implement sprite resizing on sdl2.ext.sprite
+        # self.size = rect.size
+
+    def move(self, *args):
+        """..."""
+        self.set_rect(self.get_rect().move(*args))
 
     @property
     def position(self):
@@ -434,8 +516,30 @@ class TextureSprite(Sprite):
              (self.center.x, self.center.y))
 
 
+class TextureGuestSprite(TextureSprite):
+    """A sprite that uses a texture as a guest, without owning it.
+
+    On deletion the texture is not destroyed.
+    This is useful for sprites that share a same texture (e.g. tiles from a
+    tileset).
+    """
+
+    _frame_rect = None
+
+    def __init__(self, texture, area):
+        """Create a new TextureGuestSprite."""
+        super().__init__(texture)
+        self._size = area[2:]
+        self.frame_rect = area
+
+    def __del__(self):
+        """Don't releases the bound SDL_Texture."""
+        pass
+
+
 class SpriteFactory(object):
     """A factory class for creating Sprite components."""
+
     def __init__(self, sprite_type=TEXTURE, **kwargs):
         """Creates a new SpriteFactory.
 
@@ -476,6 +580,22 @@ class SpriteFactory(object):
         else:
             return SoftwareSpriteRenderSystem(*args, **kwargs)
 
+    def load_tileset(self, sprite, tile_size):
+        """..."""
+        self._tileset = sprite
+        self._tileset_w, self._tileset_h = self._tileset.size
+        self._tile_size = tile_size
+
+    def get_char_sprite(self, char):
+        """Get."""
+        _id = ord(char)
+        tile_size = self._tile_size
+        row = _id // (self._tileset_w // tile_size)
+        col = _id % (self._tileset_w // tile_size)
+        area = (col * tile_size, row * tile_size, tile_size, tile_size)
+        print(area)
+        return self.from_tileset(area)
+
     def from_image(self, fname):
         """Creates a Sprite from the passed image file."""
         return self.from_surface(load_image(fname), True)
@@ -499,6 +619,17 @@ class SpriteFactory(object):
         elif self.sprite_type == SOFTWARE:
             return SoftwareSprite(tsurface, free)
         raise ValueError("sprite_type must be TEXTURE or SOFTWARE")
+
+    def from_tileset(self, area):
+        """Create a sprite from an area of the tileset.
+
+        Args:
+            area (tuple[int * 4]): tuple with coordinates (x, y, w, h)
+
+        Returns:
+            TextureGuestSprite
+        """
+        return TextureGuestSprite(self._tileset.texture, area)
 
     def from_object(self, obj):
         """Creates a Sprite from an arbitrary object."""
@@ -758,8 +889,13 @@ class TextureSpriteRenderSystem(SpriteRenderSystem):
                 r.x = x + sprite.x
                 r.y = y + sprite.y
                 r.w, r.h = sprite.size
-                if rcopy(renderer, sprite.texture, None, r, sprite.angle,
-                         sprite.center, sprite.flip) == -1:
+                # get the frame_rect of a sprite if it has one
+                frame_rect = sprite.frame_rect or None
+                # pass the frame_rect as argument instead of None
+                if rcopy(
+                    renderer, sprite.texture, frame_rect, r, sprite.angle,
+                    sprite.center, sprite.flip
+                ) == -1:
                     raise SDLError()
         else:
             r.x = sprites.x
@@ -768,7 +904,12 @@ class TextureSpriteRenderSystem(SpriteRenderSystem):
             if x is not None and y is not None:
                 r.x = x
                 r.y = y
-            if rcopy(self.sdlrenderer, sprites.texture, None, r, sprites.angle,
-                     sprites.center, sprites.flip) == -1:
+            # get the frame_rect of a sprite if it has one
+            frame_rect = sprites.frame_rect or None
+            # pass the frame_rect as argument instead of None
+            if rcopy(
+                self.sdlrenderer, sprites.texture, frame_rect, r,
+                sprites.angle, sprites.center, sprites.flip
+            ) == -1:
                 raise SDLError()
-        render.SDL_RenderPresent(self.sdlrenderer)
+        # render.SDL_RenderPresent(self.sdlrenderer)

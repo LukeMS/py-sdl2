@@ -1,9 +1,12 @@
-"""DLL wrapper"""
+"""DLL wrapper."""
+
 import os
 import sys
 import warnings
 from ctypes import CDLL
 from ctypes.util import find_library
+
+from .util import get_cfg
 
 __all__ = ["DLL", "nullfunc"]
 
@@ -108,6 +111,9 @@ def _nonexistent(funcname, func):
 def nullfunc(*args):
     """A simple no-op function to be used as dll replacement."""
     return
+
+
+os.environ.setdefault("PYSDL2_DLL_PATH", get_cfg('DLL', 'PYSDL2_DLL_PATH'))
 
 try:
     dll = DLL("SDL2", ["SDL2", "SDL2-2.0"], os.getenv("PYSDL2_DLL_PATH"))
