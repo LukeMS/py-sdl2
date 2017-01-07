@@ -6,6 +6,7 @@ from .surface import SDL_Surface
 from .rwops import SDL_RWops
 from .render import SDL_Texture, SDL_Renderer
 from .error import SDL_SetError, SDL_GetError
+from .util import get_cfg
 
 __all__ = ["SDL_IMAGE_MAJOR_VERSION", "SDL_IMAGE_MINOR_VERSION", \
            "SDL_IMAGE_PATCHLEVEL", "SDL_IMAGE_VERSION", "IMG_Linked_Version",
@@ -24,6 +25,8 @@ __all__ = ["SDL_IMAGE_MAJOR_VERSION", "SDL_IMAGE_MINOR_VERSION", \
            "IMG_GetError", "IMG_SetError",
            "get_dll_file"
            ]
+
+os.environ.setdefault("PYSDL2_DLL_PATH", get_cfg('DLL', 'PYSDL2_DLL_PATH'))
 
 try:
     dll = DLL("SDL2_image", ["SDL2_image", "SDL2_image-2.0"],

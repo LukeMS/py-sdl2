@@ -11,7 +11,7 @@ before he can use your software. Alternatively, you can just copy the
 whole package into your project to ship it within your own project
 bundle.
 
-.. _importing-pysdl2:
+.. _`importing-pysdl2`:
 
 Importing
 ---------

@@ -14,3 +14,4 @@ function, use the :ref:`genindex` or :ref:`search`.
    sdl2_sdlmixer.rst
    sdl2_sdlttf.rst
    sdl2ext.rst
+   sdl2_util.rst

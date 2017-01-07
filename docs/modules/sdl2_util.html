@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>sdl2.util - PySDL2 utilities. &#8212; PySDL2 0.10.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.10.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PySDL2 FAQ" href="../faq.html" />
+    <link rel="prev" title="Window routines to manage on-screen windows" href="sdl2ext_window.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../faq.html" title="PySDL2 FAQ"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="sdl2ext_window.html" title="Window routines to manage on-screen windows"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PySDL2 0.10.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">API reference</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="module-sdl2.util"></span><div class="section" id="module-sdl2.util">
+<span id="sdl2-util-pysdl2-utilities"></span><h1>sdl2.util - PySDL2 utilities.<a class="headerlink" href="#module-sdl2.util" title="Permalink to this headline">¶</a></h1>
+<p>...</p>
+<dl class="function">
+<dt id="sdl2.util.sdl2_path">
+<code class="descclassname">sdl2.util.</code><code class="descname">sdl2_path</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.util.sdl2_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the dnf_game base path.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="sdl2.util.Singleton">
+<em class="property">class </em><code class="descclassname">sdl2.util.</code><code class="descname">Singleton</code><a class="headerlink" href="#sdl2.util.Singleton" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Restrict the instantiation of each class to one object.</p>
+<p>Should be used as a metaclass of the singleton classes.</p>
+<p class="rubric">Example</p>
+<dl class="docutils">
+<dt>class SingletonJR(metaclass=Singleton)</dt>
+<dd>pass</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="sdl2.util.get_cfg">
+<code class="descclassname">sdl2.util.</code><code class="descname">get_cfg</code><span class="sig-paren">(</span><em>section</em>, <em>option</em>, <em>convert=False</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.util.get_cfg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interface for ConfigParser.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>section</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; section in the cfg file (e.g. &#8220;MANAGER&#8221; == [MANAGER])</li>
+<li><strong>option</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; key inside the group (e.g. &#8220;SCREEN_WIDTH&#8221;)</li>
+<li><strong>convert</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; if True the value obtained will be converted using
+:py:meth: <cite>ast.literal_eval</cite> before its returned.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_cfg</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s1">&#39;MANAGER&#39;</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="s1">&#39;SCREEN_WIDTH&#39;</span><span class="p">,</span> <span class="n">convert</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">1024</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">str (value of the cfg entry, if a match is found)
+None (if the option/key is not found)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="sdl2ext_window.html"
+                        title="previous chapter">Window routines to manage on-screen windows</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../faq.html"
+                        title="next chapter">PySDL2 FAQ</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/sdl2_util.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../faq.html" title="PySDL2 FAQ"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="sdl2ext_window.html" title="Window routines to manage on-screen windows"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PySDL2 0.10.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >API reference</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright (original) 2013-2016, Marcus von Appen; (modified) 2017, Lucas Siqueira.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+    </div>
+  </body>
+</html>

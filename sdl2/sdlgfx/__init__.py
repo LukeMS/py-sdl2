@@ -34,8 +34,7 @@ __all__ = ["get_dll_file", "FPS_UPPER_LIMIT", "FPS_LOWER_LIMIT", "FPS_DEFAULT",
            "rotateSurface90Degrees"
            ]
 
-os.environ.setdefault("PYSDL2_DLL_PATH",
-                      get_cfg('DLL', 'PYSDL2_DLL_PATH'))
+os.environ.setdefault("PYSDL2_DLL_PATH", get_cfg('DLL', 'PYSDL2_DLL_PATH'))
 
 try:
     dll = DLL("SDL2_gfx", ["SDL2_gfx", "SDL2_gfx-1.0"],

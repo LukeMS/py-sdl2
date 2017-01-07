@@ -538,6 +538,62 @@ class TextureSprite(Sprite):
         """The size of the TextureSprite as tuple."""
         return self._size
 
+    def set_animation(self, cols, rows, col_w, row_h, col=0, row=0):
+        """"Set animation frames parameters.
+
+        Args:
+            cols (int): number of frame columns
+            rows (int): number of frame rows
+            col_w (int): width of each column, in pixels
+            row_h (int): height of each row, in pixels
+            col (int): the column of the desired starting frame
+            row (int): the row of the desired starting frame
+
+        Returns:
+            TextureSprite
+
+                self instance, making it possible to use this method on the
+                object creation (see Usage below) as a one liner.
+
+        Example:
+            Here a 10x1 area of 32x32 tiles is used:
+
+                >>> sprite = TextureSprite(**kwargs).set_animation(
+                        10, 1, 32, 32)
+        """
+        rect = self.get_rect()
+        self.tile_offset_x = rect.x // col_w
+        self.tile_offset_y = rect.y // row_h
+        self.cols = cols
+        self.rows = rows
+        self.col_w = col_w
+        self.row_h = row_h
+        self.col = col
+        self.row = row
+        self._size = col_w, row_h
+        self.set_current_rect()
+
+        return self
+
+    def set_current_rect(self):
+        """Apply the current animation parameters to the frame_rect."""
+        self.frame_rect = ((self.col + self.tile_offset_x) * self.col_w,
+                           (self.row + self.tile_offset_y) * self.row_h,
+                           self.col_w,
+                           self.row_h)
+
+    def step(self, col=0, row=0):
+        """..."""
+        if not col and not row:
+            return
+        if col:
+            self.col += col
+            self.col = self.col % self.cols
+        if row:
+            self.row += row
+            self.row = self.row % self.rows
+        self.set_current_rect()
+
     def __repr__(self):
         flags = Uint32()
         access = c_int()
