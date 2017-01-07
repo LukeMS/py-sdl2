@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>General purpose event handling routines &#8212; PySDL2 0.10.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.10.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Text rendering routines" href="sdl2ext_font.html" />
+    <link rel="prev" title="Working with component-based entities" href="sdl2ext_ebs.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sdl2ext_font.html" title="Text rendering routines"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="sdl2ext_ebs.html" title="Working with component-based entities"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PySDL2 0.10.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >API reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="sdl2ext.html" accesskey="U">sdl2.ext - Python extensions for SDL2</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="general-purpose-event-handling-routines">
+<h1>General purpose event handling routines<a class="headerlink" href="#general-purpose-event-handling-routines" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="sdl2.ext.EventHandler">
+<em class="property">class </em><code class="descclassname">sdl2.ext.</code><code class="descname">EventHandler</code><span class="sig-paren">(</span><em>sender</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.EventHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple event handling class, which manages callbacks to be
+executed.</p>
+<p>The EventHandler does not need to be kept as separate instance, but
+is mainly intended to be used as attribute in event-aware class
+objects.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">myfunc</span><span class="p">(</span><span class="n">sender</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;event triggered by </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">sender</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">anevent</span> <span class="o">=</span> <span class="n">EventHandler</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">myobj</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">myobj</span><span class="o">.</span><span class="n">anevent</span> <span class="o">+=</span> <span class="n">myfunc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">myobj</span><span class="o">.</span><span class="n">anevent</span><span class="p">()</span>
+<span class="go">event triggered by &lt;__main__.MyClass object at 0x801864e50&gt;</span>
+</pre></div>
+</div>
+<dl class="attribute">
+<dt id="sdl2.ext.EventHandler.callbacks">
+<code class="descname">callbacks</code><a class="headerlink" href="#sdl2.ext.EventHandler.callbacks" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of callbacks currently bound to the <a class="reference internal" href="#sdl2.ext.EventHandler" title="sdl2.ext.EventHandler"><code class="xref py py-class docutils literal"><span class="pre">EventHandler</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.EventHandler.sender">
+<code class="descname">sender</code><a class="headerlink" href="#sdl2.ext.EventHandler.sender" title="Permalink to this definition">¶</a></dt>
+<dd><p>The responsible object that executes the <a class="reference internal" href="#sdl2.ext.EventHandler" title="sdl2.ext.EventHandler"><code class="xref py py-class docutils literal"><span class="pre">EventHandler</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.EventHandler.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>callback : Callable</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.EventHandler.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a callback to the <a class="reference internal" href="#sdl2.ext.EventHandler" title="sdl2.ext.EventHandler"><code class="xref py py-class docutils literal"><span class="pre">EventHandler</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.EventHandler.remove">
+<code class="descname">remove</code><span class="sig-paren">(</span><em>callback : Callable</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.EventHandler.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a callback from the <a class="reference internal" href="#sdl2.ext.EventHandler" title="sdl2.ext.EventHandler"><code class="xref py py-class docutils literal"><span class="pre">EventHandler</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.EventHandler.__call__">
+<code class="descname">__call__</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span> &rarr; [ ... ]<a class="headerlink" href="#sdl2.ext.EventHandler.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes all connected callbacks in the order of addition,
+passing the <a class="reference internal" href="#sdl2.ext.EventHandler.sender" title="sdl2.ext.EventHandler.sender"><code class="xref py py-attr docutils literal"><span class="pre">sender</span></code></a> of the <a class="reference internal" href="#sdl2.ext.EventHandler" title="sdl2.ext.EventHandler"><code class="xref py py-class docutils literal"><span class="pre">EventHandler</span></code></a> as first
+argument and the optional args as second, third, ... argument to
+them.</p>
+<p>This will return a list containing the return values of the callbacks
+in the order of their execution.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sdl2.ext.MPEventHandler">
+<em class="property">class </em><code class="descclassname">sdl2.ext.</code><code class="descname">MPEventHandler</code><span class="sig-paren">(</span><em>sender</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.MPEventHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>An asynchronous event handling class based on <a class="reference internal" href="#sdl2.ext.EventHandler" title="sdl2.ext.EventHandler"><code class="xref py py-class docutils literal"><span class="pre">EventHandler</span></code></a>,
+in which callbacks are executed in parallel. It is the responsibility
+of the caller code to ensure that every object used maintains a
+consistent state. The <a class="reference internal" href="#sdl2.ext.MPEventHandler" title="sdl2.ext.MPEventHandler"><code class="xref py py-class docutils literal"><span class="pre">MPEventHandler</span></code></a> class will not apply
+any locks, synchronous state changes or anything else to the
+arguments or callbacks being used. Consider it a &#8220;fire-and-forget&#8221; event
+handling strategy.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The <a class="reference internal" href="#sdl2.ext.MPEventHandler" title="sdl2.ext.MPEventHandler"><code class="xref py py-class docutils literal"><span class="pre">MPEventHandler</span></code></a> relies on the <a class="reference external" href="http://docs.python.org/library/multiprocessing.html#module-multiprocessing" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">multiprocessing</span></code></a>
+module. If the module is not available in the target environment,
+a <a class="reference internal" href="sdl2ext_compat.html#sdl2.ext.compat.UnsupportedError" title="sdl2.ext.compat.UnsupportedError"><code class="xref py py-exc docutils literal"><span class="pre">sdl2.ext.compat.UnsupportedError</span></code></a> is raised.</p>
+<p class="last">Also, please be aware of the restrictions that apply to the
+<a class="reference external" href="http://docs.python.org/library/multiprocessing.html#module-multiprocessing" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">multiprocessing</span></code></a> module; arguments and callback functions for
+example have to be pickable, etc.</p>
+</div>
+<dl class="method">
+<dt id="sdl2.ext.MPEventHandler.__call__">
+<code class="descname">__call__</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span> &rarr; AsyncResult<a class="headerlink" href="#sdl2.ext.MPEventHandler.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes all connected callbacks within a
+<code class="xref py py-class docutils literal"><span class="pre">multiprocessing.pool.Pool</span></code>, passing the <code class="xref py py-attr docutils literal"><span class="pre">sender</span></code> as first
+argument and the optional <em>args</em> as second, third, ... argument to them.</p>
+<p>This will return a <a class="reference external" href="http://docs.python.org/library/multiprocessing.html#multiprocessing.pool.AsyncResult" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">multiprocessing.pool.AsyncResult</span></code></a> containing
+the return values of the callbacks in the order of their execution.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="sdl2ext_ebs.html"
+                        title="previous chapter">Working with component-based entities</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="sdl2ext_font.html"
+                        title="next chapter">Text rendering routines</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/sdl2ext_events.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sdl2ext_font.html" title="Text rendering routines"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="sdl2ext_ebs.html" title="Working with component-based entities"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PySDL2 0.10.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >API reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="sdl2ext.html" >sdl2.ext - Python extensions for SDL2</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright (original) 2013-2016, Marcus von Appen; (modified) 2017, Lucas Siqueira.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,847 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>sdl2.ext.rect - rectangular object. &#8212; PySDL2 0.10.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.10.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Resource management" href="sdl2ext_resources.html" />
+    <link rel="prev" title="2D and 3D direct pixel access" href="sdl2ext_pixelaccess.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sdl2ext_resources.html" title="Resource management"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="sdl2ext_pixelaccess.html" title="2D and 3D direct pixel access"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PySDL2 0.10.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >API reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="sdl2ext.html" accesskey="U">sdl2.ext - Python extensions for SDL2</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="module-sdl2.ext.rect"></span><div class="section" id="module-sdl2.ext.rect">
+<span id="sdl2-ext-rect-rectangular-object"></span><h1>sdl2.ext.rect - rectangular object.<a class="headerlink" href="#module-sdl2.ext.rect" title="Permalink to this headline">¶</a></h1>
+<p>A rectangular object for storing and manipulating coordinates.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<dl class="last docutils">
+<dt>This is a <strong>MODIFIED</strong>, pure Python implementation of <a class="reference external" href="https://www.github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/rect.pyx">PyGameSDL2&#8217;s rect</a>,</dt>
+<dd>in Cython, released under zlib license.</dd>
+</dl>
+</div>
+<div class="highlight-none"><div class="highlight"><pre><span></span>PygameSDL2 Notice / zlib License:
+
+--------------------------------------------------------------------------
+Original work:
+  Copyright 2014 Tom Rothamel &lt;tom@rothamel.us&gt;
+  Copyright 2014 Patrick Dawson &lt;pat@dw.is&gt;
+Modified work:
+  Copyright 2017 Lucas Siqueira &lt;lucas.morais.siqueira@gmail.com&gt;
+
+This software is provided &#39;as-is&#39;, without any express or implied
+warranty.  In no event will the authors be held liable for any damages
+arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it
+freely, subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not
+   claim that you wrote the original software. If you use this software
+   in a product, an acknowledgment in the product documentation would be
+   appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not
+   be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source
+   distribution.
+--------------------------------------------------------------------------
+</pre></div>
+</div>
+<dl class="class">
+<dt id="sdl2.ext.rect.IterableRect">
+<em class="property">class </em><code class="descclassname">sdl2.ext.rect.</code><code class="descname">IterableRect</code><a class="headerlink" href="#sdl2.ext.rect.IterableRect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="sdl2.ext.rect.NonIterableRect">
+<em class="property">class </em><code class="descclassname">sdl2.ext.rect.</code><code class="descname">NonIterableRect</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Object for storing rectangular coordinates.</p>
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialization.</p>
+<p>Rect objects are used to store and manipulate rectangular areas. A
+Rect can be created from a combination of left, top, width, and
+height values. Rects can also be created from python objects that are
+already a Rect or have an attribute named “rect”.</p>
+<p>The Rect functions that change the position or size of a Rect return
+a new copy of the Rect with the affected changes. The original Rect
+is not modified. Some methods have an alternate “in-place” version
+that returns None but effects the original Rect. These “in-place”
+methods are denoted with the “ip” suffix.</p>
+<p>The Rect object has several virtual attributes which can be used to
+move and align the Rect:
+&gt;&gt;&gt; x,y
+&gt;&gt;&gt; top, left, bottom, right
+&gt;&gt;&gt; topleft, bottomleft, topright, bottomright
+&gt;&gt;&gt; midtop, midleft, midbottom, midright
+&gt;&gt;&gt; center, centerx, centery
+&gt;&gt;&gt; size, width, height
+&gt;&gt;&gt; w,h</p>
+<p>All of these attributes can be assigned to:
+&gt;&gt;&gt; rect1.right = 10
+&gt;&gt;&gt; rect2.center = (20,30)</p>
+<p>Assigning to size, width or height changes the dimensions of the
+rectangle; all other assignments move the rectangle without resizing
+it. Notice that some attributes are integers and others are pairs of
+integers.</p>
+<p>If a Rect has a nonzero width or height, it will return True for a
+nonzero test. Some methods return a Rect with 0 size to represent an
+invalid rectangle.</p>
+<p>The coordinates for Rect objects are all integers. The size values
+can be programmed to have negative values, but these are considered
+illegal Rects for most operations.</p>
+<p>There are several collision tests between other rectangles. Most
+python containers can be searched for collisions against a single
+Rect.</p>
+<p>The area covered by a Rect does not include the right- and bottom-
+most edge of pixels. If one Rect’s bottom border is another Rect’s
+top border (i.e., rect1.bottom=rect2.top), the two meet exactly on
+the screen but do not overlap, and rect1.colliderect(rect2) returns
+false.</p>
+<p>The Rect class can be subclassed. Methods such as copy() and move()
+will recognize this and return instances of the subclass. However,
+the subclass’s __init__() method is not called, and __new__() is
+assumed to take no arguments. So these methods should be overridden
+if any extra attributes need to be copied.</p>
+<dl class="docutils">
+<dt>Args.:</dt>
+<dd>(4 int tuple; e.g. (left, top, width, height)); or
+(2 int tuple, i.e. one tuple for x and y coordinates, another
+for dimensions; e.g. &#8220;(left, top), (width, height)&#8221;); or
+(Rect, i.e. another Rect to be copied).</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code></td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>Rect(left, top, width, height) -&gt; Rect
+Rect((left, top), (width, height)) -&gt; Rect
+Rect(object) -&gt; Rect</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.rect.NonIterableRect.bottom">
+<code class="descname">bottom</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.bottom" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.rect.NonIterableRect.bottomleft">
+<code class="descname">bottomleft</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.bottomleft" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.rect.NonIterableRect.bottomright">
+<code class="descname">bottomright</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.bottomright" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.rect.NonIterableRect.center">
+<code class="descname">center</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.center" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.rect.NonIterableRect.centerx">
+<code class="descname">centerx</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.centerx" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.rect.NonIterableRect.centery">
+<code class="descname">centery</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.centery" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.clamp">
+<code class="descname">clamp</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.clamp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the rectangle inside another.</p>
+<p>Returns a new rectangle that is moved to be completely inside the
+argument Rect. If the rectangle is too large to fit inside, it is
+centered inside the argument Rect, but its size is not changed.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>source_rect.clamp(Rect)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Rect (a new Rect instance)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.clamp_ip">
+<code class="descname">clamp_ip</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.clamp_ip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the rectangle inside another.</p>
+<p>The rectangle is moved to be completely inside the argument Rect,
+operating in place. If the rectangle is too large to fit inside, it
+is centered inside the argument Rect, but its size is not changed.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>rect.clamp(Rect)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.clip">
+<code class="descname">clip</code><span class="sig-paren">(</span><em>other</em>, <em>y=None</em>, <em>w=None</em>, <em>h=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.clip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Crop a rectangle inside another.</p>
+<p>Returns a new rectangle that is cropped to be completely inside the
+argument Rect. If the two rectangles do not overlap to begin with, a
+Rect with 0 size is returned.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>clip(Rect)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Rect (a new Rect instance)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.collidedict">
+<code class="descname">collidedict</code><span class="sig-paren">(</span><em>other_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.collidedict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if one rectangle in a dictionary intersects.</p>
+<p>Returns the key and value of the first dictionary value that collides
+with the Rect. If no collisions are found, None is returned.</p>
+<p>Rect objects are not hashable and cannot be used as keys in a
+dictionary, only as values.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>collidedict(dict)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">tuple (key and value of first rect in the dictionary that<dl class="docutils">
+<dt>collides)</dt>
+<dd>None (if no collision is detected)</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.collidedictall">
+<code class="descname">collidedictall</code><span class="sig-paren">(</span><em>other_dict</em>, <em>rects_values=0</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.collidedictall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if one rectangle instersect with others in a dictionary.</p>
+<p>Returns a list of tuples with the key and value of the rectangles in
+the argument dictionary that intersect with the Rect. If no
+collisions are found an empty list is returned.</p>
+<p>Rect objects are not hashable and cannot be used as keys in a
+dictionary, only as values.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>collidedictall(dict)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of tuples ([(key, value), ...] with the rectangles that
+collide)
+empty list (if none collide)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.collidelist">
+<code class="descname">collidelist</code><span class="sig-paren">(</span><em>other_list</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.collidelist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if the rectangle collide with any rectangle in the list.</p>
+<p>Test whether the rectangle collides with any in a sequence of
+rectangles. The index of the first collision found is returned. If no
+collisions are found an index of -1 is returned.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>rect.collidelist(list)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">int (index of first rectangle that collides or -1 none collides)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.collidelistall">
+<code class="descname">collidelistall</code><span class="sig-paren">(</span><em>other_list</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.collidelistall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if all rectangles in a list intersect.</p>
+<p>Returns a list of all the indices that contain rectangles that
+collide with the Rect. If no intersecting rectangles are found, an
+empty list is returned.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>rect.collidelistall(list)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list (i.e. indices of rectangles that collide)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.collidepoint">
+<code class="descname">collidepoint</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.collidepoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if a point is inside a rectangle.</p>
+<p>Returns True if the given point is inside the rectangle. A point
+along the right or bottom edge is not considered to be inside the
+rectangle.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; X (horizontal) coordinate of the point</li>
+<li><strong>y</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; Y (vertical) coordinate of the point</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>rect.collidepoint(0, 3)
+rect.collidepoint(x=0, y=3)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.colliderect">
+<code class="descname">colliderect</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.colliderect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if two rectangles overlap.</p>
+<p>Returns true if any portion of either rectangle overlap (except the
+top+bottom or left+right edges).</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>rect.colliderect(Rect)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.contains">
+<code class="descname">contains</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.contains" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if an argument rectangle is inside the rectangle.</p>
+<p>Returns true when the argument is completely inside the Rect.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>rect.contains(Rect)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the rectangle.</p>
+<p>Returns a new rectangle having the same position and size as the
+original.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>source_rect.copy()</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Rect (a new Rect instance)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resize and move a rectangle with aspect ratio.</p>
+<p>Returns a new rectangle that is moved and resized to fit another. The
+aspect ratio of the original Rect is preserved, so the new rectangle
+may be smaller than the target in either width or height.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>source_rect.fit(Rect)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Rect (a new Rect instance)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.gap">
+<code class="descname">gap</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.gap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new rectangle representing the gap between two rectangles.</p>
+<p>If the two rectangles overlap a Rect with size 0 is returned.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.rect.NonIterableRect.height">
+<code class="descname">height</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.height" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.inflate">
+<code class="descname">inflate</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.inflate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Grow or Shrink the rectangle size.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>source_rect.inflate(x, y)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Rect (a new Rect instance)</td>
+</tr>
+</tbody>
+</table>
+<p>Returns a new rectangle with the size changed by the given offset.
+The rectangle remains centered around its current center. Negative
+values will shrink the rectangle.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.inflate_ip">
+<code class="descname">inflate_ip</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.inflate_ip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Grow or shrink the rectangle size, in place.</p>
+<p>The rectangle&#8217;s size is changed by the given offset, operating in
+place. Negative values will shrink the rectangle.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>rect.inflate(x, y)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.rect.NonIterableRect.left">
+<code class="descname">left</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.left" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.rect.NonIterableRect.midbottom">
+<code class="descname">midbottom</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.midbottom" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.rect.NonIterableRect.midleft">
+<code class="descname">midleft</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.midleft" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.rect.NonIterableRect.midright">
+<code class="descname">midright</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.midright" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.rect.NonIterableRect.midtop">
+<code class="descname">midtop</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.midtop" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.move">
+<code class="descname">move</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.move" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the rectangle.</p>
+<p>Returns a new rectangle that is moved by the given offset. The x and
+y arguments can be any integer value, positive or negative.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>source_rect.move(x, y)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Rect (a new Rect instance)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.move_ip">
+<code class="descname">move_ip</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.move_ip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the rectangle, in place.</p>
+<p>The rectangle is moved by the given offset, operating in place. The x
+and y arguments can be any integer value, positive or negative.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>rect.move(x, y)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.normalize">
+<code class="descname">normalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Correct negative sizes of the rectangle.</p>
+<p>This will flip the width or height of a rectangle if it has a
+negative size. The rectangle will remain in the same place, with only
+the sides swapped.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>rect.normalize()</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.rect.NonIterableRect.right">
+<code class="descname">right</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.right" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.rect.NonIterableRect.size">
+<code class="descname">size</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.rect.NonIterableRect.top">
+<code class="descname">top</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.top" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.rect.NonIterableRect.topleft">
+<code class="descname">topleft</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.topleft" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.rect.NonIterableRect.topright">
+<code class="descname">topright</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.topright" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.union">
+<code class="descname">union</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.union" title="Permalink to this definition">¶</a></dt>
+<dd><p>Join two rectangles into one.</p>
+<p>Returns a new rectangle that completely covers the area of the two
+provided rectangles. There may be area inside the new Rect that is
+not covered by the originals.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>source_rect.union(Rect)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Rect (a new Rect instance)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.union_ip">
+<code class="descname">union_ip</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.union_ip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Join two rectangles into one.</p>
+<p>The rectangle is resized to completely cover its original area and
+that of the argument Rect, operating in place. The resized Rect may
+contain areas that were not covered by either the original Rect or
+the argument Rect.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>source_rect.union(Rect)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.unionall">
+<code class="descname">unionall</code><span class="sig-paren">(</span><em>other_seq</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.unionall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Join many rectangles into a new one.</p>
+<p>Returns the union of one rectangle with a sequence of many rectangles.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>source_rect.unionall(Rect_sequence)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Rect (a new Rect instance)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.rect.NonIterableRect.unionall_ip">
+<code class="descname">unionall_ip</code><span class="sig-paren">(</span><em>other_seq</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.unionall_ip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Join many rectangles into one.</p>
+<p>The rectangle is resized to cover its original area and that of the
+passed as argument, operating in place.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>rect.unionall(Rect_sequence)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.rect.NonIterableRect.width">
+<code class="descname">width</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.width" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sdl2.ext.rect.Rect">
+<em class="property">class </em><code class="descclassname">sdl2.ext.rect.</code><code class="descname">Rect</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sdl2.ext.rect.NonIterableRect" title="sdl2.ext.rect.NonIterableRect"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.rect.NonIterableRect</span></code></a>, <a class="reference internal" href="#sdl2.ext.rect.IterableRect" title="sdl2.ext.rect.IterableRect"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.rect.IterableRect</span></code></a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sdl2.ext.rect.flatten">
+<code class="descclassname">sdl2.ext.rect.</code><code class="descname">flatten</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.flatten" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sdl2.ext.rect.to_sdl_rect">
+<code class="descclassname">sdl2.ext.rect.</code><code class="descname">to_sdl_rect</code><span class="sig-paren">(</span><em>rl</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.to_sdl_rect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert <cite>rectlike</cite> to the SDL_Rect <cite>rect</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>rl</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#tuple" title="(in Python v2.7)"><em>tuple</em></a><em>, </em><a class="reference internal" href="#sdl2.ext.rect.Rect" title="sdl2.ext.rect.Rect"><em>Rect</em></a>) &#8211; a rectlike object (either a Rect or a 4-tuple
+representing of representing x, y, w and h.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">class:sdl2.rect.SDL_Rect</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rl1</span> <span class="o">=</span> <span class="n">Rect</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r1</span> <span class="o">=</span> <span class="n">to_sdl_rect</span><span class="p">(</span><span class="n">rl</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rl2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r2</span> <span class="o">=</span> <span class="n">to_sdl_rect</span><span class="p">(</span><span class="n">rl</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">r1</span> <span class="o">==</span> <span class="n">r2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="sdl2ext_pixelaccess.html"
+                        title="previous chapter">2D and 3D direct pixel access</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="sdl2ext_resources.html"
+                        title="next chapter">Resource management</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/sdl2ext_rect.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sdl2ext_resources.html" title="Resource management"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="sdl2ext_pixelaccess.html" title="2D and 3D direct pixel access"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PySDL2 0.10.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >API reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="sdl2ext.html" >sdl2.ext - Python extensions for SDL2</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright (original) 2013-2016, Marcus von Appen; (modified) 2017, Lucas Siqueira.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+    </div>
+  </body>
+</html>

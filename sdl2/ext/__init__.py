@@ -20,3 +20,5 @@ from .pixelaccess import *
 from .sprite import *
 from .surface import *
 from .window import *
+
+from .manager import *

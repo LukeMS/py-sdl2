@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Integrating PySDL2 &#8212; PySDL2 0.10.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.10.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Learn to fly - the tutorials" href="tutorial/index.html" />
+    <link rel="prev" title="Installing PySDL2" href="install.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial/index.html" title="Learn to fly - the tutorials"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Installing PySDL2"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PySDL2 0.10.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="integrating-pysdl2">
+<h1>Integrating PySDL2<a class="headerlink" href="#integrating-pysdl2" title="Permalink to this headline">¶</a></h1>
+<p>PySDL2 consists of two packages, <a class="reference internal" href="modules/sdl2.html#module-sdl2" title="sdl2: SDL2 library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2</span></code></a>, which is a plain 1:1 API
+wrapper around the SDL2 API, and <a class="reference internal" href="modules/sdl2ext.html#module-sdl2.ext" title="sdl2.ext: Python extensions for SDL2"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.ext</span></code></a>, which offers enhanced
+functionality for <a class="reference internal" href="modules/sdl2.html#module-sdl2" title="sdl2: SDL2 library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2</span></code></a>.</p>
+<p>The <a class="reference internal" href="modules/sdl2.html#module-sdl2" title="sdl2: SDL2 library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2</span></code></a> package is implemented in a way that shall make it easy for
+you to integrate and deploy it with your own software projects. You can rely
+on PySDL2 as third-party package, so that the user needs to install it
+before he can use your software. Alternatively, you can just copy the
+whole package into your project to ship it within your own project
+bundle.</p>
+<div class="section" id="importing">
+<span id="importing-pysdl2"></span><h2>Importing<a class="headerlink" href="#importing" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="modules/sdl2.html#module-sdl2" title="sdl2: SDL2 library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2</span></code></a> package relies on an external SDL2 library for creating the
+wrapper functions. This means that the user needs to have SDL2 installed or
+that you ship a SDL2 library with your project.</p>
+<p>If the user has a SDL2 library installed on the target system, the
+<a class="reference external" href="http://docs.python.org/library/ctypes.html#module-ctypes" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">ctypes</span></code></a> hooks of <a class="reference internal" href="modules/sdl2.html#module-sdl2" title="sdl2: SDL2 library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2</span></code></a> try to find it in the OS-specific standard
+locations via <a class="reference external" href="http://docs.python.org/library/ctypes.html#ctypes.util.find_library" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">ctypes.util.find_library()</span></code></a>. If you are going to ship your
+own SDL2 library with the project or can not rely on the standard mechanism of
+<a class="reference external" href="http://docs.python.org/library/ctypes.html#module-ctypes" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">ctypes</span></code></a>, it is also possible to set the environment variable
+<span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal"><span class="pre">PYSDL2_DLL_PATH</span></code>, which shall point to the directory of the SDL2
+library or consist of a list of directories, in which the SDL2 libraries can
+be found.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><span class="target" id="index-1"></span><code class="xref std std-envvar docutils literal"><span class="pre">PYSDL2_DLL_PATH</span></code> is preferred over the standard
+mechanism. If the module finds a SDL2 library in <span class="target" id="index-2"></span><code class="xref std std-envvar docutils literal"><span class="pre">PYSDL2_DLL_PATH</span></code>,
+it will try to use that one in the first place, before using any SDL2
+library installed on the target system.</p>
+</div>
+<p>Let&#8217;s assume, you ship your own library <em>SDL2.dll</em> within your project
+location <em>fancy_project/third_party</em>. You can set the environment
+variable <span class="target" id="index-3"></span><code class="xref std std-envvar docutils literal"><span class="pre">PYSDL2_DLL_PATH</span></code> before starting Python.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Win32 platforms</span>
+<span class="nb">set</span> <span class="n">PYSDL2_DLL_PATH</span><span class="o">=</span><span class="n">C</span><span class="p">:</span>\<span class="n">path</span>\<span class="n">to</span>\<span class="n">fancy_project</span>\<span class="n">third_party</span>
+
+<span class="c1"># Unix/Posix-alike environments - bourne shells</span>
+<span class="n">export</span> <span class="n">PYSDL2_DLL_PATH</span><span class="o">=/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">fancy_project</span><span class="o">/</span><span class="n">third_party</span>
+
+<span class="c1"># Unix/Posix-alike environments - C shells</span>
+<span class="n">setenv</span> <span class="n">PYSDL2_DLL_PATH</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">fancy_project</span><span class="o">/</span><span class="n">third_party</span>
+
+<span class="c1"># Define multiple paths to search for the libraries - Win32</span>
+<span class="nb">set</span> <span class="n">PYSDL2_DLL_PATH</span><span class="o">=</span><span class="n">C</span><span class="p">:</span>\<span class="n">first</span>\<span class="n">path</span><span class="p">;</span><span class="n">C</span><span class="p">:</span>\<span class="n">second</span>\<span class="n">path</span>
+</pre></div>
+</div>
+<p>You also can set the environment variable within Python using
+<a class="reference external" href="http://docs.python.org/library/os.html#os.environ" title="(in Python v2.7)"><code class="xref py py-data docutils literal"><span class="pre">os.environ</span></code></a>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;PYSDL2_DLL_PATH&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">path</span><span class="se">\\</span><span class="s2">to</span><span class="se">\\</span><span class="s2">fancy_project</span><span class="se">\\</span><span class="s2">third_party&quot;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;PYSDL2_DLL_PATH&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;/path/to/fancy_project/third_party&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you aim to integrate <code class="xref py py-mod docutils literal"><span class="pre">sdl</span></code> directly into your software and do
+not want or are not allowed to change the environment variables, you
+can also change the <code class="docutils literal"><span class="pre">os.getenv(&quot;PYSDL2_DLL_PATH&quot;)</span></code> query within the
+<em>sdl2/dll.py</em> (or <em>sdl2/sdlimage.py</em>, <em>sdl2/sdlttf.py</em>, <em>sdl2/sdlgfx.py</em>)
+file to point to the directory, in which you keep the DLL.</p>
+</div>
+</div>
+<div class="section" id="using-different-sdl2-versions">
+<h2>Using different SDL2 versions<a class="headerlink" href="#using-different-sdl2-versions" title="Permalink to this headline">¶</a></h2>
+<p>PySDL2 tries to provide interfaces to the most recent versions of the
+SDL2 libraries. Sometimes this means that PySDL2 tries to test for
+functions that might not be available for your very own project or that
+are not available on the target system due to a version of the specific
+library. To check, if the SDL2 libraries do not provide certain
+functions, you can enable the specific warnings for them.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python</span> <span class="o">-</span><span class="n">W</span><span class="s2">&quot;module&quot;</span><span class="p">::</span><span class="ne">ImportWarning</span><span class="p">:</span><span class="n">sdl2</span><span class="o">.</span><span class="n">dll</span> <span class="n">yourfile</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Integrating PySDL2</a><ul>
+<li><a class="reference internal" href="#importing">Importing</a></li>
+<li><a class="reference internal" href="#using-different-sdl2-versions">Using different SDL2 versions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="install.html"
+                        title="previous chapter">Installing PySDL2</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tutorial/index.html"
+                        title="next chapter">Learn to fly - the tutorials</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/integration.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial/index.html" title="Learn to fly - the tutorials"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Installing PySDL2"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PySDL2 0.10.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright (original) 2013-2016, Marcus von Appen; (modified) 2017, Lucas Siqueira.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Software Surface manipulation &#8212; PySDL2 0.10.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.10.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="sdl2.ext.time - track and control game time and framerate." href="sdl2ext_time.html" />
+    <link rel="prev" title="sdl2.ext.sprite - Sprite, texture and pixel surface routines." href="sdl2ext_sprite.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sdl2ext_time.html" title="sdl2.ext.time - track and control game time and framerate."
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="sdl2ext_sprite.html" title="sdl2.ext.sprite - Sprite, texture and pixel surface routines."
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PySDL2 0.10.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >API reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="sdl2ext.html" accesskey="U">sdl2.ext - Python extensions for SDL2</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="software-surface-manipulation">
+<h1>Software Surface manipulation<a class="headerlink" href="#software-surface-manipulation" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="sdl2.ext.subsurface">
+<code class="descclassname">sdl2.ext.</code><code class="descname">subsurface</code><span class="sig-paren">(</span><em>surface : SDL_Surface</em>, <em>area : (int</em>, <em>int</em>, <em>int</em>, <em>int)</em><span class="sig-paren">)</span> &rarr; SDL_Surface<a class="headerlink" href="#sdl2.ext.subsurface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a surface from a part of another surface. The two surfaces share
+pixel data.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The newly created surface <em>must not</em> be used after its parent has been
+freed!</p>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="sdl2ext_sprite.html"
+                        title="previous chapter">sdl2.ext.sprite - Sprite, texture and pixel surface routines.</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="sdl2ext_time.html"
+                        title="next chapter">sdl2.ext.time - track and control game time and framerate.</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/sdl2ext_surface.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sdl2ext_time.html" title="sdl2.ext.time - track and control game time and framerate."
+             >next</a> |</li>
+        <li class="right" >
+          <a href="sdl2ext_sprite.html" title="sdl2.ext.sprite - Sprite, texture and pixel surface routines."
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PySDL2 0.10.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >API reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="sdl2ext.html" >sdl2.ext - Python extensions for SDL2</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright (original) 2013-2016, Marcus von Appen; (modified) 2017, Lucas Siqueira.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+    </div>
+  </body>
+</html>

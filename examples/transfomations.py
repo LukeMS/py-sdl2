@@ -22,7 +22,8 @@ def run():
 
     # Create a simple rendering system for the window. We will use it to
     # display the sprites.
-    rendersystem = factory.create_sprite_render_system(window)
+    rendersystem = factory.create_sprite_render_system(
+        target=window, present=False)
 
     # Create the sprite to display.
     sprite = factory.from_image(RESOURCES.get_path("hello.bmp"))

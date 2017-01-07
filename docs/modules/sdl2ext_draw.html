@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2D drawing routines for software surfaces &#8212; PySDL2 0.10.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.10.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Working with component-based entities" href="sdl2ext_ebs.html" />
+    <link rel="prev" title="sdl2.ext.compat - Python compatibility helpers" href="sdl2ext_compat.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sdl2ext_ebs.html" title="Working with component-based entities"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="sdl2ext_compat.html" title="sdl2.ext.compat - Python compatibility helpers"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PySDL2 0.10.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >API reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="sdl2ext.html" accesskey="U">sdl2.ext - Python extensions for SDL2</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="d-drawing-routines-for-software-surfaces">
+<h1>2D drawing routines for software surfaces<a class="headerlink" href="#d-drawing-routines-for-software-surfaces" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The drawing functions within this module are unoptimised and should not be
+considered fast. If you want improved drawing of 2D primitives, including
+hardware acceleration, you should use the methods of the
+<code class="xref py py-class docutils literal"><span class="pre">Renderer</span></code> instead.</p>
+</div>
+<dl class="function">
+<dt id="sdl2.ext.prepare_color">
+<code class="descclassname">sdl2.ext.</code><code class="descname">prepare_color</code><span class="sig-paren">(</span><em>color : object</em>, <em>target : object</em><span class="sig-paren">)</span> &rarr; int<a class="headerlink" href="#sdl2.ext.prepare_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepares the passed <em>color</em> for a specific <em>target</em>. <em>color</em> can be any
+object type that can be processed by
+<a class="reference internal" href="sdl2ext_color.html#sdl2.ext.convert_to_color" title="sdl2.ext.convert_to_color"><code class="xref py py-func docutils literal"><span class="pre">convert_to_color()</span></code></a>. <em>target</em> can be any
+<code class="xref py py-class docutils literal"><span class="pre">sdl2.SDL_PixelFormat</span></code>, <code class="xref py py-class docutils literal"><span class="pre">sdl2.SDL_Surface</span></code> or
+<code class="xref py py-class docutils literal"><span class="pre">SoftwareSprite</span></code> instance.</p>
+<p>The returned integer will be a color value matching the target&#8217;s pixel
+format.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sdl2.ext.fill">
+<code class="descclassname">sdl2.ext.</code><code class="descname">fill</code><span class="sig-paren">(</span><em>target : object</em>, <em>color : object</em><span class="optional">[</span>, <em>area=None</em><span class="optional">]</span><span class="sig-paren">)</span> &rarr; None<a class="headerlink" href="#sdl2.ext.fill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fills a certain area on the passed <em>target</em> with a <em>color</em>. If no <em>area</em> is
+provided, the entire target will be filled with  the passed color. If an
+iterable item is provided as <em>area</em> (such as a list or tuple), it will be
+first checked, if the item denotes a single rectangular area
+(4 integer values) before assuming it to be a sequence of rectangular areas
+to fill with the color.</p>
+<p><em>target</em> can be any <code class="xref py py-class docutils literal"><span class="pre">sdl2.SDL_Surface</span></code> or <code class="xref py py-class docutils literal"><span class="pre">SoftwareSprite</span></code>
+instance.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sdl2.ext.line">
+<code class="descclassname">sdl2.ext.</code><code class="descname">line</code><span class="sig-paren">(</span><em>target : object</em>, <em>color : object</em><span class="optional">[</span>, <em>width=1</em><span class="optional">]</span><span class="sig-paren">)</span> &rarr; None<a class="headerlink" href="#sdl2.ext.line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draws one or multiple lines on the passed <em>target</em>. <em>line</em> can be a
+sequence of four integers for a single line in the form <code class="docutils literal"><span class="pre">(x1,</span> <span class="pre">y1,</span>
+<span class="pre">x2,</span> <span class="pre">y2)</span></code> or a sequence of a multiple of 4 for drawing multiple lines
+at once, e.g. <code class="docutils literal"><span class="pre">(x1,</span> <span class="pre">y1,</span> <span class="pre">x2,</span> <span class="pre">y2,</span> <span class="pre">x3,</span> <span class="pre">y3,</span> <span class="pre">x4,</span> <span class="pre">y4,</span> <span class="pre">...)</span></code>.</p>
+<p><em>target</em> can be any <code class="xref py py-class docutils literal"><span class="pre">sdl2.SDL_Surface</span></code> or <code class="xref py py-class docutils literal"><span class="pre">SoftwareSprite</span></code>
+instance.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="sdl2ext_compat.html"
+                        title="previous chapter">sdl2.ext.compat - Python compatibility helpers</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="sdl2ext_ebs.html"
+                        title="next chapter">Working with component-based entities</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/sdl2ext_draw.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sdl2ext_ebs.html" title="Working with component-based entities"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="sdl2ext_compat.html" title="sdl2.ext.compat - Python compatibility helpers"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PySDL2 0.10.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >API reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="sdl2ext.html" >sdl2.ext - Python extensions for SDL2</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright (original) 2013-2016, Marcus von Appen; (modified) 2017, Lucas Siqueira.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+    </div>
+  </body>
+</html>

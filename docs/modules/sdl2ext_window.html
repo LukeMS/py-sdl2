@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Window routines to manage on-screen windows &#8212; PySDL2 0.10.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.10.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="sdl2.util - PySDL2 utilities." href="sdl2_util.html" />
+    <link rel="prev" title="sdl2.ext.time - track and control game time and framerate." href="sdl2ext_time.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sdl2_util.html" title="sdl2.util - PySDL2 utilities."
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="sdl2ext_time.html" title="sdl2.ext.time - track and control game time and framerate."
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PySDL2 0.10.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >API reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="sdl2ext.html" accesskey="U">sdl2.ext - Python extensions for SDL2</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="window-routines-to-manage-on-screen-windows">
+<h1>Window routines to manage on-screen windows<a class="headerlink" href="#window-routines-to-manage-on-screen-windows" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="sdl2.ext.Window">
+<em class="property">class </em><code class="descclassname">sdl2.ext.</code><code class="descname">Window</code><span class="sig-paren">(</span><em>title : string</em>, <em>size : iterable</em><span class="optional">[</span>, <em>position=None</em><span class="optional">[</span>, <em>flags=None</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.Window" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Window class represents a visible on-screen object with an optional
+border and <em>title</em> text. It represents an area on the screen that can be
+accessed by the application for displaying graphics and receive and
+process user input.</p>
+<p>The position to show the Window at is undefined by default, letting
+the operating system or window manager pick the best location. The
+behaviour can be adjusted through the <code class="docutils literal"><span class="pre">DEFAULTPOS</span></code> class variable.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Window</span><span class="o">.</span><span class="n">DEFAULTPOS</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The created Window is hidden by default, which can be overridden at
+the time of creation by providing other SDL window flags through the
+<em>flags</em> parameter. The default flags for creating Window instances
+can be adjusted through the <code class="docutils literal"><span class="pre">DEFAULTFLAGS</span></code> class variable.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Window</span><span class="o">.</span><span class="n">DEFAULTFLAGS</span> <span class="o">=</span> <span class="n">sdl2</span><span class="o">.</span><span class="n">SDL_WINDOW_SHOWN</span>
+</pre></div>
+</div>
+<dl class="attribute">
+<dt id="sdl2.ext.Window.window">
+<code class="descname">window</code><a class="headerlink" href="#sdl2.ext.Window.window" title="Permalink to this definition">¶</a></dt>
+<dd><p>The used <code class="xref py py-class docutils literal"><span class="pre">sdl2.SDL_Window</span></code>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.Window.title">
+<code class="descname">title</code><a class="headerlink" href="#sdl2.ext.Window.title" title="Permalink to this definition">¶</a></dt>
+<dd><p>The title of the <a class="reference internal" href="#sdl2.ext.Window" title="sdl2.ext.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.Window.size">
+<code class="descname">size</code><a class="headerlink" href="#sdl2.ext.Window.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>The size of the <a class="reference internal" href="#sdl2.ext.Window" title="sdl2.ext.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.Window.show">
+<code class="descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; None<a class="headerlink" href="#sdl2.ext.Window.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the <a class="reference internal" href="#sdl2.ext.Window" title="sdl2.ext.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a> on the display.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.Window.hide">
+<code class="descname">hide</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; None<a class="headerlink" href="#sdl2.ext.Window.hide" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hide the <a class="reference internal" href="#sdl2.ext.Window" title="sdl2.ext.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.Window.maximize">
+<code class="descname">maximize</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; None<a class="headerlink" href="#sdl2.ext.Window.maximize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximizes the <a class="reference internal" href="#sdl2.ext.Window" title="sdl2.ext.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a> to the display&#8217;s dimensions.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.Window.minimize">
+<code class="descname">minimize</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; None<a class="headerlink" href="#sdl2.ext.Window.minimize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Minimizes the <a class="reference internal" href="#sdl2.ext.Window" title="sdl2.ext.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a> to an iconified state in the system tray.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.Window.refresh">
+<code class="descname">refresh</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; None<a class="headerlink" href="#sdl2.ext.Window.refresh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refreshes the entire <a class="reference internal" href="#sdl2.ext.Window" title="sdl2.ext.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a> surface.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This only needs to be called, if a SDL_Surface was acquired via
+<a class="reference internal" href="#sdl2.ext.Window.get_surface" title="sdl2.ext.Window.get_surface"><code class="xref py py-meth docutils literal"><span class="pre">get_surface()</span></code></a> and is used to display contents.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.Window.get_surface">
+<code class="descname">get_surface</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; SDL_Surface<a class="headerlink" href="#sdl2.ext.Window.get_surface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the <code class="xref py py-class docutils literal"><span class="pre">sdl2.SDL_Surface</span></code> used by the <a class="reference internal" href="#sdl2.ext.Window" title="sdl2.ext.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a> to
+display 2D pixel data.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Using this method will make the usage of GL operations, such as
+texture handling or the usage of SDL renderers impossible.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="sdl2ext_time.html"
+                        title="previous chapter">sdl2.ext.time - track and control game time and framerate.</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="sdl2_util.html"
+                        title="next chapter">sdl2.util - PySDL2 utilities.</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/sdl2ext_window.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sdl2_util.html" title="sdl2.util - PySDL2 utilities."
+             >next</a> |</li>
+        <li class="right" >
+          <a href="sdl2ext_time.html" title="sdl2.ext.time - track and control game time and framerate."
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PySDL2 0.10.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >API reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="sdl2ext.html" >sdl2.ext - Python extensions for SDL2</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright (original) 2013-2016, Marcus von Appen; (modified) 2017, Lucas Siqueira.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+    </div>
+  </body>
+</html>

@@ -77,6 +77,14 @@ if "%1" == "html" (
 	goto end
 )
 
+if "%1" == "docs" (
+	%SPHINXBUILD% -b html %ALLSPHINXOPTS% ../docs
+	if errorlevel 1 exit /b 1
+	echo.
+	echo.Build finished. The HTML pages are in sdl2/docs
+	goto end
+)
+
 if "%1" == "dirhtml" (
 	%SPHINXBUILD% -b dirhtml %ALLSPHINXOPTS% %BUILDDIR%/dirhtml
 	if errorlevel 1 exit /b 1

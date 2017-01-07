@@ -1,13 +1,16 @@
+
 import os
 from ctypes import Structure, POINTER, CFUNCTYPE, c_int, c_char_p, c_void_p, \
     c_double
-from .dll import DLL
-from .version import SDL_version
-from .audio import AUDIO_S16LSB, AUDIO_S16MSB
-from .stdinc import Uint8, Uint16, Uint32, Sint16
-from .endian import SDL_LIL_ENDIAN, SDL_BYTEORDER
-from .rwops import SDL_RWops, SDL_RWFromFile
-from .error import SDL_SetError, SDL_GetError
+
+from ..dll import DLL
+from ..version import SDL_version
+from ..audio import AUDIO_S16LSB, AUDIO_S16MSB
+from ..stdinc import Uint8, Uint16, Uint32, Sint16
+from ..endian import SDL_LIL_ENDIAN, SDL_BYTEORDER
+from ..rwops import SDL_RWops, SDL_RWFromFile
+from ..error import SDL_SetError, SDL_GetError
+from ..util import get_cfg
 
 __all__ = ["get_dll_file", "SDL_MIXER_MAJOR_VERSION", "SDL_MIXER_MINOR_VERSION",
            "SDL_MIXER_PATCHLEVEL", "SDL_MIXER_VERSION", "MIX_MAJOR_VERSION",
@@ -48,6 +51,8 @@ __all__ = ["get_dll_file", "SDL_MIXER_MAJOR_VERSION", "SDL_MIXER_MINOR_VERSION",
            "soundfont_function", "Mix_EachSoundFont", "Mix_GetChunk",
            "Mix_CloseAudio", "Mix_SetError", "Mix_GetError"
           ]
+
+os.environ.setdefault("PYSDL2_DLL_PATH", get_cfg('DLL', 'PYSDL2_DLL_PATH'))
 
 try:
     dll = DLL("SDL2_mixer", ["SDL2_mixer", "SDL2_mixer-2.0"],

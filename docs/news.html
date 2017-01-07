@@ -1,0 +1,504 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Release News &#8212; PySDL2 0.10.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.10.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Todo list for PySDL2" href="todos.html" />
+    <link rel="prev" title="PySDL2 FAQ" href="faq.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="todos.html" title="Todo list for PySDL2"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="faq.html" title="PySDL2 FAQ"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PySDL2 0.10.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="release-news">
+<h1>Release News<a class="headerlink" href="#release-news" title="Permalink to this headline">¶</a></h1>
+<p>This describes the latest changes between the PySDL2 releases.</p>
+<hr class="docutils" />
+<div class="section" id="id1">
+<h2>0.10.0<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Released on 2017-01-06</p>
+<ul>
+<li><p class="first"><a class="reference internal" href="modules/sdl2ext_manager.html#module-sdl2.ext.manager" title="sdl2.ext.manager"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.ext.manager</span></code></a> <img alt="new" src="_images/new_icon.png" /></p>
+<ul class="simple">
+<li>provides a basic scene manager (<a class="reference internal" href="modules/sdl2ext_manager.html#sdl2.ext.manager.Manager" title="sdl2.ext.manager.Manager"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.manager.Manager</span></code></a>) and a basic scene (<a class="reference internal" href="modules/sdl2ext_manager.html#sdl2.ext.manager.SceneBase" title="sdl2.ext.manager.SceneBase"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.manager.SceneBase</span></code></a>). The goal here is provide pysdl2 with a minimal engine, high level over sdl2.ext high level.</li>
+</ul>
+</li>
+<li><p class="first"><a class="reference internal" href="modules/sdl2ext_rect.html#module-sdl2.ext.rect" title="sdl2.ext.rect"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.ext.rect</span></code></a> <img alt="new" src="_images/new_icon.png" /></p>
+<ul class="simple">
+<li>provides a rectangular object implementation to facilitate coordinates storage and manipulation (<a class="reference internal" href="modules/sdl2ext_rect.html#sdl2.ext.rect.Rect" title="sdl2.ext.rect.Rect"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.rect.Rect</span></code></a>)</li>
+</ul>
+</li>
+<li><p class="first"><a class="reference internal" href="modules/sdl2ext_time.html#module-sdl2.ext.time" title="sdl2.ext.time"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.ext.time</span></code></a> <img alt="new" src="_images/new_icon.png" /></p>
+<ul class="simple">
+<li>added <a class="reference internal" href="modules/sdl2ext_time.html#module-sdl2.ext.time" title="sdl2.ext.time"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.ext.time</span></code></a>, providing a  high level interface to handle time and framerate.</li>
+</ul>
+</li>
+<li><p class="first"><a class="reference internal" href="modules/sdl2_util.html#module-sdl2.util" title="sdl2.util"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.util</span></code></a> <img alt="new" src="_images/new_icon.png" /></p>
+<ul class="simple">
+<li>a config file parser (<a class="reference internal" href="modules/sdl2_util.html#sdl2.util.get_cfg" title="sdl2.util.get_cfg"><code class="xref py py-func docutils literal"><span class="pre">sdl2.util.get_cfg()</span></code></a>);</li>
+<li>a path utility (<a class="reference internal" href="modules/sdl2_util.html#sdl2.util.sdl2_path" title="sdl2.util.sdl2_path"><code class="xref py py-func docutils literal"><span class="pre">sdl2.util.sdl2_path()</span></code></a>);</li>
+<li>a singleton metaclass (<a class="reference internal" href="modules/sdl2_util.html#sdl2.util.Singleton" title="sdl2.util.Singleton"><code class="xref py py-class docutils literal"><span class="pre">sdl2.util.Singleton</span></code></a>)</li>
+</ul>
+</li>
+<li><p class="first"><a class="reference internal" href="modules/sdl2ext_sprite.html#module-sdl2.ext.sprite" title="sdl2.ext.sprite"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.ext.sprite</span></code></a></p>
+<ul class="simple">
+<li><a class="reference internal" href="modules/sdl2ext_sprite.html#sdl2.ext.sprite.TextureGuestSprite" title="sdl2.ext.sprite.TextureGuestSprite"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.sprite.TextureGuestSprite</span></code></a> <img alt="new" src="_images/new_icon.png" /><ul>
+<li>doens&#8217;t free/delete its texture when deleted;</li>
+<li>makes use of the <a class="reference internal" href="modules/sdl2ext_sprite.html#sdl2.ext.sprite.Sprite.frame_rect" title="sdl2.ext.sprite.Sprite.frame_rect"><code class="xref py py-func docutils literal"><span class="pre">sdl2.ext.sprite.Sprite.frame_rect()</span></code></a> property to store a logical sub-area of the texture to be rendered.</li>
+</ul>
+</li>
+<li><a class="reference internal" href="modules/sdl2ext_sprite.html#sdl2.ext.sprite.Sprite" title="sdl2.ext.sprite.Sprite"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.sprite.Sprite</span></code></a><ul>
+<li>It is now a subclass of <a class="reference internal" href="modules/sdl2ext_rect.html#sdl2.ext.rect.Rect" title="sdl2.ext.rect.Rect"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.rect.Rect</span></code></a>.</li>
+<li>Sprites can now be manipulated as a Rect and have all of its properties.</li>
+<li>See <a class="reference internal" href="modules/sdl2ext_rect.html#module-sdl2.ext.rect" title="sdl2.ext.rect"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.ext.rect</span></code></a> for more information on Rect and related.</li>
+</ul>
+</li>
+<li><a class="reference internal" href="modules/sdl2ext_sprite.html#sdl2.ext.sprite.TextureSpriteRenderSystem" title="sdl2.ext.sprite.TextureSpriteRenderSystem"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.sprite.TextureSpriteRenderSystem</span></code></a><ul>
+<li>added optional parameter at initialization: <cite>present</cite>. By default it is set to <cite>True</cite> (same behavior as previously). If set to <cite>False</cite> during initialization of the sprite renderer, when <a class="reference internal" href="modules/sdl2ext_sprite.html#sdl2.ext.sprite.TextureSpriteRenderSystem.render" title="sdl2.ext.sprite.TextureSpriteRenderSystem.render"><code class="xref py py-func docutils literal"><span class="pre">sdl2.ext.sprite.TextureSpriteRenderSystem.render()</span></code></a> is used with default parameters, it will no longer present what was rendered to the screen at the end. With that it is now possible to call render more then once without incurring in multiple <cite>present</cite> calls. The <code class="xref py py-class docutils literal"><span class="pre">Manager</span></code> makes use of that so that it can call <cite>present</cite> only once, at the end of its loop.</li>
+<li><a class="reference internal" href="modules/sdl2ext_sprite.html#sdl2.ext.sprite.TextureSpriteRenderSystem.render" title="sdl2.ext.sprite.TextureSpriteRenderSystem.render"><code class="xref py py-func docutils literal"><span class="pre">sdl2.ext.sprite.TextureSpriteRenderSystem.render()</span></code></a> also takes an optional <cite>present</cite> argument so that its behavior can be changed directly when calling <cite>render</cite>: if passed as <cite>True</cite> it will present at the end; if passed as <cite>False</cite> it will not present at the end, even if the default behavior passed during initialization is set to <cite>True</cite>.</li>
+<li>Those should give total control of whether to present or not and when to do it while also keeping compatibility with prior versions.</li>
+</ul>
+</li>
+<li><a class="reference internal" href="modules/sdl2ext_sprite.html#sdl2.ext.sprite.SpriteFactory" title="sdl2.ext.sprite.SpriteFactory"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.sprite.SpriteFactory</span></code></a><ul>
+<li><a class="reference internal" href="modules/sdl2ext_sprite.html#sdl2.ext.sprite.SpriteFactory.from_tileset" title="sdl2.ext.sprite.SpriteFactory.from_tileset"><code class="xref py py-func docutils literal"><span class="pre">sdl2.ext.sprite.SpriteFactory.from_tileset()</span></code></a> <img alt="new" src="_images/new_icon.png" /><ul>
+<li>create a sprite from an area of the loaded tileset</li>
+</ul>
+</li>
+<li><a class="reference internal" href="modules/sdl2ext_sprite.html#sdl2.ext.sprite.SpriteFactory.load_tileset" title="sdl2.ext.sprite.SpriteFactory.load_tileset"><code class="xref py py-func docutils literal"><span class="pre">sdl2.ext.sprite.SpriteFactory.load_tileset()</span></code></a> <img alt="new" src="_images/new_icon.png" /><ul>
+<li>load a default tileset on the factory so that it can be used later on</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="modules/sdl2ext_sprite.html#sdl2.ext.sprite.TextureSprite" title="sdl2.ext.sprite.TextureSprite"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.sprite.TextureSprite</span></code></a><ul>
+<li><code class="xref py py-func docutils literal"><span class="pre">sdl2.ext.sprite.Sprite.set_animation()</span></code> <img alt="new" src="_images/new_icon.png" />
+- set parameters for a animated (multi-framed) sprite</li>
+<li><code class="xref py py-func docutils literal"><span class="pre">sdl2.ext.sprite.Sprite.step()</span></code>  <img alt="new" src="_images/new_icon.png" />
+- step <cite>n</cite> rows or columns according to the animation parameters previously defined, wrapping it to respect those its boundaries</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p class="first"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.dll</span></code>, <a class="reference internal" href="modules/sdl2_sdlgfx.html#module-sdl2.sdlgfx" title="sdl2.sdlgfx: SDL2_gfx library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.sdlgfx</span></code></a>, <a class="reference internal" href="modules/sdl2_sdlimage.html#module-sdl2.sdlimage" title="sdl2.sdlimage: SDL2_image library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.sdlimage</span></code></a>, <a class="reference internal" href="modules/sdl2_sdlmixer.html#module-sdl2.sdlmixer" title="sdl2.sdlmixer: SDL2_mixer library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.sdlmixer</span></code></a>, <a class="reference internal" href="modules/sdl2_sdlttf.html#module-sdl2.sdlttf" title="sdl2.sdlttf: SDL2_ttf library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.sdlttf</span></code></a></p>
+<ul>
+<li><p class="first">using the config parser to read <cite>PYSDL2_DLL_PATH</cite> from <cite>sdl2/sdl2.cfg</cite> when the OS environment variable is not defined:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;PYSDL2_DLL_PATH&quot;</span><span class="p">,</span> <span class="n">get_cfg</span><span class="p">(</span><span class="s1">&#39;DLL&#39;</span><span class="p">,</span> <span class="s1">&#39;PYSDL2_DLL_PATH&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">the OS enviroment variable takes precedence, so that it can still be defined on the OS enviroment or on a per-project base, as usual, as described on <a class="reference internal" href="integration.html#importing-pysdl2"><span class="std std-ref">Importing</span></a></p>
+</li>
+</ul>
+</li>
+<li><p class="first">updated/modified documentation to use more of sphinx auto* tools, mostly on the API reference. The goal here was to remove text from .rst files that could be used as docstrings on the source code, making it easier to keep the documentation up to date with changes.</p>
+</li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="id2">
+<h2>0.9.5<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Released on 2016-10-20.</p>
+<ul class="simple">
+<li>updated <a class="reference internal" href="modules/sdl2.html#module-sdl2" title="sdl2: SDL2 library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2</span></code></a> to include the latest changes of SDL2 (release 2.0.5)</li>
+<li>fixed issue #94: added support for TrueType font collection (TTC) files</li>
+<li>fixed issue #80: added flip and rotation support for TextureSprite objects</li>
+<li>renamed <code class="xref py py-attr docutils literal"><span class="pre">sdl2.ext.Renderer.renderer</span></code> attribute to
+<code class="xref py py-attr docutils literal"><span class="pre">sdl2.ext.Renderer.sdlrenderer</span></code>. The <cite>renderer</cite> attribute is
+deprecated and will be removed in a later version.</li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="id3">
+<h2>0.9.4<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>Released on 2016-07-07.</p>
+<ul class="simple">
+<li>updated <a class="reference internal" href="modules/sdl2.html#module-sdl2" title="sdl2: SDL2 library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2</span></code></a> to include the latest changes of SDL2 (release 2.0.4)</li>
+<li>updated <a class="reference internal" href="modules/sdl2_sdlttf.html#module-sdl2.sdlttf" title="sdl2.sdlttf: SDL2_ttf library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.sdlttf</span></code></a> to include the latest changes of SDL_ttf (release 2.0.14)</li>
+<li>new <code class="xref py py-attr docutils literal"><span class="pre">sdl2.ext.Renderer.logical_size</span></code> attribute to set or retrieve the logical
+pixel size of a renderer</li>
+<li>fixed issue #48: be more noisy about DLL loading issues</li>
+<li>fixed issue #65: misleading documentation for <code class="xref py py-meth docutils literal"><span class="pre">sdl2.ext.Renderer.draw_line()</span></code></li>
+<li>fixed issue #67: Return a proper error code, when unittests running as subprocesses fail</li>
+<li>fixed issue #72: <code class="xref py py-func docutils literal"><span class="pre">sdl2.video.SDL_GL_DrawableSize()</span></code> not available on import</li>
+<li>fixed issue #76: define missing SDL_PRESSED and SDL_RELEASED constants</li>
+<li>fixed issue #82: examples/gui.py fails due to an attribute error</li>
+<li>fixed issue #83: fix compatibility with newer PIL versions in
+<code class="xref py py-func docutils literal"><span class="pre">sdl2.ext.image.load_image()</span></code></li>
+<li>fixed issue #84: The setter of <code class="xref py py-attr docutils literal"><span class="pre">sdl2.ext.Renderer.scale</span></code> works properly now</li>
+<li>fixed issue #85: fix environment-dependent unit tests</li>
+<li>fixed issue #87: fix incorrect MIX_INIT_* constants in <a class="reference internal" href="modules/sdl2_sdlmixer.html#module-sdl2.sdlmixer" title="sdl2.sdlmixer: SDL2_mixer library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.sdlmixer</span></code></a></li>
+<li>fixed issue #88: use PILs <cite>Image.tobyte()instead of the deprecated `Image.tostring()</cite></li>
+<li>fixed horizontical and vertical line drawing in <a class="reference internal" href="modules/sdl2ext_draw.html#sdl2.ext.line" title="sdl2.ext.line"><code class="xref py py-func docutils literal"><span class="pre">sdl2.ext.line()</span></code></a></li>
+<li>fixed a bug in <code class="xref py py-meth docutils literal"><span class="pre">sdl2.ext.Renderer.draw_line()</span></code> for odd numbers of points</li>
+<li>dropped IronPython support</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>0.9.3<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>Released on 2014-07-08.</p>
+<ul class="simple">
+<li>updated <a class="reference internal" href="modules/sdl2.html#module-sdl2" title="sdl2: SDL2 library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2</span></code></a> to include the latest changes of SDL2 (HG)</li>
+<li>new <code class="xref py py-attr docutils literal"><span class="pre">sdl2.ext.Renderer.scale</span></code> attribute, which denotes the horizontal
+and vertical drawing scale</li>
+<li>new <a class="reference internal" href="modules/sdl2ext_algorithms.html#sdl2.ext.point_on_line" title="sdl2.ext.point_on_line"><code class="xref py py-func docutils literal"><span class="pre">sdl2.ext.point_on_line()</span></code></a> function to test, if a point lies on a
+line segment</li>
+<li>PYSDL2_DLL_PATH can contain multiple paths separated by <code class="xref py py-attr docutils literal"><span class="pre">os.pathsep</span></code>
+to search for the libraries now</li>
+<li><a class="reference internal" href="modules/sdl2ext_image.html#sdl2.ext.get_image_formats" title="sdl2.ext.get_image_formats"><code class="xref py py-func docutils literal"><span class="pre">sdl2.ext.get_image_formats()</span></code></a> only returns BMP image support now, if
+SDL2_image and PIL are not found</li>
+<li><a class="reference internal" href="modules/sdl2ext_image.html#sdl2.ext.load_image" title="sdl2.ext.load_image"><code class="xref py py-func docutils literal"><span class="pre">sdl2.ext.load_image()</span></code></a> tries to use <code class="xref py py-func docutils literal"><span class="pre">sdl2.SDL_LoadBMP()</span></code> now,
+if SDL2_image and PIL are not found</li>
+<li>fixed issue #55: <code class="xref py py-meth docutils literal"><span class="pre">sdl2.SDL_GameControllerAddMappingsFromFile()</span></code> does
+not raise a TypeError for Python 3.x anymore</li>
+<li>fixed issue #56: <code class="xref py py-meth docutils literal"><span class="pre">sdl2.ext.Renderer.draw_line()</span></code> and
+<code class="xref py py-func docutils literal"><span class="pre">sdl2.ext.Renderer.draw_point()</span></code> handle multiple lines (or points) as
+arguments properly now</li>
+<li>fixed issue #57: if SDL2_image is not installed and PIL is used, the loaded
+pixel buffer of the image file is not referenced anymore after returning
+from <a class="reference internal" href="modules/sdl2ext_image.html#sdl2.ext.load_image" title="sdl2.ext.load_image"><code class="xref py py-func docutils literal"><span class="pre">sdl2.ext.load_image()</span></code></a>, causing random segmentation faults</li>
+<li>fixed issue #58: raise a proper error,
+if <a class="reference internal" href="modules/sdl2ext_font.html#sdl2.ext.FontManager.render" title="sdl2.ext.FontManager.render"><code class="xref py py-meth docutils literal"><span class="pre">sdl2.ext.FontManager.render()</span></code></a> could not render a text surface</li>
+<li>fixed issue #59: The <code class="xref py py-attr docutils literal"><span class="pre">sdl2.ext.TextureSpriteRenderSystem.sdlrenderer</span></code>
+attribute is correctly documented now</li>
+<li>fixed a local variable and module name collision in
+<a class="reference internal" href="modules/sdl2ext_font.html#sdl2.ext.FontManager.render" title="sdl2.ext.FontManager.render"><code class="xref py py-meth docutils literal"><span class="pre">sdl2.ext.FontManager.render()</span></code></a></li>
+</ul>
+<p>Thanks to Filip M. Nowak for the PYSDL2_DLL_PATH improvement.</p>
+</div>
+<div class="section" id="id5">
+<h2>0.9.2<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>Released on 2014-04-13.</p>
+<ul class="simple">
+<li>fixed issue #32: the line clipping algorithms do not run into precision
+errors anymore</li>
+<li>fixed issue #53 (again): <code class="xref py py-func docutils literal"><span class="pre">sdl2.video.SDL_GL_ResetAttributes()</span></code>
+is properly wrapped now to retain backwards compatibility with previous
+SDL2 releases</li>
+<li>fixed issue #54: text input is correctly converted for the text entry
+component</li>
+<li>updated the example BMP files, which could not be loaded properly on
+some systems with SDL2_image and PIL</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h2>0.9.1<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>Released on 2014-04-05.</p>
+<ul class="simple">
+<li>fixed issue #50: corrected the <a class="reference internal" href="modules/sdl2ext_image.html#sdl2.ext.load_image" title="sdl2.ext.load_image"><code class="xref py py-func docutils literal"><span class="pre">sdl2.ext.load_image()</span></code></a>
+documentation</li>
+<li>fixed issue #52: <code class="xref py py-meth docutils literal"><span class="pre">sdl2.ext.Renderer.fill()</span></code>,
+<code class="xref py py-meth docutils literal"><span class="pre">sdl2.ext.Renderer.draw_rect()</span></code> and
+<code class="xref py py-meth docutils literal"><span class="pre">sdl2.ext.Renderer.draw_point()</span></code> convert sequences
+correctly now</li>
+<li>fixed issue #53: provide backwards compatibility for previous
+SDL2 releases by adding a wrapper func for
+<code class="xref py py-func docutils literal"><span class="pre">sdl2.cpuinfo.SDL_HasAVX()</span></code></li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h2>0.9.0<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>Released on 2014-03-23.</p>
+<p><strong>IMPORTANT: This release breaks backwards-compatibility. See the notes
+for the issues #36 and #39.</strong></p>
+<ul class="simple">
+<li>updated <a class="reference internal" href="modules/sdl2.html#module-sdl2" title="sdl2: SDL2 library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2</span></code></a> to include the latest changes of SDL2 (release 2.0.3)</li>
+<li>new <a class="reference internal" href="modules/sdl2ext_surface.html#sdl2.ext.subsurface" title="sdl2.ext.subsurface"><code class="xref py py-func docutils literal"><span class="pre">sdl2.ext.subsurface()</span></code></a> function to create subsurfaces from
+<code class="xref py py-class docutils literal"><span class="pre">sdl2.SDL_Surface</span></code> objects</li>
+<li>new <code class="xref py py-func docutils literal"><span class="pre">sdl2.ext.SoftwareSprite.subsprite()</span></code> method to create
+<code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.SoftwarSprite</span></code> objects sharing pixel data</li>
+<li>the unit test runner features a <cite>&#8211;logfile</cite> argument now to
+safe the unit test output to a file</li>
+<li>issues #36, #39: the different render classes of sdl2.ext.sprite were renamed<ul>
+<li>the <code class="docutils literal"><span class="pre">sdl2.ext.RenderContext</span></code> class was renamed to
+<code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.Renderer</span></code> to be consistent with with SDL2&#8217;s naming scheme</li>
+<li><code class="docutils literal"><span class="pre">sdl2.ext.SpriteRenderer</span></code> was renamed to
+<code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.SpriteRenderSystem</span></code></li>
+<li><code class="docutils literal"><span class="pre">sdl2.ext.SoftwareSpriteRenderer</span></code> was renamed to
+<code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.SoftwareSpriteRenderSystem</span></code></li>
+<li><code class="docutils literal"><span class="pre">sdl2.ext.TextureSpriteRenderer</span></code> was renamed to
+<code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.TextureSpriteRenderSystem</span></code></li>
+<li><code class="docutils literal"><span class="pre">sdl2.ext.SpriteFactory.create_sprite_renderer()</span></code> was renamed to
+<code class="xref py py-meth docutils literal"><span class="pre">sdl2.ext.SpriteFactory.create_sprite_render_system()</span></code></li>
+</ul>
+</li>
+<li>fixed <code class="xref py py-func docutils literal"><span class="pre">sdl2.audio.SDL_LoadWAV()</span></code> macro to provide the correct arguments</li>
+<li>fixed issue #44: use a slightly less confusing <code class="docutils literal"><span class="pre">ValueError</span></code>, if a renderer
+argument for the <code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.SpriteFactory</span></code> is not provided</li>
+<li>fixed issue #43: improved the code reference for the improved bouncing
+section in the docs</li>
+<li>fixed issue #40: typo in a <code class="docutils literal"><span class="pre">RuntimeWarning</span></code> message on loading the SDL2
+libraries</li>
+<li>fixed issue #38: the points arguments of
+<code class="xref py py-meth docutils literal"><span class="pre">sdl2.ext.Renderer.draw_points()</span></code> are properly documented now</li>
+<li>fixed issue #37: <code class="xref py py-func docutils literal"><span class="pre">sdl2.SDL_GetRendererOutputSize()</span></code> is now acccessible
+via a wildcard import</li>
+<li>fixed issue #35: download location is now mentioned in the docs</li>
+<li>fixed issue #12: remove confusing try/except on import in the examples</li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h2>0.8.0<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>Released on 2013-12-30.</p>
+<ul class="simple">
+<li>updated PD information to include the CC0 dedication, since giving
+software away is not enough anymore</li>
+<li>updated <a class="reference internal" href="modules/sdl2.html#module-sdl2" title="sdl2: SDL2 library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2</span></code></a> to include the latest changes of SDL2 (HG)</li>
+<li>fixed a wrong C mapping of <code class="xref py py-func docutils literal"><span class="pre">sdl2.rwops.SDL_FreeRW()</span></code></li>
+<li>fixed various issues within the <a class="reference internal" href="modules/sdl2ext_font.html#sdl2.ext.BitmapFont" title="sdl2.ext.BitmapFont"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.BitmapFont</span></code></a> class</li>
+<li>issue #26: <code class="xref py py-attr docutils literal"><span class="pre">sdl2.SDL_AudioSpec.callback</span></code> is a <code class="xref py py-func docutils literal"><span class="pre">SDL_AudioCallBack()</span></code>
+now</li>
+<li>issue #30: the SDL_Add/DelHintCallback() unittest works with PyPy now</li>
+<li>issue #31: <code class="xref py py-func docutils literal"><span class="pre">sdl2.sdlmixer.SDL_MIXER_VERSION()</span></code> returns the proper
+version now</li>
+</ul>
+<p>Thanks to Sven Eckelmann, Marcel Rodrigues, Michael McCandless,
+Andreas Schiefer and Franz Schrober for providing fixes and
+improvements.</p>
+</div>
+<div class="section" id="id9">
+<h2>0.7.0<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>Released on 2013-10-27.</p>
+<ul class="simple">
+<li>updated <a class="reference internal" href="modules/sdl2.html#module-sdl2" title="sdl2: SDL2 library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2</span></code></a> to include the latest changes of SDL2 (release 2.0.1)</li>
+<li>fixed a bug in <a class="reference internal" href="modules/sdl2ext_font.html#sdl2.ext.FontManager.render" title="sdl2.ext.FontManager.render"><code class="xref py py-meth docutils literal"><span class="pre">sdl2.ext.FontManager.render()</span></code></a>, which did not apply
+the text color correctly</li>
+<li>issue #14: improved the error messages on failing DLL imports</li>
+<li>issue #19: the <code class="xref py py-meth docutils literal"><span class="pre">sdl2.ext.TextureSpriteRenderer.render()</span></code> and
+<code class="xref py py-meth docutils literal"><span class="pre">sdl2.ext.SoftwareSpriteRenderer.render()</span></code> methods do not
+misinterpret x and y arguments anymore, if set to 0</li>
+<li>issue #21: <a class="reference internal" href="modules/sdl2ext_image.html#sdl2.ext.load_image" title="sdl2.ext.load_image"><code class="xref py py-func docutils literal"><span class="pre">sdl2.ext.load_image()</span></code></a> raises a proper
+<code class="xref py py-exc docutils literal"><span class="pre">UnsupportedError</span></code>, if neither SDL_image nor PIL are usable</li>
+</ul>
+<p>Thanks to Marcel Rodrigues, Roger Flores and otus for providing fixes
+and improvement ideas.</p>
+</div>
+<div class="section" id="id10">
+<h2>0.6.0<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>Released on 2013-09-01.</p>
+<ul class="simple">
+<li>new <a class="reference internal" href="modules/sdl2ext_font.html#sdl2.ext.FontManager.size" title="sdl2.ext.FontManager.size"><code class="xref py py-attr docutils literal"><span class="pre">sdl2.ext.FontManager.size</span></code></a> attribute, which gives a default size
+to be used for adding fonts or rendering text</li>
+<li>updated <a class="reference internal" href="modules/sdl2.html#module-sdl2" title="sdl2: SDL2 library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2</span></code></a> to include the latest changes of SDL2</li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">sdl2.ext.RenderContext.copy()</span></code> accepts any 4-value sequence as source
+or destination rectangle now</li>
+<li>issue #11: throw an <code class="xref py py-exc docutils literal"><span class="pre">ImportError</span></code> instead of a
+<code class="xref py py-exc docutils literal"><span class="pre">RuntimeError</span></code>, if a third-party DLL could not be imported
+properly</li>
+<li>fixed a bug in the installation code, which caused <code class="xref py py-mod docutils literal"><span class="pre">sdl2.examples</span></code> not
+to install the required resources</li>
+</ul>
+<p>Thanks to Steven Johnson for his enhancements to the FontManager class.
+Thanks to Marcel Rodrigues for the improvements to RenderContext.copy().</p>
+</div>
+<div class="section" id="id11">
+<h2>0.5.0<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>Released on 2013-08-14.</p>
+<ul class="simple">
+<li>new <a class="reference internal" href="modules/sdl2ext_font.html#sdl2.ext.FontManager" title="sdl2.ext.FontManager"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.FontManager</span></code></a> class, which provides simple TTF font
+rendering.</li>
+<li>new <code class="xref py py-meth docutils literal"><span class="pre">sdl2.ext.SpriteFactory.from_text()</span></code> method, which creates
+text sprites</li>
+<li>put the SDL2 dll path at the beginning of PATH, if a PYSDL2_DLL_PATH
+is provided to avoid loading issues for third party DLLs on Win32
+platforms</li>
+<li>minor documentation fixes</li>
+</ul>
+<p>Thanks to Dan Gillett for providing the FontManager and from_text()
+enhancements and his patience regarding all the small change requests.
+Thanks to Mihail Latyshov for providing fixes to the documentation.</p>
+</div>
+<div class="section" id="id12">
+<h2>0.4.1<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>Released on 2013-07-26.</p>
+<ul class="simple">
+<li>updated <a class="reference internal" href="modules/sdl2.html#module-sdl2" title="sdl2: SDL2 library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2</span></code></a> to include the latest changes of SDL2</li>
+<li>improved DLL detection for DLLs not being in a library path</li>
+<li>fixed a bug in <code class="xref py py-meth docutils literal"><span class="pre">sdl2.ext.RenderContext.draw_rect()</span></code> for drawing
+a single rect</li>
+<li>fixed a bug in the <code class="xref py py-func docutils literal"><span class="pre">repr()</span></code> call for <code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.SoftwareSprite</span></code></li>
+<li>issue #4: fixed a bug in <code class="xref py py-meth docutils literal"><span class="pre">sdl2.ext.RenderContext.fill()</span></code> for filling
+a single rect</li>
+<li>issue #5: fixed pip installation support</li>
+<li>issue #6: fixed a bug in <a class="reference internal" href="modules/sdl2ext_common.html#sdl2.ext.get_events" title="sdl2.ext.get_events"><code class="xref py py-func docutils literal"><span class="pre">sdl2.ext.get_events()</span></code></a>, which did not handle
+more than 10 events in the queue correctly</li>
+<li>issue #8: <code class="xref py py-meth docutils literal"><span class="pre">sdl2.ext.SpriteFactory.create_texture_sprite()</span></code> can
+create sprites to be used as rendering targets now</li>
+<li>issue #9: improved error messages on trying to bind non-existent library
+functions via ctypes</li>
+<li>minor documentation fixes</li>
+</ul>
+<p>Thanks to Steven Johnson, Todd Rovito, Bil Bas and Dan McCombs for
+providing fixes and improvements.</p>
+</div>
+<div class="section" id="id13">
+<h2>0.4.0<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p>Released on 2013-06-08.</p>
+<ul class="simple">
+<li>new <a class="reference internal" href="modules/sdl2_sdlmixer.html#module-sdl2.sdlmixer" title="sdl2.sdlmixer: SDL2_mixer library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.sdlmixer</span></code></a> module, which provides access to the
+SDL2_mixer library</li>
+<li>issue #1: fixed libc loading for cases where libc.so is a ld script</li>
+<li>updated <a class="reference internal" href="modules/sdl2.html#module-sdl2" title="sdl2: SDL2 library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2</span></code></a> and <a class="reference internal" href="modules/sdl2_sdlimage.html#module-sdl2.sdlimage" title="sdl2.sdlimage: SDL2_image library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.sdlimage</span></code></a> to include the latest
+changes of the libraries, they wrap</li>
+</ul>
+</div>
+<div class="section" id="id14">
+<h2>0.3.0<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p>Released on 2013-05-07.</p>
+<ul class="simple">
+<li>new <a class="reference internal" href="modules/sdl2_sdlgfx.html#module-sdl2.sdlgfx" title="sdl2.sdlgfx: SDL2_gfx library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.sdlgfx</span></code></a> module, which provides access to the SDL2_gfx library</li>
+<li>new <a class="reference internal" href="modules/sdl2ext_gui.html#sdl2.ext.UIFactory.from_color" title="sdl2.ext.UIFactory.from_color"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.ext.UIFactory.from_color</span></code></a> method; it creates UI-supportive
+sprites from a color</li>
+<li>fixed color argument bugs in <code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.RenderContext</span></code> methods</li>
+<li>fixed a module namespace issues in <code class="xref py py-mod docutils literal"><span class="pre">sdl2.ext.pixelaccess</span></code></li>
+<li><code class="xref py py-mod docutils literal"><span class="pre">sdl2.ext.SpriteFactory</span></code> methods do not use a default <code class="docutils literal"><span class="pre">size</span></code> argument
+anymore; it has to provided by the caller</li>
+</ul>
+</div>
+<div class="section" id="id15">
+<h2>0.2.0<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<p>Released on 2013-05-03.</p>
+<ul class="simple">
+<li>removed sdl2.ext.scene; it now lives in python-utils</li>
+<li>fixed <code class="xref py py-mod docutils literal"><span class="pre">sdl2.haptic</span></code> module usage for Python 3</li>
+<li>fixed <code class="xref py py-func docutils literal"><span class="pre">sdl2.SDL_WindowGetData()</span></code> and <code class="xref py py-func docutils literal"><span class="pre">sdl2.SDL_WindowSetData()</span></code>
+wrappers</li>
+<li>fixed <code class="xref py py-meth docutils literal"><span class="pre">sdl2.ext.RenderContext.copy()</span></code></li>
+<li>fixed <code class="xref py py-mod docutils literal"><span class="pre">sdl2.ext.font</span></code> module usage for Python 3</li>
+<li>fixed <a class="reference internal" href="modules/sdl2ext_draw.html#sdl2.ext.line" title="sdl2.ext.line"><code class="xref py py-func docutils literal"><span class="pre">sdl2.ext.line()</span></code></a></li>
+<li><a class="reference internal" href="modules/sdl2.html#module-sdl2" title="sdl2: SDL2 library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2</span></code></a> imports all submodules now</li>
+<li>improved documentation</li>
+</ul>
+</div>
+<div class="section" id="id16">
+<h2>0.1.0<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<p>Released on 2013-04-23.</p>
+<ul class="simple">
+<li>Initial Release</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Release News</a><ul>
+<li><a class="reference internal" href="#id1">0.10.0</a></li>
+<li><a class="reference internal" href="#id2">0.9.5</a></li>
+<li><a class="reference internal" href="#id3">0.9.4</a></li>
+<li><a class="reference internal" href="#id4">0.9.3</a></li>
+<li><a class="reference internal" href="#id5">0.9.2</a></li>
+<li><a class="reference internal" href="#id6">0.9.1</a></li>
+<li><a class="reference internal" href="#id7">0.9.0</a></li>
+<li><a class="reference internal" href="#id8">0.8.0</a></li>
+<li><a class="reference internal" href="#id9">0.7.0</a></li>
+<li><a class="reference internal" href="#id10">0.6.0</a></li>
+<li><a class="reference internal" href="#id11">0.5.0</a></li>
+<li><a class="reference internal" href="#id12">0.4.1</a></li>
+<li><a class="reference internal" href="#id13">0.4.0</a></li>
+<li><a class="reference internal" href="#id14">0.3.0</a></li>
+<li><a class="reference internal" href="#id15">0.2.0</a></li>
+<li><a class="reference internal" href="#id16">0.1.0</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="faq.html"
+                        title="previous chapter">PySDL2 FAQ</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="todos.html"
+                        title="next chapter">Todo list for PySDL2</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/news.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="todos.html" title="Todo list for PySDL2"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="faq.html" title="PySDL2 FAQ"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PySDL2 0.10.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright (original) 2013-2016, Marcus von Appen; (modified) 2017, Lucas Siqueira.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+    </div>
+  </body>
+</html>

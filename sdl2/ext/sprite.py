@@ -1,20 +1,30 @@
-"""Sprite, texture and pixel surface routines."""
-import abc
+"""Sprite, texture and pixel surface routines.
+
+Attributes:
+    TEXTURE (int): Indicates that texture-based rendering or sprite creation
+        is wanted.
+    SOFTWARE (int): Indicates that software-based rendering or sprite
+        creation is wanted.
+"""
+
 from ctypes import byref, cast, POINTER, c_int, c_float
+import warnings
+
+from .. import blendmode, surface, rect, video, pixels, render, rwops
+from ..stdinc import Uint8, Uint32
+
 from .common import SDLError
-from .compat import *
 from .color import convert_to_color
 from .ebs import System
 from .surface import subsurface
 from .window import Window
 from .image import load_image
-from .. import blendmode, surface, rect, video, pixels, render, rwops
-from ..stdinc import Uint8, Uint32
+from .rect import to_sdl_rect, NonIterableRect
 
-__all__ = ["Sprite", "SoftwareSprite", "TextureSprite", "SpriteFactory",
-           "SoftwareSpriteRenderSystem", "SpriteRenderSystem",
-           "TextureSpriteRenderSystem", "Renderer", "TEXTURE", "SOFTWARE"
-          ]
+__all__ = (
+    "Sprite", "SoftwareSprite", "TextureSprite", "SpriteFactory",
+    "SoftwareSpriteRenderSystem", "SpriteRenderSystem",
+    "TextureSpriteRenderSystem", "Renderer", "TEXTURE", "SOFTWARE")
 
 TEXTURE = 0
 SOFTWARE = 1
@@ -22,9 +32,12 @@ SOFTWARE = 1
 
 class Renderer(object):
     """SDL2-based renderer for windows and sprites."""
-    def __init__(self, target, index=-1, logical_size=None,
-                 flags=render.SDL_RENDERER_ACCELERATED):
-        """Creates a new Renderer for the given target.
+
+    def __init__(
+        self, target, index=-1, logical_size=None,
+        flags=render.SDL_RENDERER_ACCELERATED
+    ):
+        """Create a new Renderer for the given target.
 
         If target is a Window or SDL_Window, index and flags are passed
         to the relevant sdl.render.create_renderer() call. If target is
@@ -41,7 +54,8 @@ class Renderer(object):
             self.sdlrenderer = render.SDL_CreateRenderer(target, index, flags)
             self.rendertarget = target
         elif isinstance(target, SoftwareSprite):
-            self.sdlrenderer = render.SDL_CreateSoftwareRenderer(target.surface)
+            self.sdlrenderer = render.SDL_CreateSoftwareRenderer(
+                target.surface)
             self.rendertarget = target.surface
         elif isinstance(target, surface.SDL_Surface):
             self.sdlrenderer = render.SDL_CreateSoftwareRenderer(target)
@@ -53,13 +67,16 @@ class Renderer(object):
             self.logical_size = logical_size
 
     def __del__(self):
+        """Destructor."""
         if self.sdlrenderer:
             render.SDL_DestroyRenderer(self.sdlrenderer)
         self.rendertarget = None
 
     @property
-    @deprecated
     def renderer(self):
+        warnings.warn(
+            "attribute renderer is deprecated, use sdlrenderer instead",
+            DeprecationWarning)
         return self.sdlrenderer
 
     @property
@@ -137,9 +154,28 @@ class Renderer(object):
         if ret == -1:
             raise SDLError()
 
-    def copy(self, src, srcrect=None, dstrect=None, angle=0, center=None,
-             flip=render.SDL_FLIP_NONE):
-        """Copies (blits) the passed source to the target of the Renderer."""
+    def copy(
+        self, src, srcrect=None, dstrect=None, angle=0, center=None,
+        flip=render.SDL_FLIP_NONE
+    ):
+        """Copy (blit) the passed source to the target of the Renderer.
+
+        Args:
+            src (TextureSprite, sdl2.SDL_Texture): source to be copied
+
+        Kwargs:
+            srcrect (rect): rectangle to be used for clipping portions of src
+            dstrect (rect): destination rectangle, where to blit
+            angle (float): rotate around center by the given degrees
+
+        Raises:
+            TypeError, SDLError
+
+        Example:
+            >>> copy(src=tileset, srcrect=(0, 0, 32, 32),
+                     dstrect=(128, 64, 32, 32))
+        """
+
         if isinstance(src, TextureSprite):
             texture = src.texture
             angle = angle or src.angle
@@ -299,72 +335,99 @@ class Renderer(object):
                 raise SDLError()
 
 
+class Sprite(NonIterableRect):
+    """A simple 2D object, implemented as abstract base class."""
 
-class Sprite(object):
-    """A simple 2D object."""
-    __metaclass__ = abc.ABCMeta
+    _frame_rect = None
+    _pixel_data = None
 
-    def __init__(self):
-        """Creates a new Sprite."""
-        super(Sprite, self).__init__()
-        self.x = 0
-        self.y = 0
+    def __init__(self, data, w, h, free):
+        """Create a new sprite.
+
+        Attributes:
+            depth (int): The layer depth on which to draw the sprite.
+                Objects with higher `depth` values will be drawn on top of
+                other sprites by the :class:`SpriteRenderSystem`.
+        """
+        super().__init__(0, 0, w, h)
         self.depth = 0
+        self._pixel_data = data
+        self.free = free
+
+    @property
+    def frame_rect(self):
+        """:attr: `frame_rect`."""
+        return self._frame_rect
+
+    @frame_rect.setter
+    def frame_rect(self, val):
+        self._frame_rect = to_sdl_rect(val) if val else None
+
+    @property
+    def area(self):
+        """The rectangular area occupied by the sprite."""
+        return (*self.topleft, *self.bottomright)
 
     @property
     def position(self):
         """The top-left position of the Sprite as tuple."""
-        return self.x, self.y
+        # for compatibility with versions prior to 0.10
+        return self.topleft
 
     @position.setter
     def position(self, value):
         """The top-left position of the Sprite as tuple."""
-        self.x = value[0]
-        self.y = value[1]
+        # for compatibility with versions prior to 0.10
+        self.topleft = value
 
-    @property
-    @abc.abstractmethod
-    def size(self):
-        """The size of the Sprite as tuple."""
-        return
+    def __del__(self):
+        """Release the bound `SDL_Surface`.
 
-    @property
-    def area(self):
-        """The rectangular area occupied by the Sprite."""
-        w, h = self.size
-        return (self.x, self.y, self.x + w, self.y + h)
+        Only if :attr:`sdl2.ext.sprite.SoftwareSprite.free` is `True`.
+        """
+        pixel_data = self._pixel_data
+        if self.free and pixel_data is not None:
+            self._releaser(pixel_data)
+        self._pixel_data = None
 
 
 class SoftwareSprite(Sprite):
-    """A simple, visible, pixel-based 2D object using software buffers."""
+    """A simple, visible, pixel-based 2D object using software surfaces."""
+
+    _releaser = surface.SDL_FreeSurface
+
     def __init__(self, imgsurface, free):
-        """Creates a new SoftwareSprite."""
-        super(SoftwareSprite, self).__init__()
-        self.free = free
+        """Create a new SoftwareSprite.
+
+        Args:
+            imgsurface (`sdl2.SDL_Surface`): the surface containing pixel data
+                for this sprite.
+            free (bool): when set to `True` the surface is released when the
+                sprite is deleted/garbage collected.
+        """
         if not isinstance(imgsurface, surface.SDL_Surface):
             raise TypeError("surface must be a SDL_Surface")
-        self.surface = imgsurface
-
-    def __del__(self):
-        """Releases the bound SDL_Surface, if it was created by the
-        SoftwareSprite.
-        """
-        imgsurface = getattr(self, "surface", None)
-        if self.free and imgsurface is not None:
-            surface.SDL_FreeSurface(imgsurface)
-        self.surface = None
+        super().__init__(imgsurface, self.surface.w, self.surface.h, free)
 
     @property
-    def size(self):
-        """The size of the SoftwareSprite as tuple."""
-        return self.surface.w, self.surface.h
+    def surface(self):
+        """`sdl2.SDL_Surface` containing pixel data."""
+        return self._pixel_data
 
     def subsprite(self, area):
-        """Creates another SoftwareSprite from a part of the SoftwareSprite.
+        """Create another `SoftwareSprite` from part of the sprite's surface.
 
         The two sprites share pixel data, so if the parent sprite's surface is
-        not managed by the sprite (free is False), you will need to keep it
-        alive while the subsprite exists."""
+        not managed by the sprite (``free`` is False), you will need to keep
+        it alive while the subsprite exists.
+
+        Args:
+            area (tuple): x, y, w, h (position and size) of the area,
+                in pixels.
+
+        Returns:
+            SoftwareSprite
+        """
         ssurface = subsurface(self.surface, area)
         ssprite = SoftwareSprite(ssurface, True)
         # Keeps the parent surface alive until subsprite is freed
@@ -379,46 +442,127 @@ class SoftwareSprite(Sprite):
 
 class TextureSprite(Sprite):
     """A simple, visible, texture-based 2D object, using a renderer."""
-    def __init__(self, texture):
-        """Creates a new TextureSprite."""
-        super(TextureSprite, self).__init__()
-        self.texture = texture
-        flags = Uint32()
-        access = c_int()
-        w = c_int()
-        h = c_int()
-        ret = render.SDL_QueryTexture(texture, byref(flags), byref(access),
-                                      byref(w), byref(h))
-        if ret == -1:
-            raise SDLError()
+
+    _releaser = render.SDL_DestroyTexture
+
+    def __init__(self, texture, free=True, area=None):
+        """Create a new TextureSprite.
+
+        Args:
+            texture (sdl2.SDL_Texture): the texture containing the sprite
+                pixel data.
+            free (bool): when set to `True` the texture is released when the
+                sprite is deleted/garbage collected.
+
+        Attributes:
+            angle (int): The rotation angle for the :class:`TextureSprite`.
+            flip (sdl2.SDL_FLIP_NONE, sdl2.SDL_FLIP_HORIZONTAL,
+                sdl2.SDL_FLIP_VERTICAL): Allows the `TextureSprite` to be
+                flipped over its horizontal or vertical axis via the
+                appropriate SDL_FLIP_* value.
+            texture (sdl2.SDL_Texture): the texture containing the sprite
+                pixel data.
+        """
+        self._pixel_data = texture
+        if area:
+            w, h = NonIterableRect(area).size
+            super().__init__(texture, w, h, free=free)
+            self.frame_rect = area
+        else:
+            flags = Uint32()
+            access = c_int()
+            w = c_int()
+            h = c_int()
+            ret = render.SDL_QueryTexture(texture, byref(flags), byref(access),
+                                          byref(w), byref(h))
+            if ret == -1:
+                raise SDLError()
+            super().__init__(texture, w.value, h.value, free)
         self.angle = 0.0
         self.flip = render.SDL_FLIP_NONE
-        self._size = w.value, h.value
-        self._center = None
-
-    def __del__(self):
-        """Releases the bound SDL_Texture."""
-        if self.texture is not None:
-            render.SDL_DestroyTexture(self.texture)
-        self.texture = None
 
     @property
-    def center(self):
+    def texture(self):
+        """`sdl2.SDL_Texture` containing pixel data."""
+        return self._pixel_data
+
+    def subsprite(self, area):
+        """Create another sprite from part of this sprite's pixel data.
+
+        The two sprites share pixel data, so if the parent sprite's surface is
+        not managed by the sprite (``free`` is False), you will need to keep
+        it alive while the subsprite exists.
+
+        Args:
+            area (tuple): x, y, w, h (position and size) of the area,
+                in pixels.
+
+        Returns:
+            TextureSprite
+        """
+        data = self._pixel_data
+        return TextureSprite(data, False, area)
+
+    @property
+    def sdl_center(self):
         """The center of the TextureSprite as tuple."""
-        return self._center
+        return rect.SDL_Point(*self.center)
 
-    @center.setter
-    def center(self, value):
-        """Sets the center of the TextureSprite."""
-        if value != None:
-            self._center = rect.SDL_Point(value[0], value[1])
-        else:
-            self._center = None
+    def set_animation(self, cols, rows, col_w, row_h, col=0, row=0):
+        """"Set animation frames parameters.
 
-    @property
-    def size(self):
-        """The size of the TextureSprite as tuple."""
-        return self._size
+        Args:
+            cols (int): number of frame columns
+            rows (int): number of frame rows
+            col_w (int): width of each column, in pixels
+            row_h (int): height of each row, in pixels
+            col (int): the column of the desired starting frame
+            row (int): the row of the desired starting frame
+
+        Returns:
+            TextureSprite
+
+                self instance, making it possible to use this method on the
+                object creation (see Usage below) as a one liner.
+
+        Example:
+            Here a 10x1 area of 32x32 tiles is used:
+
+                >>> sprite = TextureSprite(**kwargs).set_animation(
+                        10, 1, 32, 32)
+        """
+        rect = self.frame_rect
+        self.tile_offset_x = rect.x // col_w
+        self.tile_offset_y = rect.y // row_h
+        self.cols = cols
+        self.rows = rows
+        self.col_w = col_w
+        self.row_h = row_h
+        self.col = col
+        self.row = row
+        self._size = col_w, row_h
+        self.set_current_rect()
+
+        return self
+
+    def set_current_rect(self):
+        """Apply the current animation parameters to the frame_rect."""
+        self.frame_rect = ((self.col + self.tile_offset_x) * self.col_w,
+                           (self.row + self.tile_offset_y) * self.row_h,
+                           self.col_w,
+                           self.row_h)
+
+    def step(self, col=0, row=0):
+        """..."""
+        if not col and not row:
+            return
+        if col:
+            self.col += col
+            self.col = self.col % self.cols
+        if row:
+            self.row += row
+            self.row = self.row % self.rows
+        self.set_current_rect()
 
     def __repr__(self):
         flags = Uint32()
@@ -436,6 +580,7 @@ class TextureSprite(Sprite):
 
 class SpriteFactory(object):
     """A factory class for creating Sprite components."""
+
     def __init__(self, sprite_type=TEXTURE, **kwargs):
         """Creates a new SpriteFactory.
 
@@ -466,7 +611,7 @@ class SpriteFactory(object):
             (stype, self.default_args)
 
     def create_sprite_render_system(self, *args, **kwargs):
-        """Creates a new SpriteRenderSystem.
+        """Create a new SpriteRenderSystem.
 
         For TEXTURE mode, the passed args and kwargs are ignored and the
         Renderer or SDL_Renderer passed to the SpriteFactory is used.
@@ -476,12 +621,27 @@ class SpriteFactory(object):
         else:
             return SoftwareSpriteRenderSystem(*args, **kwargs)
 
+    def load_tileset(self, sprite, tile_size):
+        """..."""
+        self._tileset = sprite
+        self._tileset_w, self._tileset_h = self._tileset.size
+        self._tile_size = tile_size
+
+    def get_char_sprite(self, char):
+        """Get."""
+        _id = ord(char)
+        tile_size = self._tile_size
+        row = _id // (self._tileset_w // tile_size)
+        col = _id % (self._tileset_w // tile_size)
+        area = (col * tile_size, row * tile_size, tile_size, tile_size)
+        return self._tileset.subsprite(area)
+
     def from_image(self, fname):
-        """Creates a Sprite from the passed image file."""
+        """Create a Sprite from the passed image file."""
         return self.from_surface(load_image(fname), True)
 
     def from_surface(self, tsurface, free=False):
-        """Creates a Sprite from the passed SDL_Surface.
+        """Create a Sprite from the passed SDL_Surface.
 
         If free is set to True, the passed surface will be freed
         automatically.
@@ -501,7 +661,7 @@ class SpriteFactory(object):
         raise ValueError("sprite_type must be TEXTURE or SOFTWARE")
 
     def from_object(self, obj):
-        """Creates a Sprite from an arbitrary object."""
+        """Create a Sprite from an arbitrary object."""
         if self.sprite_type == TEXTURE:
             rw = rwops.rw_from_object(obj)
             # TODO: support arbitrary objects.
@@ -517,9 +677,37 @@ class SpriteFactory(object):
             return SoftwareSprite(imgsurface.contents, True)
         raise ValueError("sprite_type must be TEXTURE or SOFTWARE")
 
-    def from_color(self, color, size, bpp=32, masks=None):
-        """Creates a sprite with a certain color.
+    def from_color(
+        self, color, size=None, bpp=32, masks=None, pos=None, rect=None
+    ):
+        """Create a sprite with a certain color.
+
+        Either `size` or `rect` is required.
+        A :class:`sdl.SDL_Surface` is first created and then a sprite is
+        created passing it as parameter, using :func: `from_surface`.
+
+        Args:
+            color (:class: `sdl2.ext.color.Color`, tuple): color of the
+                sprite to be created. Can be a Color or a tuple of 3-4 int
+                (RGB or RGBA).
+            size (tuple): size (int width, int height) of the sprite to be
+                created, in pixels.
+            bpp (int): the depth of the sprite's surface, in bits
+
+        Raises:
+            ValueError if neither size or rect arguments are passed
+            SDLError if an error occurs during the  creation of the surface
+
         """
+        if rect:
+            rect = NonIterableRect(rect)
+            pos, size = rect.topleft, rect.size
+        else:
+            if size is None:
+                raise ValueError("invalid size")
+            if pos is None:
+                pos = (0, 0)
+
         color = convert_to_color(color)
         if masks:
             rmask, gmask, bmask, amask = masks
@@ -539,7 +727,9 @@ class SpriteFactory(object):
         ret = surface.SDL_FillRect(sfc, None, col)
         if ret == -1:
             raise SDLError()
-        return self.from_surface(sfc, True)
+        sprite = self.from_surface(sfc, True)
+        sprite.position = pos
+        return sprite
 
     def from_text(self, text, **kwargs):
         """Creates a Sprite from a string of text."""
@@ -691,22 +881,30 @@ class SoftwareSpriteRenderSystem(SpriteRenderSystem):
         SoftwareSprite, if set.
         """
         r = rect.SDL_Rect(0, 0, 0, 0)
-        if isiterable(sprites):
+        try:
+            _iter = (sprite for sprite in sprites)
             blit_surface = surface.SDL_BlitSurface
             imgsurface = self.surface
             x = x or 0
             y = y or 0
-            for sprite in sprites:
+            for sprite in _iter:
                 r.x = x + sprite.x
                 r.y = y + sprite.y
-                blit_surface(sprite.surface, None, imgsurface, r)
-        else:
+                # get the frame_rect of a sprite if it has one
+                frame_rect = sprite.frame_rect or None
+                # pass the frame_rect as argument instead of None
+                blit_surface(sprite.surface, frame_rect, imgsurface, r)
+        except TypeError:
             r.x = sprites.x
             r.y = sprites.y
             if x is not None and y is not None:
                 r.x = x
                 r.y = y
-            surface.SDL_BlitSurface(sprites.surface, None, self.surface, r)
+                # get the frame_rect of a sprite if it has one
+            frame_rect = sprites.frame_rect or None
+                # pass the frame_rect as argument instead of None
+            surface.SDL_BlitSurface(
+                sprites.surface, frame_rect, self.surface, r)
         video.SDL_UpdateWindowSurface(self.window)
 
 
@@ -716,7 +914,7 @@ class TextureSpriteRenderSystem(SpriteRenderSystem):
     The TextureSpriteRenderSystem class uses a SDL_Renderer as drawing
     device to display TextureSprite objects.
     """
-    def __init__(self, target):
+    def __init__(self, target, present=True):
         """Creates a new TextureSpriteRenderSystem.
 
         target can be a Window, SDL_Window, Renderer or SDL_Renderer.
@@ -736,39 +934,63 @@ class TextureSpriteRenderSystem(SpriteRenderSystem):
             raise TypeError("unsupported object type")
         self.sdlrenderer = sdlrenderer
         self.componenttypes = (TextureSprite,)
+        self.present = present
 
-    def render(self, sprites, x=None, y=None):
-        """Draws the passed sprites (or sprite).
+    def render(self, sprites, x=None, y=None, present=None):
+        """Draw the passed sprites (or sprite).
 
-        x and y are optional arguments that can be used as relative
-        drawing location for sprites. If set to None, the location
-        information of the sprites are used. If set and sprites is an
-        iterable, such as a list of TextureSprite objects, x and y are
-        relative location values that will be added to each individual
-        sprite's position. If sprites is a single TextureSprite, x and y
-        denote the absolute position of the TextureSprite, if set.
+        Args:
+            sprites (sdl2.ext.sprite.Sprite, iterable): the sprite(s) to be
+                rendered.
+            x (int): if None, the sprites position will be used; if not None
+                and `sprites` is an iterable, it will be considered as a
+                relative  position, added to the sprite position; if not None
+                and sprites is a single sprite, will be considered as absolute
+                position.
+            y (int): same as x, for vertical position.
+            present (bool): if True the rendered data will be presented at the
+                end of the method. Defaults to None.
+
+        Raises:
+            SDLError (if sdl2.render.SDL_RenderCopyEx fails)
         """
         r = rect.SDL_Rect(0, 0, 0, 0)
         rcopy = render.SDL_RenderCopyEx
-        if isiterable(sprites):
+
+        try:
+            _iter = (sprite for sprite in sprites)
             renderer = self.sdlrenderer
             x = x or 0
             y = y or 0
-            for sprite in sprites:
+            for sprite in _iter:
                 r.x = x + sprite.x
                 r.y = y + sprite.y
                 r.w, r.h = sprite.size
-                if rcopy(renderer, sprite.texture, None, r, sprite.angle,
-                         sprite.center, sprite.flip) == -1:
+                # get the frame_rect of a sprite if it has one
+                frame_rect = sprite.frame_rect or None
+                # pass the frame_rect as argument instead of None
+                if rcopy(
+                    renderer, sprite.texture, frame_rect, r, sprite.angle,
+                    sprite.sdl_center, sprite.flip
+                ) == -1:
                     raise SDLError()
-        else:
+        except TypeError:
             r.x = sprites.x
             r.y = sprites.y
             r.w, r.h = sprites.size
             if x is not None and y is not None:
                 r.x = x
                 r.y = y
-            if rcopy(self.sdlrenderer, sprites.texture, None, r, sprites.angle,
-                     sprites.center, sprites.flip) == -1:
+            # get the frame_rect of a sprite if it has one
+            frame_rect = sprites.frame_rect or None
+            # pass the frame_rect as argument instead of None
+            if rcopy(
+                self.sdlrenderer, sprites.texture, frame_rect, r,
+                sprites.angle, sprites.sdl_center, sprites.flip
+            ) == -1:
                 raise SDLError()
-        render.SDL_RenderPresent(self.sdlrenderer)
+        if present is False:
+            # Explicitly asked not to render
+            return
+        elif present or self.present:
+            render.SDL_RenderPresent(self.sdlrenderer)

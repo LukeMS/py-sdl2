@@ -2,8 +2,94 @@ Release News
 ============
 This describes the latest changes between the PySDL2 releases.
 
+
+----
+
+0.10.0
+------------
+Released on 2017-01-06
+
+* :mod:`sdl2.ext.manager` |new|
+
+  - provides a basic scene manager (:class:`sdl2.ext.manager.Manager`) and a basic scene (:class:`sdl2.ext.manager.SceneBase`). The goal here is provide pysdl2 with a minimal engine, high level over sdl2.ext high level.
+
+* :mod:`sdl2.ext.rect` |new|
+
+  - provides a rectangular object implementation to facilitate coordinates storage and manipulation (:class:`sdl2.ext.rect.Rect`)
+
+
+* :mod:`sdl2.ext.time` |new|
+
+  - added :mod:`sdl2.ext.time`, providing a  high level interface to handle time and framerate.
+
+* :mod:`sdl2.util` |new|
+
+  - a config file parser (:func:`sdl2.util.get_cfg`);
+  - a path utility (:func:`sdl2.util.sdl2_path`);
+  - a singleton metaclass (:class:`sdl2.util.Singleton`)
+
+* :mod:`sdl2.ext.sprite`
+
+    * doens't free/delete its texture when deleted;
+    * makes use of the :func:`sdl2.ext.sprite.Sprite.frame_rect` property to store a logical sub-area of the texture to be rendered.
+
+  - :class:`sdl2.ext.sprite.Sprite`
+
+    * It is now a subclass of :class:`sdl2.ext.rect.Rect`.
+    * Sprites can now be manipulated as a Rect and have all of its properties.
+    * See :mod:`sdl2.ext.rect` for more information on Rect and related.
+
+  - :class:`sdl2.ext.sprite.TextureSpriteRenderSystem`
+
+    * added optional parameter at initialization: `present`. By default it is set to `True` (same behavior as previously). If set to `False` during initialization of the sprite renderer, when :func:`sdl2.ext.sprite.TextureSpriteRenderSystem.render` is used with default parameters, it will no longer present what was rendered to the screen at the end. With that it is now possible to call render more then once without incurring in multiple `present` calls. The :class:`Manager` makes use of that so that it can call `present` only once, at the end of its loop.
+    * :func:`sdl2.ext.sprite.TextureSpriteRenderSystem.render` also takes an optional `present` argument so that its behavior can be changed directly when calling `render`: if passed as `True` it will present at the end; if passed as `False` it will not present at the end, even if the default behavior passed during initialization is set to `True`.
+    * Those should give total control of whether to present or not and when to do it while also keeping compatibility with prior versions.
+
+  - :class:`sdl2.ext.sprite.SpriteFactory`
+
+    * :func:`sdl2.ext.sprite.SpriteFactory.load_tileset` |new|
+
+      - load a default tileset on the factory so that it can be used later on
+
+    * :func:`sdl2.ext.sprite.SpriteFactory.get_char_sprite` |new|
+
+      - create a character sprite from a tileset (bitmap font)
+
+  - :class:`sdl2.ext.sprite.TextureSprite`
+
+    * :func:`sdl2.ext.sprite.TextureSprite.__init__`
+
+      - added optional parameter `free`. When set to True (default behavior for this and prior versions), on destruction/garbage colleting of the sprite, the texture will be destroyed. When set to False, the texture will be kept.
+        This is useful for TextureSprite's that share a texture, such as a tileset.
+
+    * :func:`sdl2.ext.sprite.TextureSprite.set_animation` |new|
+
+      - set parameters for a animated (multi-framed) sprite
+
+    * :func:`sdl2.ext.sprite.TextureSprite.step` |new|
+
+      - step `n` rows or columns according to the animation parameters previously defined, wrapping it to respect its boundaries
+
+    * :func:`sdl2.ext.sprite.TextureSprite.subsprite` |new|
+
+      - create a TextureSprite from the same texture of the sprite, sharing it, considering an area of it to be used when rendering.
+
+* :mod:`sdl2.dll`, :mod:`sdl2.sdlgfx`, :mod:`sdl2.sdlimage`, :mod:`sdl2.sdlmixer`, :mod:`sdl2.sdlttf`
+
+  - using the config parser to read `PYSDL2_DLL_PATH` from `sdl2/sdl2.cfg` when the OS environment variable is not defined:
+
+    >>> os.environ.setdefault("PYSDL2_DLL_PATH", get_cfg('DLL', 'PYSDL2_DLL_PATH'))
+
+  - the OS enviroment variable takes precedence, so that it can still be defined on the OS enviroment or on a per-project base, as usual, as described on :ref:`importing-pysdl2`
+
+
+* updated/modified documentation to use more of sphinx auto* tools, mostly on the API reference. The goal here was to remove text from .rst files that could be used as docstrings on the source code, making it easier to keep the documentation up to date with changes.
+
+
+----
+
 0.9.5
------
+------------
 Released on 2016-10-20.
 
 * updated :mod:`sdl2` to include the latest changes of SDL2 (release 2.0.5)
@@ -13,8 +99,10 @@ Released on 2016-10-20.
   :attr:`sdl2.ext.Renderer.sdlrenderer`. The `renderer` attribute is
   deprecated and will be removed in a later version.
 
+----
+
 0.9.4
------
+------------
 Released on 2016-07-07.
 
 * updated :mod:`sdl2` to include the latest changes of SDL2 (release 2.0.4)
@@ -38,7 +126,7 @@ Released on 2016-07-07.
 * dropped IronPython support
 
 0.9.3
------
+------------
 Released on 2014-07-08.
 
 * updated :mod:`sdl2` to include the latest changes of SDL2 (HG)
@@ -70,7 +158,7 @@ Released on 2014-07-08.
 Thanks to Filip M. Nowak for the PYSDL2_DLL_PATH improvement.
 
 0.9.2
------
+------------
 Released on 2014-04-13.
 
 * fixed issue #32: the line clipping algorithms do not run into precision
@@ -84,7 +172,7 @@ Released on 2014-04-13.
   some systems with SDL2_image and PIL
 
 0.9.1
------
+------------
 Released on 2014-04-05.
 
 * fixed issue #50: corrected the :func:`sdl2.ext.load_image()`
@@ -98,7 +186,7 @@ Released on 2014-04-05.
   :func:`sdl2.cpuinfo.SDL_HasAVX()`
 
 0.9.0
------
+------------
 Released on 2014-03-23.
 
 **IMPORTANT: This release breaks backwards-compatibility. See the notes
@@ -140,7 +228,7 @@ for the issues #36 and #39.**
 
 
 0.8.0
------
+------------
 Released on 2013-12-30.
 
 * updated PD information to include the CC0 dedication, since giving
@@ -159,7 +247,7 @@ Andreas Schiefer and Franz Schrober for providing fixes and
 improvements.
 
 0.7.0
------
+------------
 Released on 2013-10-27.
 
 * updated :mod:`sdl2` to include the latest changes of SDL2 (release 2.0.1)
@@ -176,7 +264,7 @@ Thanks to Marcel Rodrigues, Roger Flores and otus for providing fixes
 and improvement ideas.
 
 0.6.0
------
+------------
 Released on 2013-09-01.
 
 * new :attr:`sdl2.ext.FontManager.size` attribute, which gives a default size
@@ -194,7 +282,7 @@ Thanks to Steven Johnson for his enhancements to the FontManager class.
 Thanks to Marcel Rodrigues for the improvements to RenderContext.copy().
 
 0.5.0
------
+------------
 Released on 2013-08-14.
 
 * new :class:`sdl2.ext.FontManager` class, which provides simple TTF font
@@ -212,7 +300,7 @@ Thanks to Mihail Latyshov for providing fixes to the documentation.
 
 
 0.4.1
------
+------------
 Released on 2013-07-26.
 
 * updated :mod:`sdl2` to include the latest changes of SDL2
@@ -235,7 +323,7 @@ Thanks to Steven Johnson, Todd Rovito, Bil Bas and Dan McCombs for
 providing fixes and improvements.
 
 0.4.0
------
+------------
 Released on 2013-06-08.
 
 * new :mod:`sdl2.sdlmixer` module, which provides access to the
@@ -245,7 +333,7 @@ Released on 2013-06-08.
   changes of the libraries, they wrap
 
 0.3.0
------
+------------
 Released on 2013-05-07.
 
 * new :mod:`sdl2.sdlgfx` module, which provides access to the SDL2_gfx library
@@ -257,7 +345,7 @@ Released on 2013-05-07.
   anymore; it has to provided by the caller
 
 0.2.0
------
+------------
 Released on 2013-05-03.
 
 * removed sdl2.ext.scene; it now lives in python-utils
@@ -271,7 +359,10 @@ Released on 2013-05-03.
 * improved documentation
 
 0.1.0
------
+------------
 Released on 2013-04-23.
 
 * Initial Release
+
+.. |new| image:: new_icon.png
+

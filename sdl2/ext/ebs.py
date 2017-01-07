@@ -31,33 +31,49 @@ class Entity(object):
     be processed by a system within the application world.
     """
     def __new__(cls, world, *args, **kwargs):
+        """Create a new instance of Entity.
+
+        Some work is done before returning the newly created instance: the
+        entity receives an id, its world is stored as a parameter and the
+        entity is added to the world entities.
+        """
         if not isinstance(world, World):
             raise TypeError("world must be a World")
+        # create the new instance
         entity = object.__new__(cls)
+        # assign an id to it
         entity._id = uuid.uuid4()
+        # store its world's reference
         entity._world = world
+        # add the entity to the world's entities
         world.entities.add(entity)
+        # return the instance
         return entity
 
     def __repr__(self):
+        """Representation based on the entity id."""
         return "Entity(id=%s)" % self._id
 
     def __hash__(self):
+        """Hash based on the entity id."""
         return hash(self._id)
 
     def __getattr__(self, name):
-        """Gets the component data related to the Entity."""
+        """Get the component data related to the Entity.
+
+        Work as a interface to ctype components.
+        """
         if name in ("_id", "_world"):
             return object.__getattr__(self, name)
         try:
             ctype = self._world._componenttypes[name]
         except KeyError:
-            raise AttributeError("object '%r' has no attribute '%r'" % \
-                (self.__class__.__name__, name))
+            raise AttributeError("object '%r' has no attribute '%r'" %
+                                 (self.__class__.__name__, name))
         return self._world.components[ctype][self]
 
     def __setattr__(self, name, value):
-        """Sets the component data related to the Entity."""
+        """Set the component data related to the Entity."""
         if name in ("_id", "_world"):
             object.__setattr__(self, name, value)
         else:
@@ -77,18 +93,18 @@ class Entity(object):
                 self._world.components[clstype][self] = value
 
     def __delattr__(self, name):
-        """Deletes the component data related to the Entity."""
+        """Delete the component data related to the Entity."""
         if name in ("_id", "_world"):
             raise AttributeError("'%s' cannot be deleted.", name)
         try:
             ctype = self._world._componenttypes[name]
         except KeyError:
-            raise AttributeError("object '%s' has no attribute '%s'" % \
-                (self.__class__.__name__, name))
+            raise AttributeError("object '%s' has no attribute '%s'" %
+                                 (self.__class__.__name__, name))
         del self._world.components[ctype][self]
 
     def delete(self):
-        """Removes the Entity from the world it belongs to."""
+        """Remove the Entity from the world it belongs to."""
         self.world.delete(self)
 
     @property
@@ -118,6 +134,7 @@ class World(object):
     The order in which data is processed depends on the order of the
     added systems.
     """
+
     def __init__(self):
         """Creates a new World instance."""
         self.entities = set()

@@ -1,12 +1,16 @@
+
 import os
 from ctypes import Structure, POINTER, c_int, c_long, c_char_p
-from .dll import DLL, nullfunc
-from .version import SDL_version
-from .rwops import SDL_RWops
-from .stdinc import Uint16, Uint32
-from .pixels import SDL_Color
-from .surface import SDL_Surface
-from .error import SDL_GetError, SDL_SetError
+
+from ..dll import DLL, nullfunc
+
+from ..version import SDL_version
+from ..rwops import SDL_RWops
+from ..stdinc import Uint16, Uint32
+from ..pixels import SDL_Color
+from ..surface import SDL_Surface
+from ..error import SDL_GetError, SDL_SetError
+from ..util import get_cfg
 
 __all__ = ["get_dll_file", "SDL_TTF_MAJOR_VERSION", "SDL_TTF_MINOR_VERSION",
           "SDL_TTF_PATCHLEVEL", "SDL_TTF_VERSION", "TTF_MAJOR_VERSION",
@@ -36,6 +40,8 @@ __all__ = ["get_dll_file", "SDL_TTF_MAJOR_VERSION", "SDL_TTF_MINOR_VERSION",
           "TTF_GetFontKerningSize", "TTF_GetFontKerningSizeGlyphs",
           "TTF_SetError", "TTF_GetError"
           ]
+
+os.environ.setdefault("PYSDL2_DLL_PATH", get_cfg('DLL', 'PYSDL2_DLL_PATH'))
 
 try:
     dll = DLL("SDL2_ttf", ["SDL2_ttf", "SDL2_ttf-2.0"],
@@ -131,7 +137,7 @@ TTF_RenderText = TTF_RenderText_Shaded
 TTF_RenderUTF = TTF_RenderUTF8_Shaded
 TTF_RenderUNICODE = TTF_RenderUNICODE_Shaded
 TTF_CloseFont = _bind("TTF_CloseFont", [POINTER(TTF_Font)])
-TTF_Quit = _bind("TTF_Quit") 
+TTF_Quit = _bind("TTF_Quit")
 TTF_WasInit = _bind("TTF_WasInit", None, c_int)
 TTF_GetFontKerningSize = _bind("TTF_GetFontKerningSize", [POINTER(TTF_Font), c_int, c_int], c_int)
 TTF_GetFontKerningSizeGlyphs = _bind("TTF_GetFontKerningSizeGlyphs", [POINTER(TTF_Font), Uint16, Uint16], c_int, nullfunc)

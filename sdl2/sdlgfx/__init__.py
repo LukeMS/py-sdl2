@@ -1,10 +1,13 @@
+
 import os
 from ctypes import Structure, POINTER, c_int, c_float, c_void_p, c_char, \
     c_char_p, c_double
-from .dll import DLL
-from .stdinc import Uint8, Uint32, Sint16
-from .render import SDL_Renderer
-from .surface import SDL_Surface
+
+from ..dll import DLL
+from ..stdinc import Uint8, Uint32, Sint16
+from ..render import SDL_Renderer
+from ..surface import SDL_Surface
+from ..util import get_cfg
 
 __all__ = ["get_dll_file", "FPS_UPPER_LIMIT", "FPS_LOWER_LIMIT", "FPS_DEFAULT",
            "FPSManager", "SDL_initFramerate", "SDL_getFramerate",
@@ -32,6 +35,8 @@ __all__ = ["get_dll_file", "FPS_UPPER_LIMIT", "FPS_LOWER_LIMIT", "FPS_DEFAULT",
            "zoomSurface", "zoomSurfaceSize", "shrinkSurface",
            "rotateSurface90Degrees"
            ]
+
+os.environ.setdefault("PYSDL2_DLL_PATH", get_cfg('DLL', 'PYSDL2_DLL_PATH'))
 
 try:
     dll = DLL("SDL2_gfx", ["SDL2_gfx", "SDL2_gfx-1.0"],
@@ -115,11 +120,11 @@ aatrigonRGBA = _bind("aatrigonRGBA", [POINTER(SDL_Renderer), Sint16, Sint16, Sin
 filledTrigonColor = _bind("filledTrigonColor", [POINTER(SDL_Renderer), Sint16, Sint16, Sint16, Sint16, Sint16, Sint16, Uint32], c_int)
 filledTrigonRGBA = _bind("filledTrigonRGBA", [POINTER(SDL_Renderer), Sint16, Sint16, Sint16, Sint16, Sint16, Sint16, Uint8, Uint8, Uint8, Uint8], c_int)
 polygonColor = _bind("polygonColor", [POINTER(SDL_Renderer), POINTER(Sint16), POINTER(Sint16), c_int, Uint32], c_int)
-polygonRGBA = _bind("polygonRGBA", [POINTER(SDL_Renderer), POINTER(Sint16), POINTER(Sint16), c_int, Uint8, Uint8, Uint8, Uint8], c_int) 
+polygonRGBA = _bind("polygonRGBA", [POINTER(SDL_Renderer), POINTER(Sint16), POINTER(Sint16), c_int, Uint8, Uint8, Uint8, Uint8], c_int)
 aapolygonColor = _bind("aapolygonColor", [POINTER(SDL_Renderer), POINTER(Sint16), POINTER(Sint16), c_int, Uint32], c_int)
-aapolygonRGBA = _bind("aapolygonRGBA", [POINTER(SDL_Renderer), POINTER(Sint16), POINTER(Sint16), c_int, Uint8, Uint8, Uint8, Uint8], c_int) 
+aapolygonRGBA = _bind("aapolygonRGBA", [POINTER(SDL_Renderer), POINTER(Sint16), POINTER(Sint16), c_int, Uint8, Uint8, Uint8, Uint8], c_int)
 filledPolygonColor = _bind("filledPolygonColor", [POINTER(SDL_Renderer), POINTER(Sint16), POINTER(Sint16), c_int, Uint32], c_int)
-filledPolygonRGBA = _bind("filledPolygonRGBA", [POINTER(SDL_Renderer), POINTER(Sint16), POINTER(Sint16), c_int, Uint8, Uint8, Uint8, Uint8], c_int) 
+filledPolygonRGBA = _bind("filledPolygonRGBA", [POINTER(SDL_Renderer), POINTER(Sint16), POINTER(Sint16), c_int, Uint8, Uint8, Uint8, Uint8], c_int)
 texturedPolygon = _bind("texturedPolygon", [POINTER(SDL_Renderer), POINTER(Sint16), POINTER(Sint16), c_int, POINTER(SDL_Surface), c_int, c_int], c_int)
 bezierColor = _bind("bezierColor", [POINTER(SDL_Renderer), POINTER(Sint16), POINTER(Sint16), c_int, c_int, Uint32], c_int)
 bezierRGBA = _bind("bezierRGBA", [POINTER(SDL_Renderer), POINTER(Sint16), POINTER(Sint16), c_int, c_int, Uint8, Uint8, Uint8, Uint8], c_int)
