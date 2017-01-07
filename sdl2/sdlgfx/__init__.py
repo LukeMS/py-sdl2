@@ -1,11 +1,13 @@
+
 import os
 from ctypes import Structure, POINTER, c_int, c_float, c_void_p, c_char, \
     c_char_p, c_double
-from .dll import DLL
-from .stdinc import Uint8, Uint32, Sint16
-from .render import SDL_Renderer
-from .surface import SDL_Surface
-from .util import get_cfg
+
+from ..dll import DLL
+from ..stdinc import Uint8, Uint32, Sint16
+from ..render import SDL_Renderer
+from ..surface import SDL_Surface
+from ..util import get_cfg
 
 __all__ = ["get_dll_file", "FPS_UPPER_LIMIT", "FPS_LOWER_LIMIT", "FPS_DEFAULT",
            "FPSManager", "SDL_initFramerate", "SDL_getFramerate",

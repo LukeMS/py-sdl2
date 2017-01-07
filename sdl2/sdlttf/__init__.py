@@ -1,13 +1,16 @@
+
 import os
 from ctypes import Structure, POINTER, c_int, c_long, c_char_p
-from .dll import DLL, nullfunc
-from .version import SDL_version
-from .rwops import SDL_RWops
-from .stdinc import Uint16, Uint32
-from .pixels import SDL_Color
-from .surface import SDL_Surface
-from .error import SDL_GetError, SDL_SetError
-from .util import get_cfg
+
+from ..dll import DLL, nullfunc
+
+from ..version import SDL_version
+from ..rwops import SDL_RWops
+from ..stdinc import Uint16, Uint32
+from ..pixels import SDL_Color
+from ..surface import SDL_Surface
+from ..error import SDL_GetError, SDL_SetError
+from ..util import get_cfg
 
 __all__ = ["get_dll_file", "SDL_TTF_MAJOR_VERSION", "SDL_TTF_MINOR_VERSION",
           "SDL_TTF_PATCHLEVEL", "SDL_TTF_VERSION", "TTF_MAJOR_VERSION",

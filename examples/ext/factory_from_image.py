@@ -23,8 +23,11 @@ class RogueLike(manager.SceneBase):
         # use the pysdl2 factory to create a sprite from an image
         self.sprite = self.factory.from_image(fname)
 
+        print(self.sprite.position)
+        print(self.sprite.x, self.sprite.y)
         # set it to a position to look better on our screenshot :)
         self.sprite.position = (128, 128)
+        print(self.sprite.x, self.sprite.y)
 
     def on_update(self):
         """Graphical logic."""

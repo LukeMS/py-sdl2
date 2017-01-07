@@ -95,13 +95,19 @@ freely, subject to the following restrictions:
 </pre></div>
 </div>
 <dl class="class">
-<dt id="sdl2.ext.rect.Rect">
-<em class="property">class </em><code class="descclassname">sdl2.ext.rect.</code><code class="descname">Rect</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.IterableRect">
+<em class="property">class </em><code class="descclassname">sdl2.ext.rect.</code><code class="descname">IterableRect</code><a class="headerlink" href="#sdl2.ext.rect.IterableRect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="sdl2.ext.rect.NonIterableRect">
+<em class="property">class </em><code class="descclassname">sdl2.ext.rect.</code><code class="descname">NonIterableRect</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Object for storing rectangular coordinates.</p>
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialization.</p>
 <p>Rect objects are used to store and manipulate rectangular areas. A
 Rect can be created from a combination of left, top, width, and
@@ -171,44 +177,44 @@ Rect(object) -&gt; Rect</dd>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.rect.Rect.bottom">
-<code class="descname">bottom</code><a class="headerlink" href="#sdl2.ext.rect.Rect.bottom" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.bottom">
+<code class="descname">bottom</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.bottom" title="Permalink to this definition">¶</a></dt>
 <dd><p>...</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.rect.Rect.bottomleft">
-<code class="descname">bottomleft</code><a class="headerlink" href="#sdl2.ext.rect.Rect.bottomleft" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.bottomleft">
+<code class="descname">bottomleft</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.bottomleft" title="Permalink to this definition">¶</a></dt>
 <dd><p>...</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.rect.Rect.bottomright">
-<code class="descname">bottomright</code><a class="headerlink" href="#sdl2.ext.rect.Rect.bottomright" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.bottomright">
+<code class="descname">bottomright</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.bottomright" title="Permalink to this definition">¶</a></dt>
 <dd><p>...</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.rect.Rect.center">
-<code class="descname">center</code><a class="headerlink" href="#sdl2.ext.rect.Rect.center" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.center">
+<code class="descname">center</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.center" title="Permalink to this definition">¶</a></dt>
 <dd><p>...</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.rect.Rect.centerx">
-<code class="descname">centerx</code><a class="headerlink" href="#sdl2.ext.rect.Rect.centerx" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.centerx">
+<code class="descname">centerx</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.centerx" title="Permalink to this definition">¶</a></dt>
 <dd><p>...</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.rect.Rect.centery">
-<code class="descname">centery</code><a class="headerlink" href="#sdl2.ext.rect.Rect.centery" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.centery">
+<code class="descname">centery</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.centery" title="Permalink to this definition">¶</a></dt>
 <dd><p>...</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.clamp">
-<code class="descname">clamp</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.clamp" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.clamp">
+<code class="descname">clamp</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.clamp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Move the rectangle inside another.</p>
 <p>Returns a new rectangle that is moved to be completely inside the
 argument Rect. If the rectangle is too large to fit inside, it is
@@ -228,8 +234,8 @@ centered inside the argument Rect, but its size is not changed.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.clamp_ip">
-<code class="descname">clamp_ip</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.clamp_ip" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.clamp_ip">
+<code class="descname">clamp_ip</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.clamp_ip" title="Permalink to this definition">¶</a></dt>
 <dd><p>Move the rectangle inside another.</p>
 <p>The rectangle is moved to be completely inside the argument Rect,
 operating in place. If the rectangle is too large to fit inside, it
@@ -249,8 +255,8 @@ is centered inside the argument Rect, but its size is not changed.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.clip">
-<code class="descname">clip</code><span class="sig-paren">(</span><em>other</em>, <em>y=None</em>, <em>w=None</em>, <em>h=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.clip" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.clip">
+<code class="descname">clip</code><span class="sig-paren">(</span><em>other</em>, <em>y=None</em>, <em>w=None</em>, <em>h=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.clip" title="Permalink to this definition">¶</a></dt>
 <dd><p>Crop a rectangle inside another.</p>
 <p>Returns a new rectangle that is cropped to be completely inside the
 argument Rect. If the two rectangles do not overlap to begin with, a
@@ -270,8 +276,8 @@ Rect with 0 size is returned.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.collidedict">
-<code class="descname">collidedict</code><span class="sig-paren">(</span><em>other_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.collidedict" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.collidedict">
+<code class="descname">collidedict</code><span class="sig-paren">(</span><em>other_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.collidedict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if one rectangle in a dictionary intersects.</p>
 <p>Returns the key and value of the first dictionary value that collides
 with the Rect. If no collisions are found, None is returned.</p>
@@ -296,8 +302,8 @@ dictionary, only as values.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.collidedictall">
-<code class="descname">collidedictall</code><span class="sig-paren">(</span><em>other_dict</em>, <em>rects_values=0</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.collidedictall" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.collidedictall">
+<code class="descname">collidedictall</code><span class="sig-paren">(</span><em>other_dict</em>, <em>rects_values=0</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.collidedictall" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if one rectangle instersect with others in a dictionary.</p>
 <p>Returns a list of tuples with the key and value of the rectangles in
 the argument dictionary that intersect with the Rect. If no
@@ -321,8 +327,8 @@ empty list (if none collide)</td>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.collidelist">
-<code class="descname">collidelist</code><span class="sig-paren">(</span><em>other_list</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.collidelist" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.collidelist">
+<code class="descname">collidelist</code><span class="sig-paren">(</span><em>other_list</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.collidelist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if the rectangle collide with any rectangle in the list.</p>
 <p>Test whether the rectangle collides with any in a sequence of
 rectangles. The index of the first collision found is returned. If no
@@ -342,8 +348,8 @@ collisions are found an index of -1 is returned.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.collidelistall">
-<code class="descname">collidelistall</code><span class="sig-paren">(</span><em>other_list</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.collidelistall" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.collidelistall">
+<code class="descname">collidelistall</code><span class="sig-paren">(</span><em>other_list</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.collidelistall" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if all rectangles in a list intersect.</p>
 <p>Returns a list of all the indices that contain rectangles that
 collide with the Rect. If no intersecting rectangles are found, an
@@ -363,8 +369,8 @@ empty list is returned.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.collidepoint">
-<code class="descname">collidepoint</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.collidepoint" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.collidepoint">
+<code class="descname">collidepoint</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.collidepoint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if a point is inside a rectangle.</p>
 <p>Returns True if the given point is inside the rectangle. A point
 along the right or bottom edge is not considered to be inside the
@@ -397,8 +403,8 @@ rect.collidepoint(x=0, y=3)</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.colliderect">
-<code class="descname">colliderect</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.colliderect" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.colliderect">
+<code class="descname">colliderect</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.colliderect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if two rectangles overlap.</p>
 <p>Returns true if any portion of either rectangle overlap (except the
 top+bottom or left+right edges).</p>
@@ -417,8 +423,8 @@ top+bottom or left+right edges).</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.contains">
-<code class="descname">contains</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.contains" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.contains">
+<code class="descname">contains</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.contains" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if an argument rectangle is inside the rectangle.</p>
 <p>Returns true when the argument is completely inside the Rect.</p>
 <dl class="docutils">
@@ -436,8 +442,8 @@ top+bottom or left+right edges).</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.copy">
-<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.copy" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.copy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Copy the rectangle.</p>
 <p>Returns a new rectangle having the same position and size as the
 original.</p>
@@ -456,8 +462,8 @@ original.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.fit" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resize and move a rectangle with aspect ratio.</p>
 <p>Returns a new rectangle that is moved and resized to fit another. The
 aspect ratio of the original Rect is preserved, so the new rectangle
@@ -477,21 +483,21 @@ may be smaller than the target in either width or height.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.gap">
-<code class="descname">gap</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.gap" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.gap">
+<code class="descname">gap</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.gap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a new rectangle representing the gap between two rectangles.</p>
 <p>If the two rectangles overlap a Rect with size 0 is returned.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.rect.Rect.height">
-<code class="descname">height</code><a class="headerlink" href="#sdl2.ext.rect.Rect.height" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.height">
+<code class="descname">height</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.height" title="Permalink to this definition">¶</a></dt>
 <dd><p>...</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.inflate">
-<code class="descname">inflate</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.inflate" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.inflate">
+<code class="descname">inflate</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.inflate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Grow or Shrink the rectangle size.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
@@ -511,8 +517,8 @@ values will shrink the rectangle.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.inflate_ip">
-<code class="descname">inflate_ip</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.inflate_ip" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.inflate_ip">
+<code class="descname">inflate_ip</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.inflate_ip" title="Permalink to this definition">¶</a></dt>
 <dd><p>Grow or shrink the rectangle size, in place.</p>
 <p>The rectangle&#8217;s size is changed by the given offset, operating in
 place. Negative values will shrink the rectangle.</p>
@@ -531,38 +537,38 @@ place. Negative values will shrink the rectangle.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.rect.Rect.left">
-<code class="descname">left</code><a class="headerlink" href="#sdl2.ext.rect.Rect.left" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.left">
+<code class="descname">left</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.left" title="Permalink to this definition">¶</a></dt>
 <dd><p>...</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.rect.Rect.midbottom">
-<code class="descname">midbottom</code><a class="headerlink" href="#sdl2.ext.rect.Rect.midbottom" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.midbottom">
+<code class="descname">midbottom</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.midbottom" title="Permalink to this definition">¶</a></dt>
 <dd><p>...</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.rect.Rect.midleft">
-<code class="descname">midleft</code><a class="headerlink" href="#sdl2.ext.rect.Rect.midleft" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.midleft">
+<code class="descname">midleft</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.midleft" title="Permalink to this definition">¶</a></dt>
 <dd><p>...</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.rect.Rect.midright">
-<code class="descname">midright</code><a class="headerlink" href="#sdl2.ext.rect.Rect.midright" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.midright">
+<code class="descname">midright</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.midright" title="Permalink to this definition">¶</a></dt>
 <dd><p>...</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.rect.Rect.midtop">
-<code class="descname">midtop</code><a class="headerlink" href="#sdl2.ext.rect.Rect.midtop" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.midtop">
+<code class="descname">midtop</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.midtop" title="Permalink to this definition">¶</a></dt>
 <dd><p>...</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.move">
-<code class="descname">move</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.move" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.move">
+<code class="descname">move</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.move" title="Permalink to this definition">¶</a></dt>
 <dd><p>Move the rectangle.</p>
 <p>Returns a new rectangle that is moved by the given offset. The x and
 y arguments can be any integer value, positive or negative.</p>
@@ -581,8 +587,8 @@ y arguments can be any integer value, positive or negative.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.move_ip">
-<code class="descname">move_ip</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.move_ip" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.move_ip">
+<code class="descname">move_ip</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.move_ip" title="Permalink to this definition">¶</a></dt>
 <dd><p>Move the rectangle, in place.</p>
 <p>The rectangle is moved by the given offset, operating in place. The x
 and y arguments can be any integer value, positive or negative.</p>
@@ -601,8 +607,8 @@ and y arguments can be any integer value, positive or negative.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.normalize">
-<code class="descname">normalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.normalize" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.normalize">
+<code class="descname">normalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.normalize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Correct negative sizes of the rectangle.</p>
 <p>This will flip the width or height of a rectangle if it has a
 negative size. The rectangle will remain in the same place, with only
@@ -622,38 +628,38 @@ the sides swapped.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.rect.Rect.right">
-<code class="descname">right</code><a class="headerlink" href="#sdl2.ext.rect.Rect.right" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.right">
+<code class="descname">right</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.right" title="Permalink to this definition">¶</a></dt>
 <dd><p>...</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.rect.Rect.size">
-<code class="descname">size</code><a class="headerlink" href="#sdl2.ext.rect.Rect.size" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.size">
+<code class="descname">size</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.size" title="Permalink to this definition">¶</a></dt>
 <dd><p>...</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.rect.Rect.top">
-<code class="descname">top</code><a class="headerlink" href="#sdl2.ext.rect.Rect.top" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.top">
+<code class="descname">top</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.top" title="Permalink to this definition">¶</a></dt>
 <dd><p>...</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.rect.Rect.topleft">
-<code class="descname">topleft</code><a class="headerlink" href="#sdl2.ext.rect.Rect.topleft" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.topleft">
+<code class="descname">topleft</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.topleft" title="Permalink to this definition">¶</a></dt>
 <dd><p>...</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.rect.Rect.topright">
-<code class="descname">topright</code><a class="headerlink" href="#sdl2.ext.rect.Rect.topright" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.topright">
+<code class="descname">topright</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.topright" title="Permalink to this definition">¶</a></dt>
 <dd><p>...</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.union">
-<code class="descname">union</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.union" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.union">
+<code class="descname">union</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.union" title="Permalink to this definition">¶</a></dt>
 <dd><p>Join two rectangles into one.</p>
 <p>Returns a new rectangle that completely covers the area of the two
 provided rectangles. There may be area inside the new Rect that is
@@ -673,8 +679,8 @@ not covered by the originals.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.union_ip">
-<code class="descname">union_ip</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.union_ip" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.union_ip">
+<code class="descname">union_ip</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.union_ip" title="Permalink to this definition">¶</a></dt>
 <dd><p>Join two rectangles into one.</p>
 <p>The rectangle is resized to completely cover its original area and
 that of the argument Rect, operating in place. The resized Rect may
@@ -695,8 +701,8 @@ the argument Rect.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.unionall">
-<code class="descname">unionall</code><span class="sig-paren">(</span><em>other_seq</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.unionall" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.unionall">
+<code class="descname">unionall</code><span class="sig-paren">(</span><em>other_seq</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.unionall" title="Permalink to this definition">¶</a></dt>
 <dd><p>Join many rectangles into a new one.</p>
 <p>Returns the union of one rectangle with a sequence of many rectangles.</p>
 <dl class="docutils">
@@ -714,8 +720,8 @@ the argument Rect.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="sdl2.ext.rect.Rect.unionall_ip">
-<code class="descname">unionall_ip</code><span class="sig-paren">(</span><em>other_seq</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect.unionall_ip" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.unionall_ip">
+<code class="descname">unionall_ip</code><span class="sig-paren">(</span><em>other_seq</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.unionall_ip" title="Permalink to this definition">¶</a></dt>
 <dd><p>Join many rectangles into one.</p>
 <p>The rectangle is resized to cover its original area and that of the
 passed as argument, operating in place.</p>
@@ -734,11 +740,17 @@ passed as argument, operating in place.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.rect.Rect.width">
-<code class="descname">width</code><a class="headerlink" href="#sdl2.ext.rect.Rect.width" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.rect.NonIterableRect.width">
+<code class="descname">width</code><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect.width" title="Permalink to this definition">¶</a></dt>
 <dd><p>...</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="class">
+<dt id="sdl2.ext.rect.Rect">
+<em class="property">class </em><code class="descclassname">sdl2.ext.rect.</code><code class="descname">Rect</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.Rect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sdl2.ext.rect.NonIterableRect" title="sdl2.ext.rect.NonIterableRect"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.rect.NonIterableRect</span></code></a>, <a class="reference internal" href="#sdl2.ext.rect.IterableRect" title="sdl2.ext.rect.IterableRect"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.rect.IterableRect</span></code></a></p>
 </dd></dl>
 
 <dl class="function">

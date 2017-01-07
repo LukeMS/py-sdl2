@@ -75,12 +75,12 @@ creation is wanted.</p>
 
 <dl class="class">
 <dt id="sdl2.ext.sprite.Sprite">
-<em class="property">class </em><code class="descclassname">sdl2.ext.sprite.</code><code class="descname">Sprite</code><a class="headerlink" href="#sdl2.ext.sprite.Sprite" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<em class="property">class </em><code class="descclassname">sdl2.ext.sprite.</code><code class="descname">Sprite</code><span class="sig-paren">(</span><em>w</em>, <em>h</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.Sprite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="sdl2ext_rect.html#sdl2.ext.rect.NonIterableRect" title="sdl2.ext.rect.NonIterableRect"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.rect.NonIterableRect</span></code></a></p>
 <p>A simple 2D object, implemented as abstract base class.</p>
 <dl class="method">
 <dt id="sdl2.ext.sprite.Sprite.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.Sprite.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>w</em>, <em>h</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.Sprite.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a new sprite.</p>
 <dl class="attribute">
 <dt id="sdl2.ext.sprite.Sprite.x">
@@ -103,101 +103,15 @@ creation is wanted.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.sprite.Sprite.bottomright">
-<code class="descname">bottomright</code><a class="headerlink" href="#sdl2.ext.sprite.Sprite.bottomright" title="Permalink to this definition">¶</a></dt>
-<dd><p>...</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="sdl2.ext.sprite.Sprite.frame_rect">
 <code class="descname">frame_rect</code><a class="headerlink" href="#sdl2.ext.sprite.Sprite.frame_rect" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>attr</em> &#8211; <cite>frame_rect</cite>.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="sdl2.ext.sprite.Sprite.get_rect">
-<code class="descname">get_rect</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.Sprite.get_rect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the rectangular area of the sprite.</p>
-<p>Returns a new rectangle covering the sprite area. This rectangle will
-have the sprite&#8217;s x, y, width and height.</p>
-<p>You can pass keyword argument values to this function. These named
-values will be applied to the attributes of the Rect before it is
-returned. An example would be ‘mysurf.get_rect(center=(100,100))’
-to create a rectangle for the Surface centered at a given position.</p>
-<dl class="docutils">
-<dt>Usage:</dt>
-<dd>get_rect()</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Rect</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="sdl2.ext.sprite.Sprite.h">
-<code class="descname">h</code><a class="headerlink" href="#sdl2.ext.sprite.Sprite.h" title="Permalink to this definition">¶</a></dt>
-<dd><p>...</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="sdl2.ext.sprite.Sprite.height">
-<code class="descname">height</code><a class="headerlink" href="#sdl2.ext.sprite.Sprite.height" title="Permalink to this definition">¶</a></dt>
-<dd><p>...</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="sdl2.ext.sprite.Sprite.move">
-<code class="descname">move</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.Sprite.move" title="Permalink to this definition">¶</a></dt>
-<dd><p>...</p>
-</dd></dl>
-
 <dl class="attribute">
 <dt id="sdl2.ext.sprite.Sprite.position">
 <code class="descname">position</code><a class="headerlink" href="#sdl2.ext.sprite.Sprite.position" title="Permalink to this definition">¶</a></dt>
-<dd><p>Top-left position as tuple (<a class="reference internal" href="#sdl2.ext.sprite.Sprite.x" title="sdl2.ext.sprite.Sprite.x"><code class="xref py py-attr docutils literal"><span class="pre">x</span></code></a> and <a class="reference internal" href="#sdl2.ext.sprite.Sprite.y" title="sdl2.ext.sprite.Sprite.y"><code class="xref py py-attr docutils literal"><span class="pre">y</span></code></a>).</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="sdl2.ext.sprite.Sprite.set_rect">
-<code class="descname">set_rect</code><span class="sig-paren">(</span><em>rect</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.Sprite.set_rect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the position and size of the sprite from a Rect.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>rect</strong> &#8211; a Rect from which position and size will be taken.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="sdl2.ext.sprite.Sprite.size">
-<code class="descname">size</code><a class="headerlink" href="#sdl2.ext.sprite.Sprite.size" title="Permalink to this definition">¶</a></dt>
-<dd><p>The size of the Sprite as tuple (<a class="reference internal" href="#sdl2.ext.sprite.Sprite.w" title="sdl2.ext.sprite.Sprite.w"><code class="xref py py-attr docutils literal"><span class="pre">w</span></code></a> and <a class="reference internal" href="#sdl2.ext.sprite.Sprite.h" title="sdl2.ext.sprite.Sprite.h"><code class="xref py py-attr docutils literal"><span class="pre">h</span></code></a>).</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="sdl2.ext.sprite.Sprite.topleft">
-<code class="descname">topleft</code><a class="headerlink" href="#sdl2.ext.sprite.Sprite.topleft" title="Permalink to this definition">¶</a></dt>
-<dd><p>...</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="sdl2.ext.sprite.Sprite.w">
-<code class="descname">w</code><a class="headerlink" href="#sdl2.ext.sprite.Sprite.w" title="Permalink to this definition">¶</a></dt>
-<dd><p>...</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="sdl2.ext.sprite.Sprite.width">
-<code class="descname">width</code><a class="headerlink" href="#sdl2.ext.sprite.Sprite.width" title="Permalink to this definition">¶</a></dt>
-<dd><p>...</p>
+<dd><p>The top-left position of the Sprite as tuple.</p>
 </dd></dl>
 
 </dd></dl>
@@ -213,16 +127,10 @@ to create a rectangle for the Surface centered at a given position.</p>
 <dd><p>Create a new SoftwareSprite.</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="sdl2.ext.sprite.SoftwareSprite.size">
-<code class="descname">size</code><a class="headerlink" href="#sdl2.ext.sprite.SoftwareSprite.size" title="Permalink to this definition">¶</a></dt>
-<dd><p>The size of the SoftwareSprite as tuple.</p>
-</dd></dl>
-
 <dl class="method">
 <dt id="sdl2.ext.sprite.SoftwareSprite.subsprite">
 <code class="descname">subsprite</code><span class="sig-paren">(</span><em>area</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.SoftwareSprite.subsprite" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates another SoftwareSprite from a part of the SoftwareSprite.</p>
+<dd><p>Create another SoftwareSprite from a part of the SoftwareSprite.</p>
 <p>The two sprites share pixel data, so if the parent sprite&#8217;s surface is
 not managed by the sprite (free is False), you will need to keep it
 alive while the subsprite exists.</p>
@@ -242,8 +150,8 @@ alive while the subsprite exists.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.sprite.TextureSprite.center">
-<code class="descname">center</code><a class="headerlink" href="#sdl2.ext.sprite.TextureSprite.center" title="Permalink to this definition">¶</a></dt>
+<dt id="sdl2.ext.sprite.TextureSprite.sdl_center">
+<code class="descname">sdl_center</code><a class="headerlink" href="#sdl2.ext.sprite.TextureSprite.sdl_center" title="Permalink to this definition">¶</a></dt>
 <dd><p>The center of the TextureSprite as tuple.</p>
 </dd></dl>
 
@@ -287,12 +195,6 @@ object creation (see Usage below) as a one liner.</p>
 <dt id="sdl2.ext.sprite.TextureSprite.set_current_rect">
 <code class="descname">set_current_rect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSprite.set_current_rect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply the current animation parameters to the frame_rect.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="sdl2.ext.sprite.TextureSprite.size">
-<code class="descname">size</code><a class="headerlink" href="#sdl2.ext.sprite.TextureSprite.size" title="Permalink to this definition">¶</a></dt>
-<dd><p>The size of the TextureSprite as tuple.</p>
 </dd></dl>
 
 <dl class="method">
@@ -539,14 +441,14 @@ sprites with higher depth values.</p>
 
 <dl class="class">
 <dt id="sdl2.ext.sprite.TextureSpriteRenderSystem">
-<em class="property">class </em><code class="descclassname">sdl2.ext.sprite.</code><code class="descname">TextureSpriteRenderSystem</code><span class="sig-paren">(</span><em>target</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSpriteRenderSystem" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">sdl2.ext.sprite.</code><code class="descname">TextureSpriteRenderSystem</code><span class="sig-paren">(</span><em>target</em>, <em>present=True</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSpriteRenderSystem" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#sdl2.ext.sprite.SpriteRenderSystem" title="sdl2.ext.sprite.SpriteRenderSystem"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.sprite.SpriteRenderSystem</span></code></a></p>
 <p>A rendering system for TextureSprite components.</p>
 <p>The TextureSpriteRenderSystem class uses a SDL_Renderer as drawing
 device to display TextureSprite objects.</p>
 <dl class="method">
 <dt id="sdl2.ext.sprite.TextureSpriteRenderSystem.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>target</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSpriteRenderSystem.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>target</em>, <em>present=True</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSpriteRenderSystem.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new TextureSpriteRenderSystem.</p>
 <p>target can be a Window, SDL_Window, Renderer or SDL_Renderer.
 If it is a Window or SDL_Window instance, a Renderer will be
@@ -555,7 +457,7 @@ created to acquire the SDL_Renderer.</p>
 
 <dl class="method">
 <dt id="sdl2.ext.sprite.TextureSpriteRenderSystem.render">
-<code class="descname">render</code><span class="sig-paren">(</span><em>sprites</em>, <em>x=None</em>, <em>y=None</em>, <em>present=False</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSpriteRenderSystem.render" title="Permalink to this definition">¶</a></dt>
+<code class="descname">render</code><span class="sig-paren">(</span><em>sprites</em>, <em>x=None</em>, <em>y=None</em>, <em>present=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSpriteRenderSystem.render" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw the passed sprites (or sprite).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -571,7 +473,7 @@ and sprites is a single sprite, will be considered as absolute
 position.</li>
 <li><strong>y</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; same as x, for vertical position.</li>
 <li><strong>present</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; if True the rendered data will be presented at the
-end of the method. Defaults to False.</li>
+end of the method. Defaults to None.</li>
 </ul>
 </td>
 </tr>
@@ -703,8 +605,8 @@ angle (float): rotate around center by the given degrees</dd>
 <dt>
 <em class="property">class </em><code class="descclassname">sdl2.ext.sprite.</code><code class="descname">Sprite</code></dt>
 <dd><dl class="attribute">
-<dt>
-<code class="descname">size</code></dt>
+<dt id="sdl2.ext.sprite.Sprite.size">
+<code class="descname">size</code><a class="headerlink" href="#sdl2.ext.sprite.Sprite.size" title="Permalink to this definition">¶</a></dt>
 <dd><p>The width and height of the <a class="reference internal" href="#sdl2.ext.sprite.Sprite" title="sdl2.ext.sprite.Sprite"><code class="xref py py-class docutils literal"><span class="pre">Sprite</span></code></a> as tuple.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -742,8 +644,8 @@ SDL2 software surfaces.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt>
-<code class="descname">size</code></dt>
+<dt id="sdl2.ext.sprite.SoftwareSprite.size">
+<code class="descname">size</code><a class="headerlink" href="#sdl2.ext.sprite.SoftwareSprite.size" title="Permalink to this definition">¶</a></dt>
 <dd><p>The size of the <a class="reference internal" href="#sdl2.ext.sprite.SoftwareSprite" title="sdl2.ext.sprite.SoftwareSprite"><code class="xref py py-class docutils literal"><span class="pre">SoftwareSprite</span></code></a> as tuple.</p>
 </dd></dl>
 
@@ -770,8 +672,8 @@ textures.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt>
-<code class="descname">center</code></dt>
+<dt id="sdl2.ext.sprite.TextureSprite.center">
+<code class="descname">center</code><a class="headerlink" href="#sdl2.ext.sprite.TextureSprite.center" title="Permalink to this definition">¶</a></dt>
 <dd><p>The center to use for rotating the <a class="reference internal" href="#sdl2.ext.sprite.TextureSprite" title="sdl2.ext.sprite.TextureSprite"><code class="xref py py-class docutils literal"><span class="pre">TextureSprite</span></code></a>. <cite>None</cite> will
 reset the center to the default center of the <a class="reference internal" href="#sdl2.ext.sprite.TextureSprite" title="sdl2.ext.sprite.TextureSprite"><code class="xref py py-class docutils literal"><span class="pre">TextureSprite</span></code></a>.</p>
 </dd></dl>
@@ -784,8 +686,8 @@ vertical axis via the appropriate SDL_FLIP_* value.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt>
-<code class="descname">size</code></dt>
+<dt id="sdl2.ext.sprite.TextureSprite.size">
+<code class="descname">size</code><a class="headerlink" href="#sdl2.ext.sprite.TextureSprite.size" title="Permalink to this definition">¶</a></dt>
 <dd><p>The size of the <a class="reference internal" href="#sdl2.ext.sprite.TextureSprite" title="sdl2.ext.sprite.TextureSprite"><code class="xref py py-class docutils literal"><span class="pre">TextureSprite</span></code></a> as tuple.</p>
 </dd></dl>
 

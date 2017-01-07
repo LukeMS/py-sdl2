@@ -9,15 +9,20 @@ class SceneAnimatedSprite(SceneBase):
 
     def __init__(self, **kwargs):
         """..."""
-        self.sprite = self.factory.get_char_sprite("0")
         tile_size = self.factory._tile_size
-        self.sprite.set_animation(10, 1, tile_size, tile_size)
-        self.sprite.position = 128, 128
+
+        number = self.factory.get_char_sprite("0")
+        number.set_animation(10, 1, tile_size, tile_size)
+        number.topleft = 128, 128
+        child = number.subsprite(area=number.frame_rect)
+        child.set_animation(1, 2, tile_size, tile_size)
+        child.topleft = number.move(32, 32).topleft
+        self.sprites = [number, child]
 
     def on_update(self):
         """..."""
-        self.sprite.step(col=1)
-        self.spriterenderer.render(sprites=self.sprite)
+        [sprite.step(row=1, col=1) for sprite in self.sprites]
+        self.spriterenderer.render(sprites=self.sprites)
 
 
 if __name__ == '__main__':

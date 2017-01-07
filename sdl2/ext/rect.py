@@ -70,7 +70,11 @@ def to_sdl_rect(rl):
     return SDL_Rect(rl.x, rl.y, rl.w, rl.h)
 
 
-class Rect:
+class RectAbstract(object):
+    pass
+
+
+class NonIterableRect(RectAbstract):
     """Object for storing rectangular coordinates."""
 
     def __init__(self, *args):
@@ -146,7 +150,7 @@ class Rect:
         """
         len_args = len(args)
 
-        if len_args == 1 and isinstance(args[0], Rect):
+        if len_args == 1 and isinstance(args[0], (RectAbstract, SDL_Rect)):
             rect = args[0]
             x = rect.x
             y = rect.y
@@ -185,31 +189,6 @@ class Rect:
         """..."""
         return "%s(x=%d, y=%d, w=%d, h=%d)" % (
             self.__class__.__name__, self.x, self.y, self.w, self.h)
-
-    def __len__(self):
-        """..."""
-        return 4
-
-    def __iter__(self):
-        """..."""
-        return iter((self.x, self.y, self.w, self.h))
-
-    def __getitem__(self, key):
-        """..."""
-        return (self.x, self.y, self.w, self.h)[key]
-
-    def __setitem__(self, key, val):
-        """..."""
-        if key == 0:
-            self.x = val
-        elif key == 1:
-            self.y = val
-        elif key == 2:
-            self.w = val
-        elif key == 3:
-            self.h = val
-        else:
-            raise IndexError(key)
 
     @property
     def left(self):
@@ -812,3 +791,35 @@ class Rect:
         w = max(self.left, other.left) - x
         h = max(self.top, other.top) - y
         return Rect(x, y, w, h)
+
+
+class IterableRect(RectAbstract):
+
+    def __len__(self):
+        """..."""
+        return 4
+
+    def __iter__(self):
+        """..."""
+        return iter((self.x, self.y, self.w, self.h))
+
+    def __getitem__(self, key):
+        """..."""
+        return (self.x, self.y, self.w, self.h)[key]
+
+    def __setitem__(self, key, val):
+        """..."""
+        if key == 0:
+            self.x = val
+        elif key == 1:
+            self.y = val
+        elif key == 2:
+            self.w = val
+        elif key == 3:
+            self.h = val
+        else:
+            raise IndexError(key)
+
+class Rect(NonIterableRect, IterableRect):
+    pass
+

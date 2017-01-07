@@ -9,39 +9,61 @@ This describes the latest changes between the PySDL2 releases.
 ------------
 Released on 2017-01-06
 
-* :mod:`sdl2.ext.sprite`
-
-  - changed :class:`sdl2.ext.sprite.TextureSpriteRenderSystem` so that it no longer calls :func:`sdl2.render.SDL_RenderPresent` at the end of the method anymore, by default. It is now possible to call it more then once without incurring in unecessary `present` calls; if `present=True` is passed either as a fourth argument or as a keyword to the method, however, it acts as it used to do. The :class:`Manager` do already do a single, explicit, `present` call at the end of each loop, via :func:`sdl2.ext.manager.Manager.present`; this can also easily be accessed by a running scene, should a demand for a scene controlled `present` appear)
-
-    .. note::
-
-       you now **must** pass `present=True` to `sprite.TextureSpriteRenderSystem.render` or call `sdl2.render.SDL_RenderPresent` so that the screen is updated; if using the `Manager` it already does that at the end of each loop (by default).
-
-  - added :class:`sdl2.ext.sprite.TextureGuestSprite`, a class that: a) do not delete its texture when deleted; b) makes use of the newly added :func:`sdl2.ext.sprite.Sprite.frame_rect` property to store a logical area of the texture it shares. It suits well the `from_tileset` method below
-
-  - :class:`sdl2.ext.sprite.SpriteFactory`
-
-    * :func:`sdl2.ext.sprite.SpriteFactory.load_tileset` (new): load a default tileset on the factory so that it can be used later on
-
-    * :func:`sdl2.ext.sprite.SpriteFactory.from_tileset`(new): create a sprite from an area of the loaded tileset
-
-  - :class:`sdl2.ext.sprite.TextureSprite`
-
-    * :func:`sdl2.ext.sprite.Sprite.set_animation` set parameters for a animated (multi-framed) sprite
-
-    * :func:`sdl2.ext.sprite.Sprite.step` step `n` rows or columns according to the animation parameters previously defined, wrapping it to respect those its boundaries
-
-* :mod:`sdl2.ext.manager` (new)
+* :mod:`sdl2.ext.manager` |new|
 
   - provides a basic scene manager (:class:`sdl2.ext.manager.Manager`) and a basic scene (:class:`sdl2.ext.manager.SceneBase`). The goal here is provide pysdl2 with a minimal engine, high level over sdl2.ext high level.
 
+* :mod:`sdl2.ext.rect` |new|
 
-* :mod:`sdl2.util` (new)
+  - provides a rectangular object implementation to facilitate coordinates storage and manipulation (:class:`sdl2.ext.rect.Rect`)
+
+
+* :mod:`sdl2.ext.time` |new|
+
+  - added :mod:`sdl2.ext.time`, providing a  high level interface to handle time and framerate.
+
+* :mod:`sdl2.util` |new|
 
   - a config file parser (:func:`sdl2.util.get_cfg`);
   - a path utility (:func:`sdl2.util.sdl2_path`);
   - a singleton metaclass (:class:`sdl2.util.Singleton`)
 
+* :mod:`sdl2.ext.sprite`
+
+  - :class:`sdl2.ext.sprite.TextureGuestSprite` |new|
+
+    * doens't free/delete its texture when deleted;
+    * makes use of the :func:`sdl2.ext.sprite.Sprite.frame_rect` property to store a logical sub-area of the texture to be rendered.
+
+  - :class:`sdl2.ext.sprite.Sprite`
+
+    * It is now a subclass of :class:`sdl2.ext.rect.Rect`.
+    * Sprites can now be manipulated as a Rect and have all of its properties.
+    * See :mod:`sdl2.ext.rect` for more information on Rect and related.
+
+  - :class:`sdl2.ext.sprite.TextureSpriteRenderSystem`
+
+    * added optional parameter at initialization: `present`. By default it is set to `True` (same behavior as previously). If set to `False` during initialization of the sprite renderer, when :func:`sdl2.ext.sprite.TextureSpriteRenderSystem.render` is used with default parameters, it will no longer present what was rendered to the screen at the end. With that it is now possible to call render more then once without incurring in multiple `present` calls. The :class:`Manager` makes use of that so that it can call `present` only once, at the end of its loop.
+    * :func:`sdl2.ext.sprite.TextureSpriteRenderSystem.render` also takes an optional `present` argument so that its behavior can be changed directly when calling `render`: if passed as `True` it will present at the end; if passed as `False` it will not present at the end, even if the default behavior passed during initialization is set to `True`.
+    * Those should give total control of whether to present or not and when to do it while also keeping compatibility with prior versions.
+
+  - :class:`sdl2.ext.sprite.SpriteFactory`
+
+    * :func:`sdl2.ext.sprite.SpriteFactory.from_tileset` |new|
+
+      - create a sprite from an area of the loaded tileset
+
+    * :func:`sdl2.ext.sprite.SpriteFactory.load_tileset` |new|
+
+      - load a default tileset on the factory so that it can be used later on
+
+  - :class:`sdl2.ext.sprite.TextureSprite`
+
+    * :func:`sdl2.ext.sprite.Sprite.set_animation` |new|
+      - set parameters for a animated (multi-framed) sprite
+
+    * :func:`sdl2.ext.sprite.Sprite.step`  |new|
+      - step `n` rows or columns according to the animation parameters previously defined, wrapping it to respect those its boundaries
 
 * :mod:`sdl2.dll`, :mod:`sdl2.sdlgfx`, :mod:`sdl2.sdlimage`, :mod:`sdl2.sdlmixer`, :mod:`sdl2.sdlttf`
 
@@ -51,15 +73,6 @@ Released on 2017-01-06
 
   - the OS enviroment variable takes precedence, so that it can still be defined on the OS enviroment or on a per-project base, as usual, as described on :ref:`importing-pysdl2`
 
-
-* :mod:`sdl2.ext.rect` (new):
-
-  - provides a rectangular object implementation to facilitate coordinates storage and manipulation (:class:`sdl2.ext.rect.Rect`)
-
-
-* :mod:`sdl2.ext.time` (new):
-
-  - added :mod:`sdl2.ext.time`, providing a  high level interface to handle time and framerate.
 
 * updated/modified documentation to use more of sphinx auto* tools, mostly on the API reference. The goal here was to remove text from .rst files that could be used as docstrings on the source code, making it easier to keep the documentation up to date with changes.
 
@@ -341,3 +354,6 @@ Released on 2013-05-03.
 Released on 2013-04-23.
 
 * Initial Release
+
+.. |new| image:: new_icon.png
+

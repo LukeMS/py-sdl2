@@ -1,12 +1,14 @@
+
 import os
 from ctypes import POINTER, c_int, c_char_p
-from .dll import DLL
-from .version import SDL_version
-from .surface import SDL_Surface
-from .rwops import SDL_RWops
-from .render import SDL_Texture, SDL_Renderer
-from .error import SDL_SetError, SDL_GetError
-from .util import get_cfg
+
+from ..dll import DLL
+from ..version import SDL_version
+from ..surface import SDL_Surface
+from ..rwops import SDL_RWops
+from ..render import SDL_Texture, SDL_Renderer
+from ..error import SDL_SetError, SDL_GetError
+from ..util import get_cfg
 
 __all__ = ["SDL_IMAGE_MAJOR_VERSION", "SDL_IMAGE_MINOR_VERSION", \
            "SDL_IMAGE_PATCHLEVEL", "SDL_IMAGE_VERSION", "IMG_Linked_Version",
