@@ -1,20 +1,10 @@
-"""Modified, pure Python implementation of PyGameSDL2's pygame_time."""
+"""Track and control game time and framerate.
 
-"""
-    Original source code available at:
-        github.com/
-            renpy/pygame_sdl2/blob/master/src/pygame_sdl2/pygame_time.pyx
+This is a MODIFIED, pure Python implementation of a time-related
+functions, `PyGameSDL2's time`_ (Cython).
 
-    Altered source plain mark:
-    --------------------------------------------------------------------------
-               _ _                    _                                  _
-         /\   | | |                  | |                                | |
-        /  \  | | |_ ___ _ __ ___  __| |    ___  ___  _   _ _ __ ___ ___| |
-       / /\ \ | | __/ _ \ '__/ _ \/ _` |   / __|/ _ \| | | | '__/ __/ _ \ |
-      / ____ \| | ||  __/ | |  __/ (_| |   \__ \ (_) | |_| | | | (_|  __/_|
-     /_/    \_\_|\__\___|_|  \___|\__,_|   |___/\___/ \__,_|_|  \___\___(_)
-
-    --------------------------------------------------------------------------
+.. _`PyGameSDL2's time`: github.com/renpy/pygame_sdl2/blob/master/src/\
+    pygame_sdl2/pygame_time.pyx
 
     PygameSDL2 Notice / zlib License:
     --------------------------------------------------------------------------

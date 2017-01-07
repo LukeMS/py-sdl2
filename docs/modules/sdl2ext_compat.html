@@ -1,0 +1,365 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sdl2.ext.compat - Python compatibility helpers &mdash; PySDL2 0.10.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PySDL2 0.10.0 documentation" href="../index.html"/>
+        <link rel="up" title="sdl2.ext - Python extensions for SDL2" href="sdl2ext.html"/>
+        <link rel="next" title="2D drawing routines for software surfaces" href="sdl2ext_draw.html"/>
+        <link rel="prev" title="Initialization routines" href="sdl2ext_common.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PySDL2
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.10.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installing PySDL2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html">Integrating PySDL2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Learn to fly - the tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="sdl2.html">sdl2 - SDL2 library wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdl2_sdlgfx.html">sdl2.sdlgfx - SDL2_gfx library wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdl2_sdlimage.html">sdl2.sdlimage - SDL2_image library wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdl2_sdlmixer.html">sd2.sdlmixer - SDL2_mixer library wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdl2_sdlttf.html">sd2.sdlttf - SDL2_ttf library wrapper</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="sdl2ext.html">sdl2.ext - Python extensions for SDL2</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_algorithms.html">Common algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_array.html">Converting sequences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_color.html">Color handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_colorpalettes.html">sdl2.ext.colorpalettes - predefined sets of colors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_common.html">Initialization routines</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">sdl2.ext.compat - Python compatibility helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_draw.html">2D drawing routines for software surfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_ebs.html">Working with component-based entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_events.html">General purpose event handling routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_font.html">Text rendering routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_gui.html">User interface elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_image.html">Image loaders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_manager.html">sdl2.ext.manager - Basic scene manager.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_particles.html">sdl2.ext.particles - A simple particle system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_pixelaccess.html">2D and 3D direct pixel access</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_rect.html">sdl2.ext.rect - rectangular object.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_resources.html">Resource management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_sprite.html">sdl2.ext.sprite - Sprite, texture and pixel surface routines.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_surface.html">Software Surface manipulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_time.html">sdl2.ext.time - track and control game time and framerate.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_window.html">Window routines to manage on-screen windows</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">PySDL2 FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Release News</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../todos.html">Todo list for PySDL2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../copying.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">PySDL2</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">API reference</a> &raquo;</li>
+      
+          <li><a href="sdl2ext.html">sdl2.ext - Python extensions for SDL2</a> &raquo;</li>
+      
+    <li>sdl2.ext.compat - Python compatibility helpers</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/modules/sdl2ext_compat.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="module-sdl2.ext.compat"></span><div class="section" id="sdl2-ext-compat-python-compatibility-helpers">
+<h1>sdl2.ext.compat - Python compatibility helpers<a class="headerlink" href="#sdl2-ext-compat-python-compatibility-helpers" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference internal" href="#module-sdl2.ext.compat" title="sdl2.ext.compat: Python compatibility helpers."><code class="xref py py-mod docutils literal"><span class="pre">sdl2.ext.compat</span></code></a> module is for internal purposes of the <a class="reference internal" href="sdl2.html#module-sdl2" title="sdl2: SDL2 library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2</span></code></a>
+package and should not be used outside of the package. Classes, methods and
+interfaces might change between versions and there is no guarantee of API
+compatibility on different platforms and python implementations or between
+releases.</p>
+<dl class="data">
+<dt id="sdl2.ext.compat.ISPYTHON2">
+<code class="descclassname">sdl2.ext.compat.</code><code class="descname">ISPYTHON2</code><a class="headerlink" href="#sdl2.ext.compat.ISPYTHON2" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal"><span class="pre">True</span></code>, if executed in a Python 2.x compatible interpreter, <code class="docutils literal"><span class="pre">False</span></code>
+otherwise.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="sdl2.ext.compat.ISPYTHON3">
+<code class="descclassname">sdl2.ext.compat.</code><code class="descname">ISPYTHON3</code><a class="headerlink" href="#sdl2.ext.compat.ISPYTHON3" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal"><span class="pre">True</span></code>, if executed in a Python 3.x compatible interpreter, <code class="docutils literal"><span class="pre">False</span></code>
+otherwise.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sdl2.ext.compat.long">
+<code class="descclassname">sdl2.ext.compat.</code><code class="descname">long</code><span class="sig-paren">(</span><span class="optional">[</span><em>x</em><span class="optional">[</span>, <em>base</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.compat.long" title="Permalink to this definition">¶</a></dt>
+<dd><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only defined for Python 3.x, for which it is the same as <a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">int()</span></code></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="sdl2.ext.compat.unichr">
+<code class="descclassname">sdl2.ext.compat.</code><code class="descname">unichr</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.compat.unichr" title="Permalink to this definition">¶</a></dt>
+<dd><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only defined for Python 3.x, for which it is the same as <a class="reference external" href="http://docs.python.org/library/functions.html#chr" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">chr()</span></code></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="sdl2.ext.compat.unicode">
+<code class="descclassname">sdl2.ext.compat.</code><code class="descname">unicode</code><span class="sig-paren">(</span><em>string</em><span class="optional">[</span>, <em>encoding</em><span class="optional">[</span>, <em>errors</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.compat.unicode" title="Permalink to this definition">¶</a></dt>
+<dd><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only defined for Python 3.x, for which it is the same as <a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">str()</span></code></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="sdl2.ext.compat.callable">
+<code class="descclassname">sdl2.ext.compat.</code><code class="descname">callable</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span> &rarr; bool<a class="headerlink" href="#sdl2.ext.compat.callable" title="Permalink to this definition">¶</a></dt>
+<dd><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only defined for Python 3.x, for which it is the same as
+<code class="docutils literal"><span class="pre">isinstance(x,</span> <span class="pre">collections.Callable)</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="sdl2.ext.compat.byteify">
+<code class="descclassname">sdl2.ext.compat.</code><code class="descname">byteify</code><span class="sig-paren">(</span><em>x : string</em>, <em>enc : string</em><span class="sig-paren">)</span> &rarr; bytes<a class="headerlink" href="#sdl2.ext.compat.byteify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a string to a <code class="xref py py-func docutils literal"><span class="pre">bytes()</span></code> object.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sdl2.ext.compat.stringify">
+<code class="descclassname">sdl2.ext.compat.</code><code class="descname">stringify</code><span class="sig-paren">(</span><em>x : bytes</em>, <em>enc : string</em><span class="sig-paren">)</span> &rarr; string<a class="headerlink" href="#sdl2.ext.compat.stringify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a <code class="xref py py-func docutils literal"><span class="pre">bytes()</span></code> to a string object.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sdl2.ext.compat.isiterable">
+<code class="descclassname">sdl2.ext.compat.</code><code class="descname">isiterable</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span> &rarr; bool<a class="headerlink" href="#sdl2.ext.compat.isiterable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shortcut for <code class="docutils literal"><span class="pre">isinstance(x,</span> <span class="pre">collections.Iterable)</span></code>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sdl2.ext.compat.platform_is_64bit">
+<code class="descclassname">sdl2.ext.compat.</code><code class="descname">platform_is_64bit</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; bool<a class="headerlink" href="#sdl2.ext.compat.platform_is_64bit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks, if the interpreter is 64-bit capable.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sdl2.ext.compat.deprecated">
+<code class="descclassname">&#64;</code><code class="descclassname">sdl2.ext.compat.</code><code class="descname">deprecated</code><a class="headerlink" href="#sdl2.ext.compat.deprecated" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple decorator to mark functions and methods as deprecated. This will
+print a deprecation message each time the function or method is invoked.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sdl2.ext.compat.deprecation">
+<code class="descclassname">sdl2.ext.compat.</code><code class="descname">deprecation</code><span class="sig-paren">(</span><em>message : string</em><span class="sig-paren">)</span> &rarr; None<a class="headerlink" href="#sdl2.ext.compat.deprecation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints a deprecation message using the <a class="reference external" href="http://docs.python.org/library/warnings.html#warnings.warn" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">warnings.warn()</span></code></a> function.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="sdl2.ext.compat.UnsupportedError">
+<em class="property">exception </em><code class="descclassname">sdl2.ext.compat.</code><code class="descname">UnsupportedError</code><span class="sig-paren">(</span><em>obj : object</em><span class="optional">[</span>, <em>msg=None</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.compat.UnsupportedError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates that a certain class, function or behaviour is not supported in
+the specific execution environment.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sdl2.ext.compat.experimental">
+<code class="descclassname">&#64;</code><code class="descclassname">sdl2.ext.compat.</code><code class="descname">experimental</code><a class="headerlink" href="#sdl2.ext.compat.experimental" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple decorator to mark functions and methods as
+experimental. This will print a warning each time the function or
+method is invoked.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="sdl2.ext.compat.ExperimentalWarning">
+<em class="property">exception </em><code class="descclassname">sdl2.ext.compat.</code><code class="descname">ExperimentalWarning</code><span class="sig-paren">(</span><em>obj : object</em><span class="optional">[</span>, <em>msg=None</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.compat.ExperimentalWarning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates that a certain class, function or behaviour is in an
+experimental state.</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="sdl2ext_draw.html" class="btn btn-neutral float-right" title="2D drawing routines for software surfaces" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="sdl2ext_common.html" class="btn btn-neutral" title="Initialization routines" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013-2016, Marcus von Appen.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.10.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

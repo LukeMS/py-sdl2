@@ -1,29 +1,13 @@
 """Basic scene manager."""
 
 import ctypes
-import os
 
 from . import common, resources, sprite, time, window
 from .. import events, keycode, mouse, render, video
+from ..util import get_cfg, sdl2_path
 
 
 __all__ = ("Manager", "KeyboardStateController", "SceneBase")
-
-
-# size of a (square) tile's side in pixels.
-TILE_SIZE = 32
-
-# the width of the screen in pixels.
-SCREEN_WIDTH = 1024
-
-# the height of the screen in pixels
-SCREEN_HEIGHT = 768
-
-# maximum frames per second that should be drawn
-LIMIT_FPS = 30
-
-# the window's background color (RGBA, from 0-255)
-WINDOW_COLOR = (0, 0, 0, 255)
 
 
 class Manager(object):
@@ -34,8 +18,8 @@ class Manager(object):
     """
 
     def __init__(
-        self, width=SCREEN_WIDTH, height=SCREEN_HEIGHT, tile_size=TILE_SIZE,
-        limit_fps=LIMIT_FPS, window_color=WINDOW_COLOR, resources_path=None
+        self, width=None, height=None, tile_size=None,
+        limit_fps=None, window_color=None, resources_path=None
     ):
         """Initialization.
 
@@ -54,11 +38,12 @@ class Manager(object):
             m.execute()  # call the main loop
         """
         # Set the default arguments
-        self.width = width
-        self.height = height
-        self.tile_size = tile_size
-        self.limit_fps = limit_fps
-        self.window_color = window_color
+        self.width = width or get_cfg("MANAGER", "SCREEN_WIDTH", True)
+        self.height = height or get_cfg("MANAGER", "SCREEN_HEIGHT", True)
+        self.tile_size = tile_size or get_cfg("MANAGER", "TILE_SIZE", True)
+        self.limit_fps = limit_fps or get_cfg("MANAGER", "LIMIT_FPS", True)
+        self.window_color = window_color or get_cfg("MANAGER",
+                                                    "WINDOW_COLOR", True)
 
         # Number of tile_size-sized drawable columns and rows on screen
         self.cols = self.width // self.tile_size
@@ -86,10 +71,8 @@ class Manager(object):
 
         # Create a instance of sdl2.ext.Resources for the passed path
         self.resources = resources.Resources()
-        self.resources.scan(
-            path=os.path.join(os.path.dirname(__file__), "_resources"))
-        self.resources.scan(
-            path=resources_path)
+        self.resources.scan(sdl2_path("resources"))
+        self.resources.scan(path=resources_path)
 
         # Create a sprite factory that allows us to create visible 2D elements
         # easily.

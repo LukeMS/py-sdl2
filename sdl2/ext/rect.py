@@ -1,20 +1,10 @@
-"""Modified, pure Python implementation of PyGameSDL2's rect."""
+"""A rectangular object for storing and manipulating coordinates.
 
-"""
-    Original source code available at:
-        github.com/
-            renpy/pygame_sdl2/blob/master/src/pygame_sdl2/rect.pyx
+This is a MODIFIED, pure Python implementation of a rect, based on
+`PyGameSDL2's rect`_ (Cython).
 
-    Altered source plain mark:
-    --------------------------------------------------------------------------
-               _ _                    _                                  _
-         /\   | | |                  | |                                | |
-        /  \  | | |_ ___ _ __ ___  __| |    ___  ___  _   _ _ __ ___ ___| |
-       / /\ \ | | __/ _ \ '__/ _ \/ _` |   / __|/ _ \| | | | '__/ __/ _ \ |
-      / ____ \| | ||  __/ | |  __/ (_| |   \__ \ (_) | |_| | | | (_|  __/_|
-     /_/    \_\_|\__\___|_|  \___|\__,_|   |___/\___/ \__,_|_|  \___\___(_)
-
-    --------------------------------------------------------------------------
+.. _`PyGameSDL2's rect`: github.com/renpy/pygame_sdl2/blob/master/src/\
+    pygame_sdl2/rect.pyx
 
     PygameSDL2 Notice / zlib License:
     --------------------------------------------------------------------------
@@ -58,10 +48,18 @@ def to_sdl_rect(rl):
     """Convert `rectlike` to the SDL_Rect `rect`.
 
     Args:
-        rl (tuple|Rect): a rectlike object to be converted, may be a Rect or
-        a (x, y, w, h) tuple.
+        rl (tuple, Rect): a rectlike object (either a Rect or a 4-tuple
+           representing of representing x, y, w and h.
+
     Returns:
-        SDL_Rect
+        :class:sdl2.rect.SDL_Rect
+
+    Examples:
+        >>> rl1 = Rect(1, 2, 10, 20)
+        >>> r1 = to_sdl_rect(rl)
+        >>> rl2 = (1, 2, 10, 20)
+        >>> r2 = to_sdl_rect(rl)
+        >>> assert r1 == r2
     """
     rl = Rect(rl)
     return SDL_Rect(rl.x, rl.y, rl.w, rl.h)
@@ -648,6 +646,7 @@ class Rect:
 
         Usage:
             rect.normalize()
+
         Returns:
             None
         """

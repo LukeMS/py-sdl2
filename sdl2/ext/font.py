@@ -1,5 +1,4 @@
 """Font and text rendering routines."""
-
 import ctypes
 import os
 from .. import surface, rect, pixels
@@ -181,9 +180,12 @@ class BitmapFont(object):
 
 class FontManager(object):
     """Manage fonts and rendering of text."""
-    def __init__(self, font_path, alias=None, size=16,
-                 color=Color(255, 255, 255), bg_color=Color(0, 0, 0), index=0):
-        """Initialize the FontManager
+
+    def __init__(
+        self, font_path, alias=None, size=16, color=Color(255, 255, 255),
+        bg_color=Color(0, 0, 0), index=0
+    ):
+        """Initialize the FontManager.
 
         One font path must be given to initialize the FontManager. The
         default_font will be set to this font. color and bg_color
@@ -315,9 +317,11 @@ class FontManager(object):
             size = list(self.fonts[alias].keys())[0]
         self._default_font = self.fonts[alias][size]
 
-    def render(self, text, alias=None, size=None, width=None, color=None,
-               bg_color=None, **kwargs):
-        """Renders text to a surface.
+    def render(
+        self, text, alias=None, size=None, width=None, color=None,
+        bg_color=None, **kwargs
+    ):
+        """Renderfont_path text to a surface.
 
         This method uses the font designated by the alias or the
         default_font.  A size can be passed even if the font was not
@@ -371,7 +375,7 @@ class FontManager(object):
             size (int): the font size to be used
 
         Returns:
-            tuple (int w, int h): a 2-tuple of ints with width and height of
+            tuple (int w, int h): a 2-tuple of ints for width and height of
             the calculated surface.
         """
         w = ctypes.c_int(0)

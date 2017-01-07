@@ -1,33 +1,13 @@
-.. currentmodule:: sdl2.ext
+.. module:: sdl2.ext.sprite
+   :synopsis: Sprite, texture and pixel surface routines.
 
-Sprite, texture and pixel surface routines
-==========================================
+sdl2.ext.sprite - Sprite, texture and pixel surface routines.
+=============================================================
 
-.. data:: TEXTURE
+.. automodule:: sdl2.ext.sprite
 
-   Indicates that texture-based rendering or sprite creation is wanted.
-
-.. data:: SOFTWARE
-
-   Indicates that software-based rendering or sprite creation is wanted.
 
 .. class:: Sprite()
-
-   A simple 2D object, implemented as abstract base class.
-
-   .. attribute:: x
-
-      The top-left horizontal offset at which the :class:`Sprite`
-      resides.
-
-   .. attribute:: y
-
-      The top-left vertical offset at which the :class:`Sprite`
-      resides.
-
-   .. attribute:: position
-
-      The top-left position (:attr:`x` and :attr:`y`) as tuple.
 
    .. attribute:: size
 

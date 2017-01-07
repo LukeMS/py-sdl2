@@ -1,0 +1,692 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Working with component-based entities &mdash; PySDL2 0.10.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PySDL2 0.10.0 documentation" href="../index.html"/>
+        <link rel="up" title="sdl2.ext - Python extensions for SDL2" href="sdl2ext.html"/>
+        <link rel="next" title="General purpose event handling routines" href="sdl2ext_events.html"/>
+        <link rel="prev" title="2D drawing routines for software surfaces" href="sdl2ext_draw.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PySDL2
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.10.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installing PySDL2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html">Integrating PySDL2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Learn to fly - the tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="sdl2.html">sdl2 - SDL2 library wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdl2_sdlgfx.html">sdl2.sdlgfx - SDL2_gfx library wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdl2_sdlimage.html">sdl2.sdlimage - SDL2_image library wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdl2_sdlmixer.html">sd2.sdlmixer - SDL2_mixer library wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdl2_sdlttf.html">sd2.sdlttf - SDL2_ttf library wrapper</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="sdl2ext.html">sdl2.ext - Python extensions for SDL2</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_algorithms.html">Common algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_array.html">Converting sequences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_color.html">Color handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_colorpalettes.html">sdl2.ext.colorpalettes - predefined sets of colors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_common.html">Initialization routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_compat.html">sdl2.ext.compat - Python compatibility helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_draw.html">2D drawing routines for software surfaces</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Working with component-based entities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#component-based-patterns">Component-based patterns</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#component-based-design-with-sdl2-ext">Component-based design with sdl2.ext</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api">API</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_events.html">General purpose event handling routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_font.html">Text rendering routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_gui.html">User interface elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_image.html">Image loaders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_manager.html">sdl2.ext.manager - Basic scene manager.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_particles.html">sdl2.ext.particles - A simple particle system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_pixelaccess.html">2D and 3D direct pixel access</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_rect.html">sdl2.ext.rect - rectangular object.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_resources.html">Resource management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_sprite.html">sdl2.ext.sprite - Sprite, texture and pixel surface routines.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_surface.html">Software Surface manipulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_time.html">sdl2.ext.time - track and control game time and framerate.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_window.html">Window routines to manage on-screen windows</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">PySDL2 FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Release News</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../todos.html">Todo list for PySDL2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../copying.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">PySDL2</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">API reference</a> &raquo;</li>
+      
+          <li><a href="sdl2ext.html">sdl2.ext - Python extensions for SDL2</a> &raquo;</li>
+      
+    <li>Working with component-based entities</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/modules/sdl2ext_ebs.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="working-with-component-based-entities">
+<span id="ref-ebs"></span><h1>Working with component-based entities<a class="headerlink" href="#working-with-component-based-entities" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="sdl2ext.html#module-sdl2.ext" title="sdl2.ext: Python extensions for SDL2"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.ext</span></code></a> supports a component oriented programming pattern to separate
+object instances, carried data and processing logic within applications
+or games. It uses an entity based approach, in which object instances are
+unique identifiers, while their data is managed within components, which
+are stored separately. For each individual component type a processing
+system will take care of all necessary updates on running the application.</p>
+<div class="section" id="component-based-patterns">
+<h2>Component-based patterns<a class="headerlink" href="#component-based-patterns" title="Permalink to this headline">¶</a></h2>
+<p>Component-based means that - instead of a traditional OOP approach - object
+information are split up into separate data bags for reusability and that those
+data bags are separated from any application logic.</p>
+<div class="section" id="behavioural-design">
+<h3>Behavioural design<a class="headerlink" href="#behavioural-design" title="Permalink to this headline">¶</a></h3>
+<p>Imagine a car class in traditional OOP, which might look like</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Car</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span> <span class="o">=</span> <span class="n">get_some_car_image</span><span class="p">()</span>
+        <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timedelta</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">velocity</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">timedelta</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">velocity</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">timedelta</span>
+        <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen</span><span class="p">):</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="p">)</span>
+
+<span class="n">mycar</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Car</span><span class="p">()</span>
+<span class="n">mycar</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;green&quot;</span>
+<span class="n">mycar</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>The car features information stored in attributes (<code class="docutils literal"><span class="pre">color</span></code>, <code class="docutils literal"><span class="pre">position</span></code>,
+...) and behaviour (application logic, <code class="docutils literal"><span class="pre">drive()</span></code>, <code class="docutils literal"><span class="pre">stop()</span></code> ...).</p>
+<p>A component-based approach aims to split and reduce the car to a set of
+information and external systems providing the application logic.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Car</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span> <span class="o">=</span> <span class="n">get_some_car_image</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">CarMovement</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">car</span><span class="p">,</span> <span class="n">timedelta</span><span class="p">):</span>
+        <span class="n">car</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">car</span><span class="o">.</span><span class="n">velocity</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">timedelta</span>
+        <span class="n">car</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">car</span><span class="o">.</span><span class="n">velocity</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">timedelta</span>
+        <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">car</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+<span class="k">class</span> <span class="nc">CarRenderer</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">car</span><span class="p">,</span> <span class="n">screen</span><span class="p">):</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">car</span><span class="o">.</span><span class="n">sprite</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>At this point of time, there is no notable difference between both approaches,
+except that the latter one adds additional overhead.</p>
+<p>The benefit comes in, when you</p>
+<ul class="simple">
+<li>use subclassing in your OOP design</li>
+<li>want to change behavioural patterns on a global scale or based on states</li>
+<li>want to refactor code logic in central locations</li>
+<li>want to cascade application behaviours</li>
+</ul>
+<p>The initial <code class="docutils literal"><span class="pre">Car</span></code> class from above defines, how it should be displayed
+on the screen. If you now want to add a feature for rescaling the screen
+size after the user activates the magnifier mode, you need to refactor
+the <code class="docutils literal"><span class="pre">Car</span></code> and all other classes that render things on the screen, have
+to consider all subclasses that override the method and so on.
+Refactoring the <code class="docutils literal"><span class="pre">CarRenderer</span></code> code by adding a check for the magnifier
+mode sounds quite simple in contrast to that, not?</p>
+<p>The same applies to the movement logic - inverting the movement logic
+requires you to refactor all your classes instead of a single piece of
+application code.</p>
+</div>
+<div class="section" id="information-design">
+<h3>Information design<a class="headerlink" href="#information-design" title="Permalink to this headline">¶</a></h3>
+<p>Subclassing with traditional OOP for behavioural changes also might
+bloat your classes with unnecessary information, causing the memory
+footprint for your application to rise without any need. Let&#8217;s assume
+you have a <code class="docutils literal"><span class="pre">Truck</span></code> class that inherits from <code class="docutils literal"><span class="pre">Car</span></code>. Let&#8217;s further
+assume that all trucks in your application look the same. Why should any
+of those carry a <code class="docutils literal"><span class="pre">sprite</span></code> or <code class="docutils literal"><span class="pre">color</span></code> attribute? You would need to
+refactor your <code class="docutils literal"><span class="pre">Car</span></code> class to get rid of those superfluous information,
+adding another level of subclassing. If at a later point of time you
+decide to give your trucks different colors, you need to refactor
+everything again.</p>
+<p>Wouldn&#8217;t it be easier to deal with colors, if they are available on the
+truck and leave them out, if they are not? We initially stated that the
+component-based approach aims to separate data (information) from code
+logic.  That said, if the truck has a color, we can handle it easily, if
+it has not, we will do as usual.</p>
+<p>Also, checking for the color of an object (regardless, if it is a truck,
+car, aeroplane or death star) allows us to apply the same or similar
+behaviour for every object. If the information is available, we will
+process it, if it is not, we will not do anything.</p>
+</div>
+<div class="section" id="all-in-all">
+<h3>All in all<a class="headerlink" href="#all-in-all" title="Permalink to this headline">¶</a></h3>
+<p>Once we split up the previously OOP-style classes into pure data containers and
+some separate processing code for the behaviour, we are talking about components
+and (processing) systems. A component is a data container, ideally grouping
+related information on a granular level, so that it is easy to (re)use.
+When you combine different components to build your in-application objects and
+instantiate those, we are talking about entities.</p>
+<img alt="../_images/ebs.png" src="../_images/ebs.png" />
+<dl class="docutils">
+<dt><em>Component</em></dt>
+<dd>provides information (data bag)</dd>
+<dt><em>Entity</em></dt>
+<dd>In-application instance that consists of <em>component</em> items</dd>
+<dt><em>System</em></dt>
+<dd>Application logic for working with <em>Entity</em> items and their
+<em>component</em> data</dd>
+<dt><em>World</em></dt>
+<dd>The environment that contains the different <em>System</em> instances and
+all <em>Entity</em> items with their <em>component</em> data</dd>
+</dl>
+<p>Within a strict COP design, the application logic (ideally) only knows about
+data to process. It does not know anything about entities or complex classes
+and only operates on the data.</p>
+<img alt="../_images/copprocessing.png" src="../_images/copprocessing.png" />
+<p>To keep things simple, modular and easy to maintain and change, you usually
+create small processing systems, which perform the necessary operations on the
+data they shall handle. That said, a <code class="docutils literal"><span class="pre">MovementSystem</span></code> for our car entity would
+only operate on the position and velocity component of the car entity. It does
+not know anything about the the car&#8217;s sprite or sounds that the car makes,
+since <em>this is nothing it has to deal with</em>.</p>
+<p>To display the car on the screen, a <code class="docutils literal"><span class="pre">RenderingSystem</span></code> might pick up the
+sprite component of the car, maybe along with the position information (so it
+knows, where to place the sprite) and render it on the screen.</p>
+<p>If you want the car to play sounds, you would add an audio playback system,
+that can perform the task. Afterwards you can add the necessary audio
+information via a sound component to the car and it will make noise.</p>
+</div>
+</div>
+<div class="section" id="component-based-design-with-sdl2-ext">
+<h2>Component-based design with sdl2.ext<a class="headerlink" href="#component-based-design-with-sdl2-ext" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This section will deal with the specialities of COP patterns and
+provide the bare minimum of information. If you are just starting with
+such a design, it is recommended to read through the <a class="reference internal" href="../tutorial/pong.html#pong-tutorial"><span class="std std-ref">The Pong Game</span></a>
+tutorial.</p>
+</div>
+<p><a class="reference internal" href="sdl2ext.html#module-sdl2.ext" title="sdl2.ext: Python extensions for SDL2"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.ext</span></code></a> provides a <a class="reference internal" href="#sdl2.ext.World" title="sdl2.ext.World"><code class="xref py py-class docutils literal"><span class="pre">World</span></code></a> class in which all other objects
+will reside. The <a class="reference internal" href="#sdl2.ext.World" title="sdl2.ext.World"><code class="xref py py-class docutils literal"><span class="pre">World</span></code></a> will maintain both, <a class="reference internal" href="#sdl2.ext.Entity" title="sdl2.ext.Entity"><code class="xref py py-class docutils literal"><span class="pre">Entity</span></code></a> and
+component items, and allows you to set up the processing logic via
+the <a class="reference internal" href="#sdl2.ext.System" title="sdl2.ext.System"><code class="xref py py-class docutils literal"><span class="pre">System</span></code></a> and <a class="reference internal" href="#sdl2.ext.Applicator" title="sdl2.ext.Applicator"><code class="xref py py-class docutils literal"><span class="pre">Applicator</span></code></a> classes.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">appworld</span> <span class="o">=</span> <span class="n">World</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Components can be created from any class that inherits from the
+<code class="xref py py-class docutils literal"><span class="pre">object</span></code> type and represent the data bag of information for the
+entity and application world. Ideally, they should avoid any
+application logic (except from getter and setter properties).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Position2D</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#sdl2.ext.Entity" title="sdl2.ext.Entity"><code class="xref py py-class docutils literal"><span class="pre">Entity</span></code></a> objects define the in-application objects and only consist of
+component-based attributes. They also require a <a class="reference internal" href="#sdl2.ext.World" title="sdl2.ext.World"><code class="xref py py-class docutils literal"><span class="pre">World</span></code></a> at
+object instantiation time.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CarEntity</span><span class="p">(</span><span class="n">Entity</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">world</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position2d</span> <span class="o">=</span> <span class="n">Position2D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <em>world</em> argument in <code class="docutils literal"><span class="pre">__init__()</span></code> is necessary. It will be
+passed to the internal <code class="docutils literal"><span class="pre">__new__()</span></code> constructor of the
+<a class="reference internal" href="#sdl2.ext.Entity" title="sdl2.ext.Entity"><code class="xref py py-class docutils literal"><span class="pre">Entity</span></code></a> and stores a reference to the <a class="reference internal" href="#sdl2.ext.World" title="sdl2.ext.World"><code class="xref py py-class docutils literal"><span class="pre">World</span></code></a> and also
+allows the <a class="reference internal" href="#sdl2.ext.Entity" title="sdl2.ext.Entity"><code class="xref py py-class docutils literal"><span class="pre">Entity</span></code></a> to store its information in the
+<a class="reference internal" href="#sdl2.ext.World" title="sdl2.ext.World"><code class="xref py py-class docutils literal"><span class="pre">World</span></code></a>.</p>
+</div>
+<p>The <a class="reference internal" href="#sdl2.ext.Entity" title="sdl2.ext.Entity"><code class="xref py py-class docutils literal"><span class="pre">Entity</span></code></a> also requries its attributes to be named exactly as
+their component class name, but in lowercase letters. If you name a
+component <code class="docutils literal"><span class="pre">MyAbsolutelyAwesomeDataContainer</span></code>, an <a class="reference internal" href="#sdl2.ext.Entity" title="sdl2.ext.Entity"><code class="xref py py-class docutils literal"><span class="pre">Entity</span></code></a> will
+force you to write the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SomeEntity</span><span class="p">(</span><span class="n">Entity</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">world</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">myabsolutelyawesomedatacontainer</span> <span class="o">=</span> <span class="n">MyAbsolutelyAwesomeDataContainer</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>This is not entirely true. A reference of the object will be stored on a
+per-class-in-mro basis. This means that if <code class="docutils literal"><span class="pre">MyAbsolutelyAwesomeDataContainer</span></code>
+inherits from <code class="docutils literal"><span class="pre">ShortName</span></code>, you can also do:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SomeEntity</span><span class="p">(</span><span class="n">Entity</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">world</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shortname</span> <span class="o">=</span> <span class="n">MyAbsolutelyAwesomeDataContainer</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Components should be as atomic as possible and avoid complex
+inheritance. Since each value of an <a class="reference internal" href="#sdl2.ext.Entity" title="sdl2.ext.Entity"><code class="xref py py-class docutils literal"><span class="pre">Entity</span></code></a> is stored per class
+in its mro list, components inheriting from the same class(es) will
+overwrite each other on conflicting classes:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Vector</span><span class="p">(</span><span class="n">Position2D</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Vector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">SomeEntity</span><span class="p">(</span><span class="n">Entity</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">world</span><span class="p">):</span>
+        <span class="c1"># This will associate self.position2d with the new Position2D</span>
+        <span class="c1"># value, while the previous Vector association is overwritten</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position2d</span> <span class="o">=</span> <span class="n">Position2D</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+        <span class="c1"># self.vector will also associate a self.position2d attribute</span>
+        <span class="c1"># with the Entity, since Vector inherits from Position2D. The</span>
+        <span class="c1"># original association will vanish, and each call to</span>
+        <span class="c1"># entity.position2d will effectively manipulate the vector!</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vector</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="api">
+<h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="sdl2.ext.Entity">
+<em class="property">class </em><code class="descclassname">sdl2.ext.</code><code class="descname">Entity</code><span class="sig-paren">(</span><em>world : World</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.Entity" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>An entity is a specific object living in the application world. It
+does not carry any data or application logic, but merely acts as
+identifier label for data that is maintained in the application
+world itself.</p>
+<p>As such, it is a composition of components, which would not exist
+without the entity identifier. The entity itself is non-existent to
+the application world as long as it does not carry any data that can
+be processed by a system within the application world.</p>
+</div></blockquote>
+<dl class="attribute">
+<dt id="sdl2.ext.Entity.id">
+<code class="descname">id</code><a class="headerlink" href="#sdl2.ext.Entity.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The id of the Entity. Every Entity has a unique id, that is
+represented by a <a class="reference external" href="http://docs.python.org/library/uuid.html#uuid.UUID" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">uuid.UUID</span></code></a> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.Entity.world">
+<code class="descname">world</code><a class="headerlink" href="#sdl2.ext.Entity.world" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <a class="reference internal" href="#sdl2.ext.World" title="sdl2.ext.World"><code class="xref py py-class docutils literal"><span class="pre">World</span></code></a> the entity resides in.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.Entity.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; None<a class="headerlink" href="#sdl2.ext.Entity.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the <a class="reference internal" href="#sdl2.ext.Entity" title="sdl2.ext.Entity"><code class="xref py py-class docutils literal"><span class="pre">Entity</span></code></a> from its <a class="reference internal" href="#sdl2.ext.World" title="sdl2.ext.World"><code class="xref py py-class docutils literal"><span class="pre">World</span></code></a>. This
+basically calls <a class="reference internal" href="#sdl2.ext.World.delete" title="sdl2.ext.World.delete"><code class="xref py py-meth docutils literal"><span class="pre">World.delete()</span></code></a> with the <a class="reference internal" href="#sdl2.ext.Entity" title="sdl2.ext.Entity"><code class="xref py py-class docutils literal"><span class="pre">Entity</span></code></a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sdl2.ext.Applicator">
+<em class="property">class </em><code class="descclassname">sdl2.ext.</code><code class="descname">Applicator</code><a class="headerlink" href="#sdl2.ext.Applicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>A processing system for combined data sets. The <a class="reference internal" href="#sdl2.ext.Applicator" title="sdl2.ext.Applicator"><code class="xref py py-class docutils literal"><span class="pre">Applicator</span></code></a>
+is an enhanced <a class="reference internal" href="#sdl2.ext.System" title="sdl2.ext.System"><code class="xref py py-class docutils literal"><span class="pre">System</span></code></a> that receives combined data sets based
+on its set <a class="reference internal" href="#sdl2.ext.System.componenttypes" title="sdl2.ext.System.componenttypes"><code class="xref py py-attr docutils literal"><span class="pre">System.componenttypes</span></code></a></p>
+<dl class="attribute">
+<dt id="sdl2.ext.Applicator.is_applicator">
+<code class="descname">is_applicator</code><a class="headerlink" href="#sdl2.ext.Applicator.is_applicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>A boolean flag indicating that this class operates on combined data sets.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.Applicator.componenttypes">
+<code class="descname">componenttypes</code><a class="headerlink" href="#sdl2.ext.Applicator.componenttypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>A tuple of class identifiers that shall be processed by the
+<a class="reference internal" href="#sdl2.ext.Applicator" title="sdl2.ext.Applicator"><code class="xref py py-class docutils literal"><span class="pre">Applicator</span></code></a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sdl2.ext.Applicator.process">
+<code class="descname">process</code><span class="sig-paren">(</span><em>world : World</em>, <em>componentsets : iterable</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.Applicator.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Processes tuples of component items. <em>componentsets</em> will
+contain object tuples, that match the <a class="reference internal" href="#sdl2.ext.Applicator.componenttypes" title="sdl2.ext.Applicator.componenttypes"><code class="xref py py-attr docutils literal"><span class="pre">componenttypes</span></code></a>
+of the <a class="reference internal" href="#sdl2.ext.Applicator" title="sdl2.ext.Applicator"><code class="xref py py-class docutils literal"><span class="pre">Applicator</span></code></a>. If, for example, the <a class="reference internal" href="#sdl2.ext.Applicator" title="sdl2.ext.Applicator"><code class="xref py py-class docutils literal"><span class="pre">Applicator</span></code></a>
+is defined as</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyApplicator</span><span class="p">(</span><span class="n">Applicator</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">componenttypes</span> <span class="o">=</span> <span class="p">(</span><span class="n">Foo</span><span class="p">,</span> <span class="n">Bar</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>its process method will receive <code class="docutils literal"><span class="pre">(Foo,</span> <span class="pre">Bar)</span></code> tuples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">world</span><span class="p">,</span> <span class="n">componentsets</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">foo_item</span><span class="p">,</span> <span class="n">bar_item</span> <span class="ow">in</span> <span class="n">componentsets</span><span class="p">:</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+<p>Additionally, the <a class="reference internal" href="#sdl2.ext.Applicator" title="sdl2.ext.Applicator"><code class="xref py py-class docutils literal"><span class="pre">Applicator</span></code></a> will not process all possible
+combinations of valid components, but only those, which are associated
+with the same <a class="reference internal" href="#sdl2.ext.Entity" title="sdl2.ext.Entity"><code class="xref py py-class docutils literal"><span class="pre">Entity</span></code></a>. That said, an <a class="reference internal" href="#sdl2.ext.Entity" title="sdl2.ext.Entity"><code class="xref py py-class docutils literal"><span class="pre">Entity</span></code></a> <em>must</em>
+contain a <code class="docutils literal"><span class="pre">Foo</span></code> as well as a <code class="docutils literal"><span class="pre">Bar</span></code> component in order to
+have them both processed by the <a class="reference internal" href="#sdl2.ext.Applicator" title="sdl2.ext.Applicator"><code class="xref py py-class docutils literal"><span class="pre">Applicator</span></code></a> (while a
+<a class="reference internal" href="#sdl2.ext.System" title="sdl2.ext.System"><code class="xref py py-class docutils literal"><span class="pre">System</span></code></a> with the same <code class="docutils literal"><span class="pre">componenttypes</span></code> would pick either of
+them, depending on their availability).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sdl2.ext.System">
+<em class="property">class </em><code class="descclassname">sdl2.ext.</code><code class="descname">System</code><a class="headerlink" href="#sdl2.ext.System" title="Permalink to this definition">¶</a></dt>
+<dd><p>A processing system within an application world consumes the
+components of all entities, for which it was set up. At time of
+processing, the system does not know about any other component type
+that might be bound to any entity.</p>
+<p>Also, the processing system does not know about any specific entity,
+but only is aware of the data carried by all entities.</p>
+<dl class="attribute">
+<dt id="sdl2.ext.System.componenttypes">
+<code class="descname">componenttypes</code><a class="headerlink" href="#sdl2.ext.System.componenttypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>A tuple of class identifiers that shall be processed by the
+<a class="reference internal" href="#sdl2.ext.System" title="sdl2.ext.System"><code class="xref py py-class docutils literal"><span class="pre">System</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.System.process">
+<code class="descname">process</code><span class="sig-paren">(</span><em>world : World</em>, <em>components : iterable</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.System.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Processes component items.</p>
+<p>This method has to be implemented by inheriting classes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sdl2.ext.World">
+<em class="property">class </em><code class="descclassname">sdl2.ext.</code><code class="descname">World</code><a class="headerlink" href="#sdl2.ext.World" title="Permalink to this definition">¶</a></dt>
+<dd><p>An application world defines the combination of application data and
+processing logic and how the data will be processed. As such, it is a
+container object in which the application is defined.</p>
+<p>The application world maintains a set of entities and their related
+components as well as a set of systems that process the data of the
+entities. Each processing system within the application world only
+operates on a certain set of components, but not all components of an
+entity at once.</p>
+<p>The order in which data is processed depends on the order of the
+added systems.</p>
+<dl class="attribute">
+<dt id="sdl2.ext.World.systems">
+<code class="descname">systems</code><a class="headerlink" href="#sdl2.ext.World.systems" title="Permalink to this definition">¶</a></dt>
+<dd><p>The processing system objects bound to the world.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.World.add_system">
+<code class="descname">add_system</code><span class="sig-paren">(</span><em>system : object</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.World.add_system" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a processing system to the world. The system will be
+added as last item in the processing order.</p>
+<p>The passed system does not have to inherit from <a class="reference internal" href="#sdl2.ext.System" title="sdl2.ext.System"><code class="xref py py-class docutils literal"><span class="pre">System</span></code></a>, but
+must feature a <code class="docutils literal"><span class="pre">componenttypes</span></code> attribute and a <code class="docutils literal"><span class="pre">process()</span></code> method,
+which match the signatures of the <a class="reference internal" href="#sdl2.ext.System" title="sdl2.ext.System"><code class="xref py py-class docutils literal"><span class="pre">System</span></code></a> class</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MySystem</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># componenttypes can be any iterable as long as it</span>
+        <span class="c1"># contains the classes the system should take care of</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">componenttypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">AClass</span><span class="p">,</span> <span class="n">AnotherClass</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">world</span><span class="p">,</span> <span class="n">components</span><span class="p">):</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+<p>If the system shall operate on combined component sets as specified
+by the <a class="reference internal" href="#sdl2.ext.Applicator" title="sdl2.ext.Applicator"><code class="xref py py-class docutils literal"><span class="pre">Applicator</span></code></a>, the class instance must contain a
+<code class="docutils literal"><span class="pre">is_applicator</span></code> property, that evaluates to <code class="docutils literal"><span class="pre">True</span></code></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyApplicator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_applicator</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">componenttypes</span> <span class="o">=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">world</span><span class="p">,</span> <span class="n">components</span><span class="p">):</span>
+        <span class="k">pass</span>
+</pre></div>
+</div>
+<p>The behaviour can be changed at run-time. The <code class="docutils literal"><span class="pre">is_applicator</span></code> attribute
+is evaluated for every call to <a class="reference internal" href="#sdl2.ext.World.process" title="sdl2.ext.World.process"><code class="xref py py-meth docutils literal"><span class="pre">World.process()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.World.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>entity : Entity</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.World.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes an <a class="reference internal" href="#sdl2.ext.Entity" title="sdl2.ext.Entity"><code class="xref py py-class docutils literal"><span class="pre">Entity</span></code></a> from the World, including all its
+component data.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.World.delete_entities">
+<code class="descname">delete_entities</code><span class="sig-paren">(</span><em>entities : iterable</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.World.delete_entities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a set of <a class="reference internal" href="#sdl2.ext.Entity" title="sdl2.ext.Entity"><code class="xref py py-class docutils literal"><span class="pre">Entity</span></code></a> instances from the World,
+including all their component data.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.World.insert_system">
+<code class="descname">insert_system</code><span class="sig-paren">(</span><em>index : int</em>, <em>system : System</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.World.insert_system" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a processing <a class="reference internal" href="#sdl2.ext.System" title="sdl2.ext.System"><code class="xref py py-class docutils literal"><span class="pre">System</span></code></a> to the world. The system will be
+added at the specified position in the processing order.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.World.get_entities">
+<code class="descname">get_entities</code><span class="sig-paren">(</span><em>component : object</em><span class="sig-paren">)</span> &rarr; [Entity, ...]<a class="headerlink" href="#sdl2.ext.World.get_entities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the entities using the passed component.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This will not perform an identity check on the component
+but rely on its <code class="docutils literal"><span class="pre">__eq__</span></code> implementation instead.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.World.process">
+<code class="descname">process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.World.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Processes all component items within their corresponding
+<a class="reference internal" href="#sdl2.ext.System" title="sdl2.ext.System"><code class="xref py py-class docutils literal"><span class="pre">System</span></code></a> instances.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.World.remove_system">
+<code class="descname">remove_system</code><span class="sig-paren">(</span><em>system : System</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.World.remove_system" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a processing <a class="reference internal" href="#sdl2.ext.System" title="sdl2.ext.System"><code class="xref py py-class docutils literal"><span class="pre">System</span></code></a> from the world.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="sdl2ext_events.html" class="btn btn-neutral float-right" title="General purpose event handling routines" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="sdl2ext_draw.html" class="btn btn-neutral" title="2D drawing routines for software surfaces" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013-2016, Marcus von Appen.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.10.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

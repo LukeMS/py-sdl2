@@ -1,0 +1,273 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PySDL2 FAQ &mdash; PySDL2 0.10.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="PySDL2 0.10.0 documentation" href="index.html"/>
+        <link rel="next" title="Release News" href="news.html"/>
+        <link rel="prev" title="Window routines to manage on-screen windows" href="modules/sdl2ext_window.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> PySDL2
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.10.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing PySDL2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html">Integrating PySDL2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/index.html">Learn to fly - the tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/index.html">API reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PySDL2 FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#on-importing">On importing...</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using">Using...</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-do-i">How do I...</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#font-handling">Font handling...</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">Release News</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="todos.html">Todo list for PySDL2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copying.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">PySDL2</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>PySDL2 FAQ</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/faq.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pysdl2-faq">
+<span id="faq"></span><h1>PySDL2 FAQ<a class="headerlink" href="#pysdl2-faq" title="Permalink to this headline">¶</a></h1>
+<p>This is a list of Frequently Asked Questions about PySDL2. If you think,
+something is missing, please suggest it!</p>
+<div class="section" id="on-importing">
+<h2>On importing...<a class="headerlink" href="#on-importing" title="Permalink to this headline">¶</a></h2>
+<p>... my script fails and complains that a SDL2 library could not be found!</p>
+<blockquote>
+<div>Do you have the libraries properly installed? Did you follow the operating
+system&#8217;s way of installing or registering libraries? If you placed the
+libraries in some folder, make sure that the <code class="docutils literal"><span class="pre">PYSDL2_DLL_PATH</span></code>
+environment variable points to the correct location.</div></blockquote>
+<p>... my script fails complaining that the <em>found</em> SDL2 library can&#8217;t be used!</p>
+<blockquote>
+<div>Do you use a 64-bit operating system? Please make sure, that the Python
+interpreter <em>and</em> that the SDL2 libraries are either 64-bit ones <em>or</em>
+32-bit ones. A 32-bit Python interpreter can&#8217;t deal with a 64-bit library
+and vice versa.</div></blockquote>
+</div>
+<div class="section" id="using">
+<h2>Using...<a class="headerlink" href="#using" title="Permalink to this headline">¶</a></h2>
+<p>... the sdl2 API is weird. Why do you use the SDL_ prefix all the time?</p>
+<blockquote>
+<div>The low-level APIs for SDL2, SDL2_mixer, SDL2_ttf, ... shall represent a
+clean wrapping around the original C API calls. Thus, if you have to search
+for documentation or want to make a Python to C conversion (or C to Python),
+most of the code cleanly maps to the original API naming and layout and you
+do not have to think about whether you had to use SDL_ or TTF_ or whatever
+as prefix or suffix.</div></blockquote>
+<p>... the sdl2 API is does not comply to PEP-8. Please make it PEP-8 compatible.</p>
+<blockquote>
+<div>Most of the API is PEP-8 compatible. The low-level bindings to SDL2 and
+related libraries however use the exact naming (including capital letters)
+as the functions or structures, they map to. See the previous entry for
+the reason of that.</div></blockquote>
+</div>
+<div class="section" id="how-do-i">
+<h2>How do I...<a class="headerlink" href="#how-do-i" title="Permalink to this headline">¶</a></h2>
+<p>... save my surfaces as image files?</p>
+<blockquote>
+<div>You can use <code class="xref py py-func docutils literal"><span class="pre">sdl2.SDL_SaveBMP()</span></code> to save them as bitmap files. Other
+formats are currently unsupported, but might be added to
+the <a class="reference internal" href="modules/sdl2ext.html#module-sdl2.ext" title="sdl2.ext: Python extensions for SDL2"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.ext</span></code></a> package in the future.</div></blockquote>
+</div>
+<div class="section" id="font-handling">
+<h2>Font handling...<a class="headerlink" href="#font-handling" title="Permalink to this headline">¶</a></h2>
+<p>... is too hard. Why can&#8217;t it work the same way as pygame does?</p>
+<blockquote>
+<div>The <a class="reference internal" href="modules/sdl2_sdlttf.html#module-sdl2.sdlttf" title="sdl2.sdlttf: SDL2_ttf library wrapper"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.sdlttf</span></code></a> API does not know about platform-specific font
+locations and is unable to resolve font paths based on e.g. the font name
+or typeface. It&#8217;s not its job and PySDL2 likewise does not provide such
+functionality. If you need improved font detection support, you might want
+to take a look at the sysfont module of the python-utils project, which can
+be found at <a class="reference external" href="https://bitbucket.org/marcusva/python-utils/">https://bitbucket.org/marcusva/python-utils/</a>.</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="news.html" class="btn btn-neutral float-right" title="Release News" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="modules/sdl2ext_window.html" class="btn btn-neutral" title="Window routines to manage on-screen windows" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013-2016, Marcus von Appen.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.10.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

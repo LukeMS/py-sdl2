@@ -1,0 +1,659 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sdl2.ext.manager - Basic scene manager. &mdash; PySDL2 0.10.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PySDL2 0.10.0 documentation" href="../index.html"/>
+        <link rel="up" title="sdl2.ext - Python extensions for SDL2" href="sdl2ext.html"/>
+        <link rel="next" title="sdl2.ext.particles - A simple particle system" href="sdl2ext_particles.html"/>
+        <link rel="prev" title="Image loaders" href="sdl2ext_image.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PySDL2
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.10.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installing PySDL2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html">Integrating PySDL2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Learn to fly - the tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="sdl2.html">sdl2 - SDL2 library wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdl2_sdlgfx.html">sdl2.sdlgfx - SDL2_gfx library wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdl2_sdlimage.html">sdl2.sdlimage - SDL2_image library wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdl2_sdlmixer.html">sd2.sdlmixer - SDL2_mixer library wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdl2_sdlttf.html">sd2.sdlttf - SDL2_ttf library wrapper</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="sdl2ext.html">sdl2.ext - Python extensions for SDL2</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_algorithms.html">Common algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_array.html">Converting sequences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_color.html">Color handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_colorpalettes.html">sdl2.ext.colorpalettes - predefined sets of colors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_common.html">Initialization routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_compat.html">sdl2.ext.compat - Python compatibility helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_draw.html">2D drawing routines for software surfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_ebs.html">Working with component-based entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_events.html">General purpose event handling routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_font.html">Text rendering routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_gui.html">User interface elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_image.html">Image loaders</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">sdl2.ext.manager - Basic scene manager.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_particles.html">sdl2.ext.particles - A simple particle system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_pixelaccess.html">2D and 3D direct pixel access</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_rect.html">sdl2.ext.rect - rectangular object.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_resources.html">Resource management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_sprite.html">sdl2.ext.sprite - Sprite, texture and pixel surface routines.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_surface.html">Software Surface manipulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_time.html">sdl2.ext.time - track and control game time and framerate.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdl2ext_window.html">Window routines to manage on-screen windows</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">PySDL2 FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Release News</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../todos.html">Todo list for PySDL2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../copying.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">PySDL2</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">API reference</a> &raquo;</li>
+      
+          <li><a href="sdl2ext.html">sdl2.ext - Python extensions for SDL2</a> &raquo;</li>
+      
+    <li>sdl2.ext.manager - Basic scene manager.</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/modules/sdl2ext_manager.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="module-sdl2.ext.manager"></span><div class="section" id="module-sdl2.ext.manager">
+<span id="sdl2-ext-manager-basic-scene-manager"></span><h1>sdl2.ext.manager - Basic scene manager.<a class="headerlink" href="#module-sdl2.ext.manager" title="Permalink to this headline">¶</a></h1>
+<p>Basic scene manager.</p>
+<dl class="class">
+<dt id="sdl2.ext.manager.Manager">
+<em class="property">class </em><code class="descclassname">sdl2.ext.manager.</code><code class="descname">Manager</code><span class="sig-paren">(</span><em>width=None</em>, <em>height=None</em>, <em>tile_size=None</em>, <em>limit_fps=None</em>, <em>window_color=None</em>, <em>resources_path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.manager.Manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Manage scenes and the main game loop.</p>
+<p>At each loop the events are passed down to the active scene and it&#8217;s
+update method is called.</p>
+<dl class="method">
+<dt id="sdl2.ext.manager.Manager.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>width=None</em>, <em>height=None</em>, <em>tile_size=None</em>, <em>limit_fps=None</em>, <em>window_color=None</em>, <em>resources_path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.manager.Manager.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialization.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>width</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; the width of the screen in pixels.</li>
+<li><strong>height</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; the height of the screen in pixels.</li>
+<li><strong>tile_size</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; size of a (square) tile&#8217;s side in pixels.</li>
+<li><strong>limit_fps</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; maximum frames per second that should be drawn.</li>
+<li><strong>window_color</strong> (<em>4-tuple</em>) &#8211; the window&#8217;s background color, as a tuple
+of 4 integers representing Red, Greehn, Blue and Alpha values
+(0-255).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>m = Manager()  # start with default parameters
+m.set_scene(SceneBase)  # set a scene. This is a blank base scene
+m.execute()  # call the main loop</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.manager.Manager.on_event">
+<code class="descname">on_event</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.manager.Manager.on_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle the events and pass them to the active scene.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.manager.Manager.on_update">
+<code class="descname">on_update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.manager.Manager.on_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the active scene.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.manager.Manager.present">
+<code class="descname">present</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.manager.Manager.present" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flip the GPU buffer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.manager.Manager.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.manager.Manager.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main loop handling events and updates.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.manager.Manager.set_scene">
+<code class="descname">set_scene</code><span class="sig-paren">(</span><em>scene=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.manager.Manager.set_scene" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the scene.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>scene</strong> (<a class="reference internal" href="#sdl2.ext.manager.SceneBase" title="sdl2.ext.manager.SceneBase"><em>SceneBase</em></a>) &#8211; the scene to be initialized</li>
+<li><strong>kwargs</strong> &#8211; the arguments that should be passed to the scene</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sdl2.ext.manager.KeyboardStateController">
+<em class="property">class </em><code class="descclassname">sdl2.ext.manager.</code><code class="descname">KeyboardStateController</code><a class="headerlink" href="#sdl2.ext.manager.KeyboardStateController" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A class that keeps track of keyboard modifiers and locks.</p>
+<dl class="method">
+<dt id="sdl2.ext.manager.KeyboardStateController.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.manager.KeyboardStateController.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialization.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.manager.KeyboardStateController.alt">
+<code class="descname">alt</code><a class="headerlink" href="#sdl2.ext.manager.KeyboardStateController.alt" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.manager.KeyboardStateController.combine">
+<code class="descname">combine</code><span class="sig-paren">(</span><em>alt=False</em>, <em>ctrl=False</em>, <em>shift=False</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.manager.KeyboardStateController.combine" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.manager.KeyboardStateController.ctrl">
+<code class="descname">ctrl</code><a class="headerlink" href="#sdl2.ext.manager.KeyboardStateController.ctrl" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.manager.KeyboardStateController.process">
+<code class="descname">process</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.manager.KeyboardStateController.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process the current event and update the keyboard state.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.manager.KeyboardStateController.shift">
+<code class="descname">shift</code><a class="headerlink" href="#sdl2.ext.manager.KeyboardStateController.shift" title="Permalink to this definition">¶</a></dt>
+<dd><p>...</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sdl2.ext.manager.SceneBase">
+<em class="property">class </em><code class="descclassname">sdl2.ext.manager.</code><code class="descname">SceneBase</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.manager.SceneBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Basic scene of the game.</p>
+<p>New Scenes should be subclasses of SceneBase.</p>
+<dl class="method">
+<dt id="sdl2.ext.manager.SceneBase.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.manager.SceneBase.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialization.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.manager.SceneBase.factory">
+<code class="descname">factory</code><a class="headerlink" href="#sdl2.ext.manager.SceneBase.factory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reference to sdl2.ext.SpriteFactory instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Manager.factory</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.manager.SceneBase.height">
+<code class="descname">height</code><a class="headerlink" href="#sdl2.ext.manager.SceneBase.height" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main window height.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Manager.height</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.manager.SceneBase.kb_state">
+<code class="descname">kb_state</code><a class="headerlink" href="#sdl2.ext.manager.SceneBase.kb_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reference to KeyboardStateController instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Manager.kb_state</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.manager.SceneBase.on_key_press">
+<code class="descname">on_key_press</code><span class="sig-paren">(</span><em>event</em>, <em>sym</em>, <em>mod</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.manager.SceneBase.on_key_press" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called on keyboard input, when a key is <strong>held down</strong>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>event</strong> (<em>sdl2.events.SDL_Event</em>) &#8211; The base event, as passed by sdl2
+Unless specifically needed, sym and mod should be used
+instead.</li>
+<li><strong>sym</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; Integer representing code of the key pressed. For
+printable keys <code class="docutils literal"><span class="pre">chr(key)</span></code> should return the corresponding
+character.</li>
+<li><strong>mod</strong> (<a class="reference internal" href="#sdl2.ext.manager.KeyboardStateController" title="sdl2.ext.manager.KeyboardStateController"><em>KeyboardStateController</em></a>) &#8211; the keyboard state for modifiers
+and locks. See :class:KeyboardStateController</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.manager.SceneBase.on_key_release">
+<code class="descname">on_key_release</code><span class="sig-paren">(</span><em>event</em>, <em>sym</em>, <em>mod</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.manager.SceneBase.on_key_release" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called on keyboard input, when a key is <strong>released</strong>.</p>
+<p>By default if the Escape key is pressed the manager quits.
+If that behaviour is desired you can call <code class="docutils literal"><span class="pre">super().on_key_release(</span>
+<span class="pre">event,</span> <span class="pre">sym,</span> <span class="pre">mod)</span></code> on a child class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>event</strong> (<em>sdl2.events.SDL_Event</em>) &#8211; The base event, as passed by sdl2
+The other arguments should be used for a higher level
+interaction, unless specifically needed.</li>
+<li><strong>sym</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; Integer representing code of the key pressed. For
+printable keys <code class="docutils literal"><span class="pre">chr(key)</span></code> should return the corresponding
+character.</li>
+<li><strong>mod</strong> (<a class="reference internal" href="#sdl2.ext.manager.KeyboardStateController" title="sdl2.ext.manager.KeyboardStateController"><em>KeyboardStateController</em></a>) &#8211; the keyboard state for modifiers
+and locks. See :class:KeyboardStateController</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.manager.SceneBase.on_mouse_drag">
+<code class="descname">on_mouse_drag</code><span class="sig-paren">(</span><em>event</em>, <em>x</em>, <em>y</em>, <em>dx</em>, <em>dy</em>, <em>button</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.manager.SceneBase.on_mouse_drag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when mouse buttons are pressed and the mouse is dragged.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>event</strong> (<em>sdl2.events.SDL_Event</em>) &#8211; The base event, as passed by sdl2
+The other arguments should be used for a higher level
+interaction, unless specifically needed.</li>
+<li><strong>x</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; horizontal coordinate, relative to window.</li>
+<li><strong>y</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; vertical coordinate, relative to window.</li>
+<li><strong>dx</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; relative motion in the horizontal direction</li>
+<li><strong>dy</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; relative motion in the vertical direction</li>
+<li><strong>button</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>&quot;RIGHT&quot;|&quot;MIDDLE&quot;|&quot;LEFT&quot;</em>) &#8211; string representing the
+button pressed.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.manager.SceneBase.on_mouse_motion">
+<code class="descname">on_mouse_motion</code><span class="sig-paren">(</span><em>event</em>, <em>x</em>, <em>y</em>, <em>dx</em>, <em>dy</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.manager.SceneBase.on_mouse_motion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when the mouse is moved.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>event</strong> (<em>sdl2.events.SDL_Event</em>) &#8211; The base event, as passed by sdl2
+The other arguments should be used for a higher level
+interaction, unless specifically needed.</li>
+<li><strong>x</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; horizontal coordinate, relative to window.</li>
+<li><strong>y</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; vertical coordinate, relative to window.</li>
+<li><strong>dx</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; relative motion in the horizontal direction</li>
+<li><strong>dy</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; relative motion in the vertical direction</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.manager.SceneBase.on_mouse_press">
+<code class="descname">on_mouse_press</code><span class="sig-paren">(</span><em>event</em>, <em>x</em>, <em>y</em>, <em>button</em>, <em>double</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.manager.SceneBase.on_mouse_press" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when mouse buttons are pressed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>event</strong> (<em>sdl2.events.SDL_Event</em>) &#8211; The base event, as passed by sdl2
+The other arguments should be used for a higher level
+interaction, unless specifically needed.</li>
+<li><strong>x</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; horizontal coordinate, relative to window.</li>
+<li><strong>y</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; vertical coordinate, relative to window.</li>
+<li><strong>button</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>&quot;RIGHT&quot;|&quot;MIDDLE&quot;|&quot;LEFT&quot;</em>) &#8211; string representing the
+button pressed.</li>
+<li><strong>double</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a><em>, </em><em>True|False</em>) &#8211; boolean indicating if the click was a
+double click.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.manager.SceneBase.on_mouse_scroll">
+<code class="descname">on_mouse_scroll</code><span class="sig-paren">(</span><em>event</em>, <em>offset_x</em>, <em>offset_y</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.manager.SceneBase.on_mouse_scroll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when the mouse wheel is scrolled.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>event</strong> (<em>sdl2.events.SDL_Event</em>) &#8211; The base event, as passed by sdl2
+The other arguments should be used for a higher level
+interaction, unless specifically needed.</li>
+<li><strong>offset_x</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; the amount scrolled horizontally, positive to the
+right and negative to the left.</li>
+<li><strong>offset_y</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; the amount scrolled vertically, positive away
+from the user and negative toward the user.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.manager.SceneBase.on_update">
+<code class="descname">on_update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.manager.SceneBase.on_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Graphical logic.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.manager.SceneBase.quit">
+<code class="descname">quit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.manager.SceneBase.quit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop the manager main loop.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.manager.SceneBase.renderer">
+<code class="descname">renderer</code><a class="headerlink" href="#sdl2.ext.manager.SceneBase.renderer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reference to sdl2.ext.Renderer instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Manager.renderer</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.manager.SceneBase.resources">
+<code class="descname">resources</code><a class="headerlink" href="#sdl2.ext.manager.SceneBase.resources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reference to sdl2.ext.Resources instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Manager.resources</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.manager.SceneBase.sdlrenderer">
+<code class="descname">sdlrenderer</code><a class="headerlink" href="#sdl2.ext.manager.SceneBase.sdlrenderer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reference to sdl2.SDL_Renderer instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Manager.renderer.sdlrenderer</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.manager.SceneBase.spriterenderer">
+<code class="descname">spriterenderer</code><a class="headerlink" href="#sdl2.ext.manager.SceneBase.spriterenderer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reference to sdl2.ext.TextureSpriteRenderSystem instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Manager.spriterenderer</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.manager.SceneBase.width">
+<code class="descname">width</code><a class="headerlink" href="#sdl2.ext.manager.SceneBase.width" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main window width.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Manager.height</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="sdl2ext_particles.html" class="btn btn-neutral float-right" title="sdl2.ext.particles - A simple particle system" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="sdl2ext_image.html" class="btn btn-neutral" title="Image loaders" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013-2016, Marcus von Appen.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.10.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

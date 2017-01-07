@@ -1,4 +1,5 @@
 py3env/
+_build/
 __pycache__/
 *.sublime-workspace
 *.sublime-project
