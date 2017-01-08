@@ -30,11 +30,11 @@ before_install:
   
   # install sdl2-ttf
   - "sudo apt-get -f -y install libfreetype6"
-  - "sudo apt-get -f -y install libsdl2-image-2.0-0"
+  # - "sudo apt-get -f -y install libsdl2-image-2.0-0"
   - "sudo apt-get -f -y install libsdl2-gfx-1.0-0"
   - "sudo apt-get -f -y install libsdl2-ttf-2.0-0"
   - "sudo apt-get -f -y install libsdl2-mixer-2.0-0"
-  - "sudo apt-get -f -y install libsdl2-net-2.0-0"
+  # - "sudo apt-get -f -y install libsdl2-net-2.0-0"
   # - wget https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.14.tar.gz
   # - wget http://download.savannah.gnu.org/releases/freetype/freetype-2.7.1.tar.gz
   # - sudo make install
