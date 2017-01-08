@@ -14,17 +14,28 @@ python:
   
 before_install:
   # install sdl2-2.05
-  - mkdir sdl2install
-  - export SDL2DIR="`pwd`/sdl2install"
+  # - mkdir sdl2install
+  # - export SDL2DIR="`pwd`/sdl2install"
+  
   - wget https://www.libsdl.org/release/SDL2-2.0.5.tar.gz
   - tar xf SDL2-2.0.5.tar.gz
   - cd SDL2-2.0.5  
-  - ./configure --prefix=$SDL2DIR
+  # - ./configure --prefix=$SDL2DIR
+  - ./configure
   - make
-  - make install
-  - export PYSDL2_DLL_PATH="$SDL2DIR/lib"
-  - ls $PYSDL2_DLL_PATH/*.so
+  - sudo make install
   - cd ..
+  
+  # install sdl2-ttf
+  # - sudo apt-get -f -y install libsdl2-ttf-2.0-0
+  - sudo apt-get -f -y install freetype* 
+  - sudo apt-get -f -y install libsdl2-ttf*
+  # - wget https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.14.tar.gz
+  # - wget http://download.savannah.gnu.org/releases/freetype/freetype-2.7.1.tar.gz
+  # - sudo make install
+  
+  # - export PYSDL2_DLL_PATH="$SDL2DIR/lib"
+  # - ls $PYSDL2_DLL_PATH/*.so
   
 # command to install dependencies
 install:
