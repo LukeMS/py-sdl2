@@ -16,7 +16,7 @@ python:
 install:
   # install sdl2-2.05
   - mkdir sdl2install
-  - export PYSDL2_DLL_PATH="~/sdl2install"
+  - export PYSDL2_DLL_PATH="`pwd`/sdl2install"
   - wget https://www.libsdl.org/release/SDL2-2.0.5.tar.gz
   - tar xf SDL2-2.0.5.tar.gz
   - cd SDL2-2.0.5
