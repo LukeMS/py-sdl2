@@ -21,10 +21,8 @@ install:
   
 # command to run tests
 script:
-  - cd ~
-  - export SDL2DIR="`pwd`/sdl2install"
-  - export SDL_CONFIG=$SDL2DIR/bin
+  - export SDL2DIR="/home/travis/sdl2install"
   - export PYSDL2_DLL_PATH=$SDL2DIR/lib
-  - export PATH=$PATH:$PYSDL2_DLL_PATH:$SDL2DIR:$SDL_CONFIG:
+  - export PATH=$PATH:$PYSDL2_DLL_PATH:
   
   - make runtest
