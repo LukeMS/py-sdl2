@@ -1,14 +1,8 @@
 #!/usr/bin/env sh
 
 cd ~
-mkdir sdl2install
-mkdir sdl2install/bin
-mkdir sdl2install/lib
 export SDL2DIR="`pwd`/sdl2install"
 export SDL_CONFIG=$SDL2DIR/bin
-export PYSDL2_DLL_PATH=$SDL2DIR/lib
-export PATH=$PATH:$PYSDL2_DLL_PATH:$SDL2DIR:$SDL_CONFIG:
-
 
 # install sdl2-2.0.5 
 wget https://www.libsdl.org/release/SDL2-2.0.5.tar.gz
@@ -55,4 +49,3 @@ make
 sudo make install
 cd ..
 
-ls $PYSDL2_DLL_PATH
