@@ -14,7 +14,7 @@ python:
   
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install -y libsdl2-2.0.5
+  - sudo apt-get install -y libsdl2-2.0
   - ls /usr/local/bin/
   
 # command to install dependencies
