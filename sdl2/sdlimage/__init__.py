@@ -28,7 +28,9 @@ __all__ = ["SDL_IMAGE_MAJOR_VERSION", "SDL_IMAGE_MINOR_VERSION", \
            "get_dll_file"
            ]
 
-os.environ.setdefault("PYSDL2_DLL_PATH", get_cfg('DLL', 'PYSDL2_DLL_PATH'))
+cfg_path = get_cfg('DLL', 'PYSDL2_DLL_PATH')
+if cfg_path:
+    os.environ.setdefault("PYSDL2_DLL_PATH", cfg_path)
 
 try:
     dll = DLL("SDL2_image", ["SDL2_image", "SDL2_image-2.0"],

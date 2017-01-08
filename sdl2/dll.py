@@ -112,8 +112,9 @@ def nullfunc(*args):
     """A simple no-op function to be used as dll replacement."""
     return
 
-
-os.environ.setdefault("PYSDL2_DLL_PATH", get_cfg('DLL', 'PYSDL2_DLL_PATH'))
+cfg_path = get_cfg('DLL', 'PYSDL2_DLL_PATH')
+if cfg_path:
+    os.environ.setdefault("PYSDL2_DLL_PATH", cfg_path)
 
 try:
     dll = DLL("SDL2", ["SDL2", "SDL2-2.0"], os.getenv("PYSDL2_DLL_PATH"))

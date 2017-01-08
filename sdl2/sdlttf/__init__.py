@@ -41,7 +41,9 @@ __all__ = ["get_dll_file", "SDL_TTF_MAJOR_VERSION", "SDL_TTF_MINOR_VERSION",
           "TTF_SetError", "TTF_GetError"
           ]
 
-os.environ.setdefault("PYSDL2_DLL_PATH", get_cfg('DLL', 'PYSDL2_DLL_PATH'))
+cfg_path = get_cfg('DLL', 'PYSDL2_DLL_PATH')
+if cfg_path:
+    os.environ.setdefault("PYSDL2_DLL_PATH", cfg_path)
 
 try:
     dll = DLL("SDL2_ttf", ["SDL2_ttf", "SDL2_ttf-2.0"],

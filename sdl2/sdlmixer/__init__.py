@@ -52,7 +52,9 @@ __all__ = ["get_dll_file", "SDL_MIXER_MAJOR_VERSION", "SDL_MIXER_MINOR_VERSION",
            "Mix_CloseAudio", "Mix_SetError", "Mix_GetError"
           ]
 
-os.environ.setdefault("PYSDL2_DLL_PATH", get_cfg('DLL', 'PYSDL2_DLL_PATH'))
+cfg_path = get_cfg('DLL', 'PYSDL2_DLL_PATH')
+if cfg_path:
+    os.environ.setdefault("PYSDL2_DLL_PATH", cfg_path)
 
 try:
     dll = DLL("SDL2_mixer", ["SDL2_mixer", "SDL2_mixer-2.0"],

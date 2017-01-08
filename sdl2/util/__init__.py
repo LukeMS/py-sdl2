@@ -65,3 +65,5 @@ def get_cfg(section, option, convert=False):
             return v
     except KeyError:
         return None
+    except configparser.NoOptionError:
+        return None
