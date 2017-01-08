@@ -24,9 +24,6 @@ install:
   - make
   - make install
   - export PYSDL2_DLL_PATH="$SDL2DIR/bin"
-  - echo "SDL2DIR: $SDL2DIR"
-  - echo "PYSDL2_DLL_PATH: $PYSDL2_DLL_PATH"
-  - echo "content of  $PYSDL2_DLL_PATH
   - ls $PYSDL2_DLL_PATH
   - cd ..
   # install python requirements
