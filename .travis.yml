@@ -25,4 +25,6 @@ script:
   - export PYSDL2_DLL_PATH=$SDL2DIR/lib
   - export PATH=$PATH:$PYSDL2_DLL_PATH:
   
+  - find $SDL2DIR -name .so -print
+  
   - make runtest
