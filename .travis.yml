@@ -13,6 +13,8 @@ python:
   - "pypy3" # Pypy3 2.4.0
   
 before_install:
+  - sudo apt-get update
+
   # install sdl2-2.05
   # - mkdir sdl2install
   # - export SDL2DIR="`pwd`/sdl2install"
