@@ -1,8 +1,11 @@
 #!/usr/bin/env sh
 
-cd ~
-export SDL2DIR="`pwd`/sdl2install"
-export SDL_CONFIG=$SDL2DIR/bin
+mkdir /home/travis/sdl2install
+export SDL2DIR="/home/travis/sdl2install"
+mkdir /home/travis/sdl2install/bin
+export SDL_CONFIG="/home/travis/sdl2install/bin"
+mkdir /home/travis/sdl2install/bin
+export SDL_CONFIG="/home/travis/sdl2install/bin"
 
 # install sdl2-2.0.5 
 wget https://www.libsdl.org/release/SDL2-2.0.5.tar.gz
