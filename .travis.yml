@@ -1,4 +1,5 @@
 language: python
+
 python:
   - "3.2"
   - "3.3"
@@ -10,18 +11,22 @@ python:
   - "nightly" # currently points to 3.7-dev
   # PyPy versions
   - "pypy3" # Pypy3 2.4.0
+  
 # command to install dependencies
 install:
-  - cd ~
+  # install sdl2-2.05
   - mkdir sdl2install
-  - export SDL2DIR="/home/travis/build/LukeMS/py-sdl2/sdl2"
-  
+  - export PYSDL2_DLL_PATH="~/sdl2install"
   - wget https://www.libsdl.org/release/SDL2-2.0.5.tar.gz
   - tar xf SDL2-2.0.5.tar.gz
   - cd SDL2-2.0.5
-  - ./configure --prefix=$SDL2DIR
+  - ./configure --prefix=$PYSDL2_DLL_PATH
   - make
   - make install
+  - ls ./$SDL2DIR/
+  - cd ..
+  # install python requirements
   - "pip install -r requirements.txt"
+  
 # command to run tests
 script: make runtest
