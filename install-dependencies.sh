@@ -55,4 +55,4 @@ make
 sudo make install
 cd ..
 
-ls $PYSDL2_DLL_PATH/*.so
+ls $PYSDL2_DLL_PATH
