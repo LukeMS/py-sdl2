@@ -14,7 +14,7 @@ python:
 
 install:
   # install library requirements
-  ./install-dependencies.sh
+  - ./install-dependencies.sh
   # install python requirements
   - "pip install -r requirements.txt"
   
