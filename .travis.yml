@@ -15,8 +15,16 @@ python:
 install:
   # install library requirements
   - ./install-dependencies.sh
+    
   # install python requirements
   - "pip install -r requirements.txt"
   
 # command to run tests
-script: make runtest
+script:
+  - cd ~
+  - export SDL2DIR="`pwd`/sdl2install"
+  - export SDL_CONFIG=$SDL2DIR/bin
+  - export PYSDL2_DLL_PATH=$SDL2DIR/lib
+  - export PATH=$PATH:$PYSDL2_DLL_PATH:$SDL2DIR:$SDL_CONFIG:
+  
+  - make runtest
