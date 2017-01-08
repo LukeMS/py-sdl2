@@ -16,14 +16,18 @@ python:
 install:
   # install sdl2-2.05
   - mkdir sdl2install
-  - export PYSDL2_DLL_PATH="`pwd`/sdl2install"
+  - export SDL2DIR="`pwd`/sdl2install"
   - wget https://www.libsdl.org/release/SDL2-2.0.5.tar.gz
   - tar xf SDL2-2.0.5.tar.gz
-  - cd SDL2-2.0.5
-  - ./configure --prefix=$PYSDL2_DLL_PATH
+  - cd SDL2-2.0.5  
+  - ./configure --prefix=$SDL2DIR
   - make
   - make install
-  - ls ./$SDL2DIR/
+  - export PYSDL2_DLL_PATH="$SDL2DIR/bin"
+  - echo "SDL2DIR: $SDL2DIR"
+  - echo "PYSDL2_DLL_PATH: $PYSDL2_DLL_PATH"
+  - echo "content of  $PYSDL2_DLL_PATH
+  - ls $PYSDL2_DLL_PATH
   - cd ..
   # install python requirements
   - "pip install -r requirements.txt"
