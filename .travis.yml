@@ -30,7 +30,7 @@ before_install:
   - ./configure
   - make
   - sudo make install
-  - cd..
+  - cd ..
   
   # install SDL2_ttf-2.0.14
   - wget https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.14.tar.gz
@@ -39,7 +39,7 @@ before_install:
   - ./configure
   - make
   - sudo make install
-  - cd..
+  - cd ..
   
   # install SDL2_mixer-2.0.1
   - wget https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.1.tar.gz
@@ -48,7 +48,7 @@ before_install:
   - ./configure
   - make
   - sudo make install
-  - cd..
+  - cd ..
   
   # install sdl2-ttf
   # - "sudo apt-get -f -y install libfreetype6"
