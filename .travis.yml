@@ -22,9 +22,9 @@ install:
 # command to run tests
 script:
   - export SDL2DIR="/home/travis/sdl2install"
-  - export PYSDL2_DLL_PATH=$SDL2DIR/lib
-  - export PATH=$PATH:$PYSDL2_DLL_PATH:
+  - export PYSDL2_DLL_PATH="$SDL2DIR/lib"
+  - export PATH="$PATH:$PYSDL2_DLL_PATH"
   
-  - find $SDL2DIR -name .so -print
+  - find $SDL2DIR -name *.so -print0
   
   - make runtest
