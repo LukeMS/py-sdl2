@@ -3,9 +3,7 @@
 mkdir /home/travis/sdl2install
 export SDL2DIR="/home/travis/sdl2install"
 mkdir /home/travis/sdl2install/bin
-export SDL_CONFIG="/home/travis/sdl2install/bin"
-mkdir /home/travis/sdl2install/bin
-export SDL_CONFIG="/home/travis/sdl2install/bin"
+export SDL_CONFIG="$SDL2DIR/bin"
 
 # install sdl2-2.0.5 
 wget https://www.libsdl.org/release/SDL2-2.0.5.tar.gz
@@ -13,7 +11,7 @@ tar xf SDL2-2.0.5.tar.gz
 cd SDL2-2.0.5  
 ./configure --prefix=$SDL2DIR
 make
-sudo make install
+make install
 cd ..
 
 # install SDL2_image-2.0.1
@@ -22,7 +20,7 @@ tar xf SDL2_image-2.0.1.tar.gz
 cd SDL2_image-2.0.1
 ./configure --prefix=$SDL2DIR
 make
-sudo make install
+make install
 cd ..
 
 # install SDL2_ttf-2.0.14
@@ -31,7 +29,7 @@ tar xf SDL2_ttf-2.0.14.tar.gz
 cd SDL2_ttf-2.0.14
 ./configure --prefix=$SDL2DIR
 make
-sudo make install
+make install
 cd ..
 
 # install SDL2_mixer-2.0.1
@@ -40,7 +38,7 @@ tar xf SDL2_mixer-2.0.1.tar.gz
 cd SDL2_mixer-2.0.1
 ./configure --prefix=$SDL2DIR
 make
-sudo make install
+make install
 cd ..
 
 # install SDL2_gfx-1.0.1
@@ -49,6 +47,6 @@ tar xf SDL2_gfx-1.0.1.tar.gz
 cd SDL2_gfx-1.0.1
 ./configure --prefix=$SDL2DIR
 make
-sudo make install
+make install
 cd ..
 
