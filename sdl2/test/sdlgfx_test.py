@@ -1,12 +1,23 @@
 
 import sys
 import unittest
+
 try:
-    from .. import SDL_Init, SDL_Quit, SDL_INIT_VIDEO
-    from .. import surface, sdlgfx
+    from .. import SDL_Init, SDL_Quit, SDL_INIT_VIDEO, surface
+    try:
+        from .. import sdlgfx
+    except ImportError:
+        HAS_GFX = False
+    else:
+        HAS_GFX = True
 except SystemError:
-    from sdl2 import SDL_Init, SDL_Quit, SDL_INIT_VIDEO
-    from sdl2 import surface, sdlgfx
+    from sdl2 import SDL_Init, SDL_Quit, SDL_INIT_VIDEO, surface
+    try:
+        from sdl2 import sdlgfx
+    except ImportError:
+        HAS_GFX = False
+    else:
+        HAS_GFX = True
 
 
 class SDLTTFTest(unittest.TestCase):
@@ -307,6 +318,7 @@ class SDLTTFTest(unittest.TestCase):
     def test_shrinkSurface(self):
         pass
 
+    @unittest.skipUnless(HAS_GFX, "requires sdlgfx")
     def test_rotateSurface90Degrees(self):
         w, h = 470, 530
         sf = surface.SDL_CreateRGBSurface(0, w, h, 32, 0, 0, 0, 0)
