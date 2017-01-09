@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os
 import sys
-from distutils.core import setup
+from setuptools import setup
 
 VERSION = "0.9.5"
 
@@ -20,7 +20,7 @@ if __name__ == "__main__":
     readme.close()
 
     setupdata = {
-        "name":  "PySDL2",
+        "name": "PySDL2",
         "version": VERSION,
         "description": "Python SDL2 bindings",
         "long_description": long_desc,
@@ -42,7 +42,7 @@ if __name__ == "__main__":
                      "sdl2.test.util",
                      "sdl2.examples"
                      ],
-        "test_suite": "sdl2.test",
+        "test_suite": "sdl2.test.run",
         "classifiers": [
             "Development Status :: 4 - Beta",
             "Intended Audience :: Developers",
