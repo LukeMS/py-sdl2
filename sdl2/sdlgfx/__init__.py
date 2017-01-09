@@ -41,7 +41,7 @@ if cfg_path:
     os.environ.setdefault("PYSDL2_DLL_PATH", cfg_path)
 
 try:
-    dll = DLL("SDL2_gfx", ["SDL2_gfx", "SDL2_gfx-1.0"],
+    dll = DLL("SDL2_gfx", ["SDL2_gfx", "SDL2_gfx-1.0", "SDL2_gfx-1.0.1"],
               os.getenv("PYSDL2_DLL_PATH"))
 except RuntimeError as exc:
     raise ImportError(exc)
