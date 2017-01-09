@@ -16,7 +16,7 @@ before_install:
   - yes | sudo add-apt-repository ppa:zoogie/sdl2-snapshots;
   - sudo apt-get update;
   - sudo apt-get -y -f install libpng-dev zlib1g-dev libjpeg-dev libtiff4-dev libportmidi-dev;
-  - sudo apt-get -y -f install libmodplug-dev libfluidsynth-dev libogg-dev libvorbis-dev libvorbisfile-dev libflac-dev smpeg-gtv;
+  - sudo apt-get -y -f install libmodplug-dev libfluidsynth-dev libogg-dev libvorbis-dev libflac-dev smpeg-gtv;
   - sudo apt-get -y -f install xvfb;
 
 install:
