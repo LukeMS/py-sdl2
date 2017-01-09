@@ -160,7 +160,9 @@ def loadtests(package, test, testdir, writer, loader, options):
         else:
             writer.writesame("Loading tests from [%s] ..." % testmod)
         try:
-            suites.append(loadtests_frompkg(package, loader))
+            t = loadtests_frompkg(package, loader)
+            if t:
+                suites.append(t)
         except:
             printerror()
     except:
