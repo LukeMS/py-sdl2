@@ -30,4 +30,5 @@ script:
   
   - find $SDL2DIR -name *.so -print0
   
-  - make runtest
+  # - make runtest
+  - python setup.py test
