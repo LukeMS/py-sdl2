@@ -1,8 +1,12 @@
-.. image:: https://coveralls.io/repos/github/LukeMS/py-sdl2/badge.svg
-   :target: https://coveralls.io/github/LukeMS/py-sdl2
-
 .. image:: https://travis-ci.org/LukeMS/py-sdl2.svg?branch=master
    :target: https://travis-ci.org/LukeMS/py-sdl2
+
+.. image:: https://coveralls.io/repos/github/LukeMS/py-sdl2/badge.svg
+   :target: https://coveralls.io/github/LukeMS/py-sdl2
+   
+.. image:: https://landscape.io/github/LukeMS/py-sdl2/master/landscape.svg?style=flat
+   :target: https://landscape.io/github/LukeMS/py-sdl2/master
+   :alt: Code Health
 
 About PySDL2
 ============
