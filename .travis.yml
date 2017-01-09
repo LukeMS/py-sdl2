@@ -12,13 +12,16 @@ python:
   # PyPy versions
   # - "pypy3" # Pypy3 2.4.0
 
+before_install:
+	- "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1024x768x32"
+
 install:
   # install library requirements
   - ./install-dependencies.sh
     
   # install python requirements
   - "pip install -r requirements.txt"
-  
+
 # command to run tests
 script:
   - export SDL2DIR="/home/travis/sdl2install"
