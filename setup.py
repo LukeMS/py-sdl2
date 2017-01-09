@@ -16,7 +16,7 @@ if __name__ == "__main__":
     fname = os.path.join(os.path.dirname(os.path.abspath(__file__)), "README.rst")
     readme = open(fname, "r")
     long_desc = readme.read().strip()
-    long_desc = long_desc.split("LukeMS/py-sdl2")[-1]
+    long_desc = long_desc.split(":alt: Code Health")[-1]
     readme.close()
 
     setupdata = {
