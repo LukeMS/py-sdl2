@@ -481,6 +481,7 @@ class SDLVideoTest(unittest.TestCase):
         self.assertEqual((sx.value, sy.value), (600, 900))
         video.SDL_DestroyWindow(window)
 
+    @unittest.skipUnless(__name__ == '__main__', "interactive")
     @interactive("Was the window shown?")
     def test_SDL_ShowWindow(self):
         window = video.SDL_CreateWindow(b"test_SDL_ShowWindow",
@@ -490,6 +491,7 @@ class SDLVideoTest(unittest.TestCase):
                 "'test_SDL_ShowWindow' is shown")
         video.SDL_DestroyWindow(window)
 
+    @unittest.skipUnless(__name__ == '__main__', "interactive")
     @interactive("Did the window vanish from your sight and pop up again?")
     def test_SDL_HideWindow(self):
         window = video.SDL_CreateWindow(b"test_SDL_HideWindow",
@@ -503,6 +505,7 @@ class SDLVideoTest(unittest.TestCase):
         doprint("Please check, if the window is shown again")
         video.SDL_DestroyWindow(window)
 
+    @unittest.skipUnless(__name__ == '__main__', "interactive")
     @interactive("Did the window raise properly?")
     def test_SDL_RaiseWindow(self):
         window = video.SDL_CreateWindow(b"test_SDL_RaiseWindow",
@@ -515,6 +518,7 @@ class SDLVideoTest(unittest.TestCase):
         doprint("The window should be raised to the foreground now")
         video.SDL_DestroyWindow(window)
 
+    @unittest.skipUnless(__name__ == '__main__', "interactive")
     @interactive("Was the window maximized?")
     def test_SDL_MaximizeWindow(self):
         window = video.SDL_CreateWindow(b"test_SDL_MaximizeWindow", 200, 200,
@@ -526,6 +530,7 @@ class SDLVideoTest(unittest.TestCase):
         doprint("Please check, if the window was maximized properly")
         video.SDL_DestroyWindow(window)
 
+    @unittest.skipUnless(__name__ == '__main__', "interactive")
     @interactive("Was the window minimized?")
     def test_SDL_MinimizeWindow(self):
         window = video.SDL_CreateWindow(b"test_SDL_MinimizeWindow", 200, 200,
@@ -537,6 +542,7 @@ class SDLVideoTest(unittest.TestCase):
         doprint("Please check, if the window was minimized properly")
         video.SDL_DestroyWindow(window)
 
+    @unittest.skipUnless(__name__ == '__main__', "interactive")
     @interactive("Was the window maximized and restored properly?")
     def test_SDL_RestoreWindow(self):
         window = video.SDL_CreateWindow(b"test_SDL_RestoreWindow", 200, 200,
@@ -824,7 +830,12 @@ class SDLVideoTest(unittest.TestCase):
 
     @unittest.skipUnless(HAS_GL_LIB, "Need a GL context")
     def test_SDL_GL_GetSetSwapInterval(self):
-        """..."""
+        """...
+
+        See issue at <https://github.com/LukeMS/py-sdl2/issues/3>
+
+
+        """
         """
         self.assertRaises(ValueError, video.SDL_GL_SetSwapInterval, None)
         self.assertRaises(ValueError, video.SDL_GL_SetSwapInterval, "Test")
@@ -838,7 +849,7 @@ class SDLVideoTest(unittest.TestCase):
         self.assertRaises(sdl.SDLError, video.SDL_GL_SetSwapInterval, 0)
         """
 
-        for swap in (0, 1):
+        for i, swap in enumerate((0, 1)):
             self.assertEqual(video.SDL_GL_LoadLibrary(None), 0)
             window = video.SDL_CreateWindow(b"OpenGL", 10, 10, 10, 10,
                                             video.SDL_WINDOW_OPENGL)
@@ -846,7 +857,10 @@ class SDLVideoTest(unittest.TestCase):
             video.SDL_GL_MakeCurrent(window, ctx)
 
             video.SDL_GL_SetSwapInterval(swap)
-            self.assertEqual(video.SDL_GL_GetSwapInterval(), swap)
+            if i == 0:
+                # Fix https://github.com/LukeMS/py-sdl2/issues/3
+
+                self.assertEqual(video.SDL_GL_GetSwapInterval(), swap)
 
             video.SDL_GL_DeleteContext(ctx)
             video.SDL_DestroyWindow(window)

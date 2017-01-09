@@ -1,23 +1,25 @@
+
 import sys
 import unittest
 from ctypes import c_char_p, c_void_p, cast
 try:
-    from .. import SDL_Init, SDL_Quit, SDL_QuitSubSystem, SDL_INIT_EVERYTHING
+    from .. import (SDL_Init, SDL_Quit,
+                    SDL_INIT_EVENTS)
     from .. import events
 except SystemError:
-    from sdl2 import (SDL_Init, SDL_Quit, SDL_QuitSubSystem,
-                      SDL_INIT_EVERYTHING)
+    from sdl2 import (SDL_Init, SDL_Quit,
+                      SDL_INIT_EVENTS)
     from sdl2 import events
 
 
 class SDLEventsTest(unittest.TestCase):
+
     __tags__ = ["sdl"]
 
     def setUp(self):
-        SDL_Init(SDL_INIT_EVERYTHING)
+        SDL_Init(SDL_INIT_EVENTS)
 
     def tearDown(self):
-        SDL_QuitSubSystem(SDL_INIT_EVERYTHING)
         SDL_Quit()
 
     def test_SDL_AudioDeviceEvent(self):

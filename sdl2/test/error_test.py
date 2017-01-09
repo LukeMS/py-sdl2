@@ -2,20 +2,14 @@
 import sys
 import unittest
 try:
-    from .. import SDL_Init, SDL_Quit, error
+    from .. import error
 except SystemError:
-    from sdl2 import SDL_Init, SDL_Quit, error
+    from sdl2 import error
 
 
 class SDLTest(unittest.TestCase):
 
     __tags__ = ["sdl"]
-
-    def setUp(self):
-        SDL_Init(0)
-
-    def tearDown(self):
-        SDL_Quit()
 
     def test_SDL_ClearError(self):
         error.SDL_ClearError()

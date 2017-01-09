@@ -14,9 +14,14 @@ except SystemError:
 
 
 class SDLAudioTest(unittest.TestCase):
+
     __tags__ = ["sdl"]
 
     def setUp(self):
+        """..."""
+        """If you want to initialize subsystems separately you would call
+        SDL_Init(0) followed by SDL_InitSubSystem() with the desired
+        subsystem flag."""
         SDL_Init(0)
 
         def audio_cb(userdata, audiobytes, length):

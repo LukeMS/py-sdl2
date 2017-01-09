@@ -1,7 +1,11 @@
-"""General purpose event handling routines"""
-from .compat import *
+"""General purpose event handling routines."""
 
-__all__ = ["EventHandler", "MPEventHandler"]
+import ctypes
+
+from .compat import *
+from .. import events
+
+__all__ = ["EventHandler", "MPEventHandler", "PushEvent"]
 
 _HASMP = True
 try:
@@ -95,3 +99,34 @@ class MPEventHandler(EventHandler):
         pool.close()
         pool.join()
         return results
+
+
+class PushEvent(object):
+
+    def push(self):
+        events.SDL_PushEvent(ctypes.byref(self))
+
+
+class PushMouseMotionEvent(events.SDL_Event):
+
+    def __init__(self, type=events.SDL_MOUSEMOTION, **kwargs):
+        """
+        Args:
+            timestamp (int): timestamp of the event
+            windowID (int): the window with mouse focus, if any
+            which (int): the mouse instance id, or SDL_TOUCH_MOUSEID
+            state (int, SDL_BUTTON_LMASK, SDL_BUTTON_MMASK, SDL_BUTTON_RMASK,
+                SDL_BUTTON_X1MASK, SDL_BUTTON_X2MASK): the state of the button
+            x (int): X coordinate, relative to window
+            y (int): Y coordinate, relative to window
+            xrel (int): relative motion in the X direction
+            yrel (int): relative motion in the Y direction
+
+        Attributes:
+            type (int): events.SDL_MOUSEMOTION
+            motion (SDL_MouseMotionEvent): SDL_MouseMotionEvent Structure
+        """
+        super().__init__(type=type)
+        _set = self.motion.__setattr__
+        [_set(k, v) for k, v in kwargs.items()]
+        PushEvent.push(self)

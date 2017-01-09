@@ -14,6 +14,7 @@ except:
 
 
 class SDL2ExtPixelAccessTest(unittest.TestCase):
+
     __tags__ = ["sdl", "sdl2ext"]
 
     def setUp(self):

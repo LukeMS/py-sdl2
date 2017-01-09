@@ -1,3 +1,4 @@
+
 import sys
 import math
 import unittest
@@ -8,6 +9,7 @@ except SystemError:
 
 
 class SDLEndianTest(unittest.TestCase):
+
     __tags__ = ["sdl"]
 
     def test_SDL_BYTEORDER(self):

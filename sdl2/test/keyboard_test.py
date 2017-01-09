@@ -6,7 +6,7 @@ try:
     from .. import SDL_Init, SDL_Quit, SDL_QuitSubSystem, SDL_INIT_VIDEO
     from .. import rect, keyboard, scancode, keycode, video
 except SystemError:
-    from sdl2 import SDL_Init, SDL_Quit, SDL_QuitSubSystem, SDL_INIT_VIDEO
+    from sdl2 import SDL_Init, SDL_Quit, SDL_INIT_VIDEO
     from sdl2 import rect, keyboard, scancode, keycode, video
 
 
@@ -21,7 +21,6 @@ class SDLKeyboardTest(unittest.TestCase):
         SDL_Init(SDL_INIT_VIDEO)
 
     def tearDown(self):
-        SDL_QuitSubSystem(SDL_INIT_VIDEO)
         SDL_Quit()
 
     def test_SDL_Keysym(self):
@@ -108,8 +107,8 @@ class SDLKeyboardTest(unittest.TestCase):
     def test_SDL_GetSetModState(self):
         initial = keyboard.SDL_GetModState()
         for state in(keycode.KMOD_NUM | keycode.KMOD_CAPS | keycode.KMOD_MODE,
-                      keycode.KMOD_NUM | keycode.KMOD_CAPS,
-                      keycode.KMOD_CAPS):
+                     keycode.KMOD_NUM | keycode.KMOD_CAPS,
+                     keycode.KMOD_CAPS):
             keyboard.SDL_SetModState(state)
             self.assertEqual(keyboard.SDL_GetModState(), state)
 
@@ -183,11 +182,9 @@ class SDLKeyboardTest(unittest.TestCase):
             keyboard.SDL_SetTextInputRect(r)
         keyboard.SDL_SetTextInputRect(rect.SDL_Rect())
 
-    @unittest.skip("not implemented")
     def test_SDL_StartTextInput(self):
         keyboard.SDL_StartTextInput()
 
-    @unittest.skip("not implemented")
     def test_SDL_StopTextInput(self):
         keyboard.SDL_StopTextInput()
 

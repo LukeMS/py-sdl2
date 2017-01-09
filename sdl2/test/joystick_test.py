@@ -20,7 +20,6 @@ class SDLJoystickTest(unittest.TestCase):
         self.jcount = joystick.SDL_NumJoysticks()
 
     def tearDown(self):
-        SDL_QuitSubSystem(SDL_INIT_JOYSTICK)
         SDL_Quit()
 
     def test_SDL_NumJoysticks(self):

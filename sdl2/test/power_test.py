@@ -12,8 +12,14 @@ except SystemError:
 
 
 class SDLPowerTest(unittest.TestCase):
+
     __tags__ = ["sdl"]
 
+    def test_basic(self):
+        secs, percent = c_int(), c_int()
+        power.SDL_GetPowerInfo(byref(secs), byref(percent))
+
+    @unittest.skipUnless(__name__ == '__main__', "interactive")
     @interactive("Do the shown numbers match your power supply status?")
     def test_get_power_info(self):
         secs, percent = c_int(), c_int()

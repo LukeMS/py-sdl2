@@ -1,3 +1,4 @@
+
 import os
 import sys
 import unittest
@@ -9,6 +10,7 @@ except SystemError:
 
 
 class SDLFileSystemTest(unittest.TestCase):
+
     __tags__ = ["sdl"]
 
     def test_SDL_GetBasePath(self):

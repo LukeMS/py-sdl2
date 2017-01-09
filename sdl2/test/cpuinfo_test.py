@@ -14,6 +14,7 @@ except:
 
 
 class SDLCPUInfoTest(unittest.TestCase):
+
     __tags__ = ["sdl"]
 
     def test_SDL_GetCPUCacheLineSize(self):

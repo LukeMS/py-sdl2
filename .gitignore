@@ -1,4 +1,5 @@
 py3env/
+PySDL2.egg-info/
 _build/
 __pycache__/
 run_tests.py

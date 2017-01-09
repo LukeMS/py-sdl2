@@ -19,7 +19,6 @@ except SystemError:
     else:
         HAS_GFX = True
 
-
 class SDLTTFTest(unittest.TestCase):
 
     __tags__ = ["sdl", "sdlgfx"]
@@ -331,6 +330,10 @@ class SDLTTFTest(unittest.TestCase):
 
         surface.SDL_FreeSurface(rotsf)
         surface.SDL_FreeSurface(sf)
+
+    @unittest.skipIf(HAS_GFX, "have sdlgfx")
+    def test_NoGFX(self):
+        pass
 
 
 if __name__ == '__main__':

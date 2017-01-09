@@ -3,24 +3,23 @@ import sys
 import unittest
 from ctypes import cast, c_char_p
 try:
-    from .. import SDL_Init, SDL_Quit, SDL_QuitSubSystem, SDL_INIT_EVERYTHING
+    from .. import SDL_Init, SDL_Quit, SDL_INIT_EVERYTHING
     from .. import hints
     from ..stdinc import SDL_TRUE, SDL_FALSE
 except SystemError:
-    from sdl2 import (SDL_Init, SDL_Quit, SDL_QuitSubSystem,
-                      SDL_INIT_EVERYTHING)
+    from sdl2 import SDL_Init, SDL_Quit, SDL_INIT_EVERYTHING
     from sdl2 import hints
     from sdl2.stdinc import SDL_TRUE, SDL_FALSE
 
 
 class SDLHintsTest(unittest.TestCase):
+
     __tags__ = ["sdl"]
 
     def setUp(self):
         SDL_Init(SDL_INIT_EVERYTHING)
 
     def tearDown(self):
-        SDL_QuitSubSystem(SDL_INIT_EVERYTHING)
         SDL_Quit()
 
     def test_SDL_ClearHints(self):
