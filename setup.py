@@ -32,11 +32,16 @@ if __name__ == "__main__":
         "package_data": {"sdl2.test": ["resources/*.*"],
                          "sdl2.examples": ["resources/*.*"]},
         "packages": ["sdl2",
+                     "sdl2.sdlgfx",
+                     "sdl2.sdlimage",
+                     "sdl2.sdlmixer",
+                     "sdl2.sdlttf",
                      "sdl2.ext",
                      "sdl2.test",
                      "sdl2.test.util",
                      "sdl2.examples"
                      ],
+        "test_suite"= "sdl2.test",
         "classifiers": [
             "Development Status :: 4 - Beta",
             "Intended Audience :: Developers",
