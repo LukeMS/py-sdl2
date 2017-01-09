@@ -1,7 +1,6 @@
 
 import sys
 import unittest
-from tkinter import Tk
 try:
     from .. import SDL_Init, SDL_Quit, SDL_INIT_EVERYTHING
     from .. import clipboard
@@ -20,15 +19,9 @@ class SDLClipboardTest(unittest.TestCase):
 
     def setUp(self):
         SDL_Init(SDL_INIT_EVERYTHING)
-        self.tk = Tk()
-        self.tk.withdraw()
-        self.tk.clipboard_clear()
-        self.tk.clipboard_append(TEXT)
 
     def tearDown(self):
         SDL_Quit()
-        self.tk.clipboard_clear()
-        self.tk.destroy()
 
     def test_SDL_HasClipboardText(self):
         self.assertEqual(clipboard.SDL_SetClipboardText(None), 0)
@@ -38,25 +31,18 @@ class SDLClipboardTest(unittest.TestCase):
         self.assertEqual(clipboard.SDL_HasClipboardText(), SDL_TRUE)
 
     def test_SDL_GetClipboardText(self):
-        self.tk.clipboard_clear()
-        self.tk.clipboard_append(TEXT)
-
+        self.assertEqual(clipboard.SDL_SetClipboardText(B_TEXT), 0)
         retval = clipboard.SDL_GetClipboardText()
-
         self.assertEqual(retval, B_TEXT)
 
     def test_SDL_SetClipboardText(self):
-        self.assertEqual(clipboard.SDL_SetClipboardText(B_TEXT), 0)
-        retval = self.tk.selection_get(selection='CLIPBOARD')
-        self.assertEqual(retval, TEXT)
-
         self.assertEqual(clipboard.SDL_SetClipboardText(b""), 0)
         retval = clipboard.SDL_GetClipboardText()
         self.assertEqual(retval, b"")
 
-        self.assertEquals(clipboard.SDL_SetClipboardText(B_TEXT), 0)
+        self.assertEquals(clipboard.SDL_SetClipboardText(b"one"), 0)
         retval = clipboard.SDL_GetClipboardText()
-        self.assertEqual(retval, B_TEXT)
+        self.assertEqual(retval, b"one")
 
         self.assertEquals(clipboard.SDL_SetClipboardText(None), 0)
         retval = clipboard.SDL_GetClipboardText()
