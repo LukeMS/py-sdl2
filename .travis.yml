@@ -16,49 +16,12 @@ before_install:
   - yes | sudo add-apt-repository ppa:zoogie/sdl2-snapshots;
   - sudo apt-get update;
   - sudo apt-get -y -f install libpng-dev zlib1g-dev libjpeg-dev libtiff4-dev libportmidi-dev;
-  # - sudo apt-get -y -f install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev;
-  # - sudo apt-get -y -f install libx11-6 libX11-dev xfonts-base xfonts-100dpi xfonts-75dpi xfonts-cyrillic;
- 
-  # install sdl2-2.0.5 
-  - wget https://www.libsdl.org/release/SDL2-2.0.5.tar.gz
-  - tar xf SDL2-2.0.5.tar.gz
-  - cd SDL2-2.0.5  && ./autogen.sh && ./configure 
-  - make && sudo make install
-  - cd ..
-
-  # install SDL2_image-2.0.1
-  - wget https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.1.tar.gz
-  - tar xf SDL2_image-2.0.1.tar.gz
-  - cd SDL2_image-2.0.1 && ./autogen.sh && ./configure 
-  - make && sudo make install
-  - cd ..
-
-  # install SDL2_ttf-2.0.14
-  - wget https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.14.tar.gz
-  - tar xf SDL2_ttf-2.0.14.tar.gz
-  - cd SDL2_ttf-2.0.14 && ./autogen.sh && ./configure 
-  - make && sudo make install
-  - cd ..
-
-  # install SDL2_mixer-2.0.1
-  - wget https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.1.tar.gz
-  - tar xf SDL2_mixer-2.0.1.tar.gz
-  - cd SDL2_mixer-2.0.1 && ./autogen.sh && ./configure 
-  - make && sudo make install
-  - cd ..
-  
-  # install SDL2_gfx-1.0.1
-  - wget http://www.ferzkopp.net/Software/SDL2_gfx/SDL2_gfx-1.0.1.tar.gz
-  - tar xf SDL2_gfx-1.0.1.tar.gz
-  - cd SDL2_gfx-1.0.1 && ./autogen.sh && ./configure
-  - make && sudo make install
-  - cd ..
-  
-  # - sudo apt-get -y -f install xvfb;
+  - sudo apt-get -y -f install libmodplug-dev libfluidsynth-dev libogg-dev libvorbis-dev libvorbisfile-dev libflac-dev smpeg-gtv;
+  - sudo apt-get -y -f install xvfb;
 
 install:
   # install library requirements
-  # - ./install-dependencies.sh
+  - ./install-dependencies.sh;
     
   # install python requirements
   - "pip install -r requirements.txt"
@@ -71,10 +34,10 @@ before_script:
 
 # command to run tests
 script:
-  # - export SDL2DIR="/home/travis/sdl2install";
-  # - export PYSDL2_DLL_PATH="$SDL2DIR/lib";
-  # - export PATH="$PATH:$PYSDL2_DLL_PATH";
+  - export SDL2DIR="/home/travis/sdl2install";
+  - export PYSDL2_DLL_PATH="$SDL2DIR/lib";
+  - export PATH="$PATH:$PYSDL2_DLL_PATH";
   - coverage run --source=sdl2 setup.py test;
   
 after_success:
-  - coveralls
+  - coveralls;
