@@ -1,10 +1,16 @@
-import os
+
 import sys
 import unittest
-from .. import SDL_Init, SDL_Quit, SDL_INIT_VIDEO
-from .. import surface, sdlgfx
+try:
+    from .. import SDL_Init, SDL_Quit, SDL_INIT_VIDEO
+    from .. import surface, sdlgfx
+except SystemError:
+    from sdl2 import SDL_Init, SDL_Quit, SDL_INIT_VIDEO
+    from sdl2 import surface, sdlgfx
+
 
 class SDLTTFTest(unittest.TestCase):
+
     __tags__ = ["sdl", "sdlgfx"]
 
     def setUp(self):

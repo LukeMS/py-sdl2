@@ -1,8 +1,13 @@
 import sys
 import unittest
 from ctypes import c_char_p, c_void_p, cast
-from .. import SDL_Init, SDL_Quit, SDL_QuitSubSystem, SDL_INIT_EVERYTHING
-from .. import events
+try:
+    from .. import SDL_Init, SDL_Quit, SDL_QuitSubSystem, SDL_INIT_EVERYTHING
+    from .. import events
+except SystemError:
+    from sdl2 import (SDL_Init, SDL_Quit, SDL_QuitSubSystem,
+                      SDL_INIT_EVERYTHING)
+    from sdl2 import events
 
 
 class SDLEventsTest(unittest.TestCase):

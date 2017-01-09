@@ -1,7 +1,11 @@
+
 import sys
 import ctypes
 import unittest
-from .. import version, __version__, version_info
+try:
+    from .. import version, __version__, version_info
+except SystemError:
+    from sdl2 import version, __version__, version_info
 
 
 class SDLVersionTest(unittest.TestCase):

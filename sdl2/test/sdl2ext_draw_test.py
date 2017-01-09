@@ -1,10 +1,16 @@
+
 import sys
 import unittest
-from ..ext.color import Color, COLOR
-from .. import ext as sdl2ext
+try:
+    from ..ext.color import Color, COLOR
+    from .. import ext as sdl2ext
+except SystemError:
+    from sdl2.ext.color import Color, COLOR
+    from sdl2 import ext as sdl2ext
 
 
 class SDL2ExtDrawTest(unittest.TestCase):
+
     __tags__ = ["sdl", "sdl2ext"]
 
     def setUp(self):

@@ -1,11 +1,15 @@
 import sys
 import unittest
-from .. import ext as sdl2ext
-from .. import surface
+try:
+    from .. import ext as sdl2ext
+    from .. import surface
+except SystemError:
+    from sdl2 import ext as sdl2ext
+    from sdl2 import surface
 
 RESOURCES = sdl2ext.Resources(__file__, "resources")
 
-formats = [  # Do not use bmp - it's contained in resources.zip
+formats = [# Do not use bmp - it's contained in resources.zip
            "cur",
            "gif",
            "ico",

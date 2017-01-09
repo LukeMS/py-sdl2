@@ -1,10 +1,16 @@
-import sys
-import copy
-import unittest
-from ctypes import byref, c_int
-from .. import rect
 
-to_ctypes = lambda seq, dtype: (dtype * len(seq))(*seq)
+import copy
+from ctypes import byref, c_int
+import sys
+import unittest
+try:
+    from .. import rect
+except SystemError:
+    from sdl2 import rect
+
+
+def to_ctypes(seq, dtype):
+    return (dtype * len(seq))(*seq)
 
 
 class SDLRectTest(unittest.TestCase):

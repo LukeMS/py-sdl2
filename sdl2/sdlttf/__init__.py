@@ -2,15 +2,25 @@
 import os
 from ctypes import Structure, POINTER, c_int, c_long, c_char_p
 
-from ..dll import DLL, nullfunc
+try:
+    from ..dll import DLL, nullfunc
 
-from ..version import SDL_version
-from ..rwops import SDL_RWops
-from ..stdinc import Uint16, Uint32
-from ..pixels import SDL_Color
-from ..surface import SDL_Surface
-from ..error import SDL_GetError, SDL_SetError
-from ..util import get_cfg
+    from ..version import SDL_version
+    from ..rwops import SDL_RWops
+    from ..stdinc import Uint16, Uint32
+    from ..pixels import SDL_Color
+    from ..surface import SDL_Surface
+    from ..error import SDL_GetError, SDL_SetError
+    from ..util import get_cfg
+except SystemError:
+    from sdl2.dll import DLL, nullfunc
+    from sdl2.version import SDL_version
+    from sdl2.rwops import SDL_RWops
+    from sdl2.stdinc import Uint16, Uint32
+    from sdl2.pixels import SDL_Color
+    from sdl2.surface import SDL_Surface
+    from sdl2.error import SDL_GetError, SDL_SetError
+    from sdl2.util import get_cfg
 
 __all__ = ["get_dll_file", "SDL_TTF_MAJOR_VERSION", "SDL_TTF_MINOR_VERSION",
           "SDL_TTF_PATCHLEVEL", "SDL_TTF_VERSION", "TTF_MAJOR_VERSION",

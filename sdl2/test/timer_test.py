@@ -1,9 +1,13 @@
+
 import sys
 import time
 import unittest
-from .. import SDL_Init, SDL_Quit, SDL_QuitSubSystem, SDL_INIT_TIMER
-from .. import timer
-
+try:
+    from .. import SDL_Init, SDL_Quit, SDL_QuitSubSystem, SDL_INIT_TIMER
+    from .. import timer
+except:
+    from sdl2 import SDL_Init, SDL_Quit, SDL_QuitSubSystem, SDL_INIT_TIMER
+    from sdl2 import timer
 
 if sys.version_info[0] >= 3:
     long = int

@@ -1,6 +1,10 @@
+
 import sys
 import unittest
-from ..ext import particles
+try:
+    from ..ext import particles
+except SystemError:
+    from sdl2.ext import particles
 
 
 class SDL2ExtParticlesTest(unittest.TestCase):

@@ -1,15 +1,22 @@
+
+import copy
 import sys
 import unittest
-import copy
-from ..ext import color
-from ..ext.color import Color
-from ..ext.compat import *
+try:
+    from ..ext import color
+    from ..ext.color import Color
+    from ..ext.compat import *
+except SystemError:
+    from sdl2.ext import color
+    from sdl2.ext.color import Color
+    from sdl2.ext.compat import *
 
 combs = [0, 1, 2, 4, 8, 16, 32, 62, 63, 64, 126, 127, 128, 255]
-all_combos = [(r, g, b, a) for r in combs
-                           for g in combs
-                           for b in combs
-                           for a in combs]
+all_combos = [(r, g, b, a)
+              for r in combs
+              for g in combs
+              for b in combs
+              for a in combs]
 
 
 def color_combos():
@@ -595,10 +602,10 @@ class SDL2ExtColorTest(unittest.TestCase):
 
         t = c.normalize()
 
-        self.assertAlmostEquals(t[0], 0.800000, places=5)
-        self.assertAlmostEquals(t[1], 0.149016, places=5)
-        self.assertAlmostEquals(t[2], 0.760784, places=5)
-        self.assertAlmostEquals(t[3], 0.215686, places=5)
+        self.assertAlmostEqual(t[0], 0.800000, places=5)
+        self.assertAlmostEqual(t[1], 0.149016, places=5)
+        self.assertAlmostEqual(t[2], 0.760784, places=5)
+        self.assertAlmostEqual(t[3], 0.215686, places=5)
 
         c = Color(255, 255, 255, 255)
         self.assertEqual(c.normalize(), (1.0, 1.0, 1.0, 1.0))
@@ -607,15 +614,15 @@ class SDL2ExtColorTest(unittest.TestCase):
         c = Color(128, 128, 128, 128)
         t = c.normalize()
         for v in t:
-            self.assertAlmostEquals(v, 0.5, places=2)
+            self.assertAlmostEqual(v, 0.5, places=2)
 
         c = Color(128, 255, 0, 52)
         t = c.normalize()
-        self.assertAlmostEquals(t[0], 0.5, places=2)
+        self.assertAlmostEqual(t[0], 0.5, places=2)
         self.assertEqual(t[1], 1.0)
         self.assertEqual(t[2], 0.0)
         # 52 / 255 ~= .20
-        self.assertAlmostEquals(t[3], 0.2, places=2)
+        self.assertAlmostEqual(t[3], 0.2, places=2)
 
     def test_is_rgb_color(self):
         assertTrue = self.assertTrue

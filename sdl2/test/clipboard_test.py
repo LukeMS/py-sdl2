@@ -1,13 +1,18 @@
+
 import sys
 import unittest
-from .. import SDL_Init, SDL_Quit, SDL_InitSubSystem, SDL_INIT_EVERYTHING
-from .. import clipboard
-from ..stdinc import SDL_TRUE
-from .util.testutils import interactive, doprint
+from tkinter import Tk
+try:
+    from .. import SDL_Init, SDL_Quit, SDL_INIT_EVERYTHING
+    from .. import clipboard
+    from ..stdinc import SDL_TRUE, SDL_FALSE
+except SystemError:
+    from sdl2 import (SDL_Init, SDL_Quit, SDL_INIT_EVERYTHING)
+    from sdl2 import clipboard
+    from sdl2.stdinc import SDL_TRUE, SDL_FALSE
 
-
-def is_win_or_mac():
-    return sys.platform in ("win32", "cygwin", "darwin")
+TEXT = 'i can has clipboardz?'
+B_TEXT = TEXT.encode('utf-8')
 
 
 class SDLClipboardTest(unittest.TestCase):
@@ -15,36 +20,43 @@ class SDLClipboardTest(unittest.TestCase):
 
     def setUp(self):
         SDL_Init(SDL_INIT_EVERYTHING)
+        self.tk = Tk()
+        self.tk.withdraw()
+        self.tk.clipboard_clear()
+        self.tk.clipboard_append(TEXT)
 
     def tearDown(self):
         SDL_Quit()
+        self.tk.clipboard_clear()
+        self.tk.destroy()
 
-    @unittest.skipIf(not is_win_or_mac(), "we would need a SDL window")
-    @interactive()
     def test_SDL_HasClipboardText(self):
-        doprint("Please put some text on the clipboard")
+        self.assertEqual(clipboard.SDL_SetClipboardText(None), 0)
+        self.assertEqual(clipboard.SDL_HasClipboardText(), SDL_FALSE)
+
+        self.assertEqual(clipboard.SDL_SetClipboardText(B_TEXT), 0)
         self.assertEqual(clipboard.SDL_HasClipboardText(), SDL_TRUE)
 
-    @unittest.skipIf(not is_win_or_mac(), "we would need a SDL window")
-    @interactive("Does the shown value match the clipboard content?")
     def test_SDL_GetClipboardText(self):
-        doprint("Please put some text on the clipboard")
-        retval = clipboard.SDL_GetClipboardText()
-        doprint("Clipboard content: '%s'" % retval)
+        self.tk.clipboard_clear()
+        self.tk.clipboard_append(TEXT)
 
-    @unittest.skipIf(not is_win_or_mac(), "we would need a SDL window")
+        retval = clipboard.SDL_GetClipboardText()
+
+        self.assertEqual(retval, B_TEXT)
+
     def test_SDL_SetClipboardText(self):
-        self.assertEquals(clipboard.SDL_SetClipboardText(b"Test content"), 0)
-        retval = clipboard.SDL_GetClipboardText()
-        self.assertEqual(retval, b"Test content")
+        self.assertEqual(clipboard.SDL_SetClipboardText(B_TEXT), 0)
+        retval = self.tk.selection_get(selection='CLIPBOARD')
+        self.assertEqual(retval, TEXT)
 
-        self.assertEquals(clipboard.SDL_SetClipboardText(b""), 0)
+        self.assertEqual(clipboard.SDL_SetClipboardText(b""), 0)
         retval = clipboard.SDL_GetClipboardText()
         self.assertEqual(retval, b"")
 
-        self.assertEquals(clipboard.SDL_SetClipboardText(b"Test content"), 0)
+        self.assertEquals(clipboard.SDL_SetClipboardText(B_TEXT), 0)
         retval = clipboard.SDL_GetClipboardText()
-        self.assertEqual(retval, b"Test content")
+        self.assertEqual(retval, B_TEXT)
 
         self.assertEquals(clipboard.SDL_SetClipboardText(None), 0)
         retval = clipboard.SDL_GetClipboardText()

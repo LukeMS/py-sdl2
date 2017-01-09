@@ -1,7 +1,10 @@
 import sys
 import math
 import unittest
-from .. import endian
+try:
+    from .. import endian
+except SystemError:
+    from sdl2 import endian
 
 
 class SDLEndianTest(unittest.TestCase):

@@ -1,9 +1,14 @@
+
 import sys
 import unittest
-from .. import SDL_Init, SDL_Quit, error
+try:
+    from .. import SDL_Init, SDL_Quit, error
+except SystemError:
+    from sdl2 import SDL_Init, SDL_Quit, error
 
 
 class SDLTest(unittest.TestCase):
+
     __tags__ = ["sdl"]
 
     def setUp(self):

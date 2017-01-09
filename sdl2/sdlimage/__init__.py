@@ -2,15 +2,24 @@
 import os
 from ctypes import POINTER, c_int, c_char_p
 
-from ..dll import DLL
-from ..version import SDL_version
-from ..surface import SDL_Surface
-from ..rwops import SDL_RWops
-from ..render import SDL_Texture, SDL_Renderer
-from ..error import SDL_SetError, SDL_GetError
-from ..util import get_cfg
+try:
+    from ..dll import DLL
+    from ..version import SDL_version
+    from ..surface import SDL_Surface
+    from ..rwops import SDL_RWops
+    from ..render import SDL_Texture, SDL_Renderer
+    from ..error import SDL_SetError, SDL_GetError
+    from ..util import get_cfg
+except SystemError:
+    from sdl2.dll import DLL
+    from sdl2.version import SDL_version
+    from sdl2.surface import SDL_Surface
+    from sdl2.rwops import SDL_RWops
+    from sdl2.render import SDL_Texture, SDL_Renderer
+    from sdl2.error import SDL_SetError, SDL_GetError
+    from sdl2.util import get_cfg
 
-__all__ = ["SDL_IMAGE_MAJOR_VERSION", "SDL_IMAGE_MINOR_VERSION", \
+__all__ = ["SDL_IMAGE_MAJOR_VERSION", "SDL_IMAGE_MINOR_VERSION",
            "SDL_IMAGE_PATCHLEVEL", "SDL_IMAGE_VERSION", "IMG_Linked_Version",
            "IMG_InitFlags", "IMG_INIT_JPG", "IMG_INIT_PNG", "IMG_INIT_TIF",
            "IMG_INIT_WEBP", "IMG_Init", "IMG_Quit", "IMG_LoadTyped_RW",
@@ -65,12 +74,19 @@ IMG_INIT_WEBP = 0x00000008
 
 IMG_Init = _bind("IMG_Init", [c_int], c_int)
 IMG_Quit = _bind("IMG_Quit")
-IMG_LoadTyped_RW = _bind("IMG_LoadTyped_RW", [POINTER(SDL_RWops), c_int, c_char_p], POINTER(SDL_Surface))
+IMG_LoadTyped_RW = _bind("IMG_LoadTyped_RW", [POINTER(SDL_RWops), c_int,
+                         c_char_p], POINTER(SDL_Surface))
 IMG_Load = _bind("IMG_Load", [c_char_p], POINTER(SDL_Surface))
-IMG_Load_RW = _bind("IMG_Load_RW", [POINTER(SDL_RWops), c_int], POINTER(SDL_Surface))
-IMG_LoadTexture = _bind("IMG_LoadTexture", [POINTER(SDL_Renderer), c_char_p], POINTER(SDL_Texture))
-IMG_LoadTexture_RW = _bind("IMG_LoadTexture_RW", [POINTER(SDL_Renderer), POINTER(SDL_RWops), c_int], POINTER(SDL_Texture))
-IMG_LoadTextureTyped_RW = _bind("IMG_LoadTextureTyped_RW", [POINTER(SDL_Renderer), POINTER(SDL_RWops), c_int, c_char_p], POINTER(SDL_Texture))
+IMG_Load_RW = _bind("IMG_Load_RW", [POINTER(SDL_RWops), c_int],
+                    POINTER(SDL_Surface))
+IMG_LoadTexture = _bind("IMG_LoadTexture", [POINTER(SDL_Renderer), c_char_p],
+                        POINTER(SDL_Texture))
+IMG_LoadTexture_RW = _bind("IMG_LoadTexture_RW", [POINTER(SDL_Renderer),
+                           POINTER(SDL_RWops), c_int], POINTER(SDL_Texture))
+IMG_LoadTextureTyped_RW = _bind(
+    "IMG_LoadTextureTyped_RW",
+    [POINTER(SDL_Renderer), POINTER(SDL_RWops), c_int, c_char_p],
+    POINTER(SDL_Texture))
 
 IMG_isICO = _bind("IMG_isICO", [POINTER(SDL_RWops)], c_int)
 IMG_isCUR = _bind("IMG_isCUR", [POINTER(SDL_RWops)], c_int)
@@ -87,26 +103,44 @@ IMG_isXPM = _bind("IMG_isXPM", [POINTER(SDL_RWops)], c_int)
 IMG_isXV = _bind("IMG_isXV", [POINTER(SDL_RWops)], c_int)
 IMG_isWEBP = _bind("IMG_isWEBP", [POINTER(SDL_RWops)], c_int)
 
-IMG_LoadICO_RW = _bind("IMG_LoadICO_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
-IMG_LoadCUR_RW = _bind("IMG_LoadCUR_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
-IMG_LoadBMP_RW = _bind("IMG_LoadBMP_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
-IMG_LoadGIF_RW = _bind("IMG_LoadGIF_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
-IMG_LoadJPG_RW = _bind("IMG_LoadJPG_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
-IMG_LoadLBM_RW = _bind("IMG_LoadLBM_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
-IMG_LoadPCX_RW = _bind("IMG_LoadPCX_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
-IMG_LoadPNG_RW = _bind("IMG_LoadPNG_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
-IMG_LoadPNM_RW = _bind("IMG_LoadPNM_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
-IMG_LoadTGA_RW = _bind("IMG_LoadTGA_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
-IMG_LoadTIF_RW = _bind("IMG_LoadTIF_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
-IMG_LoadXCF_RW = _bind("IMG_LoadXCF_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
-IMG_LoadXPM_RW = _bind("IMG_LoadXPM_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
-IMG_LoadXV_RW = _bind("IMG_LoadXV_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
-IMG_LoadWEBP_RW = _bind("IMG_LoadWEBP_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
+IMG_LoadICO_RW = _bind(
+    "IMG_LoadICO_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
+IMG_LoadCUR_RW = _bind(
+    "IMG_LoadCUR_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
+IMG_LoadBMP_RW = _bind(
+    "IMG_LoadBMP_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
+IMG_LoadGIF_RW = _bind(
+    "IMG_LoadGIF_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
+IMG_LoadJPG_RW = _bind(
+    "IMG_LoadJPG_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
+IMG_LoadLBM_RW = _bind(
+    "IMG_LoadLBM_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
+IMG_LoadPCX_RW = _bind(
+    "IMG_LoadPCX_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
+IMG_LoadPNG_RW = _bind(
+    "IMG_LoadPNG_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
+IMG_LoadPNM_RW = _bind(
+    "IMG_LoadPNM_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
+IMG_LoadTGA_RW = _bind(
+    "IMG_LoadTGA_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
+IMG_LoadTIF_RW = _bind(
+    "IMG_LoadTIF_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
+IMG_LoadXCF_RW = _bind(
+    "IMG_LoadXCF_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
+IMG_LoadXPM_RW = _bind(
+    "IMG_LoadXPM_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
+IMG_LoadXV_RW = _bind(
+    "IMG_LoadXV_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
+IMG_LoadWEBP_RW = _bind(
+    "IMG_LoadWEBP_RW", [POINTER(SDL_RWops)], POINTER(SDL_Surface))
 
-IMG_ReadXPMFromArray = _bind("IMG_ReadXPMFromArray", [POINTER(c_char_p)], POINTER(SDL_Surface))
+IMG_ReadXPMFromArray = _bind(
+    "IMG_ReadXPMFromArray", [POINTER(c_char_p)], POINTER(SDL_Surface))
 
-IMG_SavePNG = _bind("IMG_SavePNG", [POINTER(SDL_Surface), c_char_p], c_int)
-IMG_SavePNG_RW = _bind("IMG_SavePNG_RW", [POINTER(SDL_Surface), POINTER(SDL_RWops), c_int], c_int)
+IMG_SavePNG = _bind(
+    "IMG_SavePNG", [POINTER(SDL_Surface), c_char_p], c_int)
+IMG_SavePNG_RW = _bind("IMG_SavePNG_RW", [POINTER(SDL_Surface),
+                       POINTER(SDL_RWops), c_int], c_int)
 
 IMG_SetError = SDL_SetError
 IMG_GetError = SDL_GetError

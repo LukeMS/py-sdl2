@@ -1,8 +1,9 @@
+
 import sys
 import unittest
-from ..ext import algorithms
 
 
+@unittest.skip("not implemented")
 class SDL2ExtAlgorithmsTest(unittest.TestCase):
     __tags__ = ["sdl2ext"]
 

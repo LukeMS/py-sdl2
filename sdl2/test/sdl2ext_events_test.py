@@ -1,3 +1,4 @@
+
 import sys
 import unittest
 try:
@@ -5,7 +6,10 @@ try:
     _HASMP = True
 except ImportError:
     _HASMP = False
-from ..ext import events
+try:
+    from ..ext import events
+except SystemError:
+    from sdl2.ext import events
 
 
 def mp_do_nothing(sender, *args):

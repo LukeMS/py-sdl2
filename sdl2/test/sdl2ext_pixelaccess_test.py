@@ -1,6 +1,10 @@
+
 import sys
 import unittest
-from .. import ext as sdl2ext
+try:
+    from .. import ext as sdl2ext
+except SystemError:
+    from sdl2 import ext as sdl2ext
 
 try:
     import numpy

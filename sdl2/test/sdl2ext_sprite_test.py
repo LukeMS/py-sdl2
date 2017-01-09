@@ -1,14 +1,26 @@
+
+from ctypes import ArgumentError, POINTER, byref
 import sys
 import unittest
-from ctypes import ArgumentError, POINTER, byref
-from ..ext.resources import Resources
-from .. import ext as sdl2ext
-from ..surface import SDL_Surface, SDL_CreateRGBSurface, SDL_FreeSurface
-from sdl2.video import SDL_Window, SDL_WINDOW_HIDDEN, SDL_DestroyWindow
-from sdl2.render import SDL_Renderer, SDL_CreateWindowAndRenderer, \
-    SDL_DestroyRenderer, SDL_CreateTexture, SDL_Texture, \
-    SDL_TEXTUREACCESS_STATIC, SDL_TEXTUREACCESS_STREAMING, \
-    SDL_TEXTUREACCESS_TARGET
+try:
+    from ..ext.resources import Resources
+    from .. import ext as sdl2ext
+    from ..surface import SDL_Surface, SDL_CreateRGBSurface, SDL_FreeSurface
+    from sdl2.video import SDL_Window, SDL_WINDOW_HIDDEN, SDL_DestroyWindow
+    from sdl2.render import SDL_Renderer, SDL_CreateWindowAndRenderer, \
+        SDL_DestroyRenderer, SDL_CreateTexture, SDL_Texture, \
+        SDL_TEXTUREACCESS_STATIC, SDL_TEXTUREACCESS_STREAMING, \
+        SDL_TEXTUREACCESS_TARGET
+except SystemError:
+    from sdl2.ext.resources import Resources
+    from sdl2 import ext as sdl2ext
+    from sdl2.surface import (SDL_Surface, SDL_CreateRGBSurface,
+                              SDL_FreeSurface)
+    from sdl2.video import SDL_Window, SDL_WINDOW_HIDDEN, SDL_DestroyWindow
+    from sdl2.render import (
+        SDL_Renderer, SDL_CreateWindowAndRenderer, SDL_DestroyRenderer,
+        SDL_CreateTexture, SDL_Texture, SDL_TEXTUREACCESS_STATIC,
+        SDL_TEXTUREACCESS_STREAMING, SDL_TEXTUREACCESS_TARGET)
 
 _ISPYPY = hasattr(sys, "pypy_version_info")
 
@@ -22,12 +34,7 @@ else:
 
 class MSprite(sdl2ext.Sprite):
     def __init__(self, w=0, h=0):
-        super(MSprite, self).__init__()
-        self._size = w, h
-
-    @property
-    def size(self):
-        return self._size
+        super().__init__(None, w, h, True)
 
 
 class SDL2ExtSpriteTest(unittest.TestCase):
@@ -400,6 +407,7 @@ class SDL2ExtSpriteTest(unittest.TestCase):
         for w in range(0, 200):
             for h in range(0, 200):
                 sprite = MSprite(w, h)
+                self.assertNotEqual(sprite, None)
                 self.assertEqual(sprite.size, (w, h))
                 self.assertEqual(sprite.area, (0, 0, w, h))
                 sprite.position = w, h
@@ -547,9 +555,8 @@ class SDL2ExtSpriteTest(unittest.TestCase):
         # Deprecated
         renderer = sdl2ext.Renderer(sf)
         self.assertEqual(renderer.rendertarget, sf)
-        self.assertIsInstance(renderer.renderer.contents, SDL_Renderer)
+        self.assertIsInstance(renderer.sdlrenderer.contents, SDL_Renderer)
         del renderer
-
 
         sprite = sdl2ext.SoftwareSprite(sf, True)
         renderer = sdl2ext.Renderer(sprite)

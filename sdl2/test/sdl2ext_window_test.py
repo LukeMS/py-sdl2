@@ -1,8 +1,14 @@
+
 import sys
 import unittest
-from .. import ext as sdl2ext
-from .. import surface, video
-from .util.testutils import interactive, doprint
+try:
+    from .. import ext as sdl2ext
+    from .. import surface, video
+    from .util.testutils import interactive, doprint
+except SystemError:
+    from sdl2 import ext as sdl2ext
+    from sdl2 import surface, video
+    from sdl2.test.util.testutils import interactive, doprint
 
 
 class SDL2ExtWindowTest(unittest.TestCase):
@@ -21,9 +27,9 @@ class SDL2ExtWindowTest(unittest.TestCase):
             window = sdl2ext.Window("Window", size=(w, h), flags=flags)
             self.assertEqual(window.size, (w, h))
 
-        #self.assertRaises(TypeError, video.Window, None, None, None, None)
-        #self.assertRaises(TypeError, video.Window, None, None, None)
-        #self.assertRaises(TypeError, video.Window, None, None)
+        # self.assertRaises(TypeError, video.Window, None, None, None, None)
+        # self.assertRaises(TypeError, video.Window, None, None, None)
+        # self.assertRaises(TypeError, video.Window, None, None)
         self.assertRaises(TypeError, sdl2ext.Window, "Test", None, None, None)
         self.assertRaises(TypeError, sdl2ext.Window, "Test", None, None)
         self.assertRaises(TypeError, sdl2ext.Window, "Test", None)
@@ -43,15 +49,15 @@ class SDL2ExtWindowTest(unittest.TestCase):
     def test_Window_show(self):
         window = sdl2ext.Window("Test Show Window", size=(200, 200))
         window.show()
-        doprint("""Please check, if a window with the title
-'Test Show Window' is shown""")
+        doprint("Please check, if a window with the title "
+                "'Test Show Window' is shown")
 
     @interactive("Did the window vanish from your sight and pop up again?")
     def test_Window_hide(self):
         window = sdl2ext.Window("Test Hide Window", size=(200, 200))
         window.show()
-        doprint("""Please check, if a window with the title
-'Test Hide Window' is shown""")
+        doprint("Please check, if a window with the title "
+                "'Test Hide Window' is shown")
         window.hide()
         doprint("Please check, that the window is not shown anymore")
         window.show()
@@ -62,8 +68,8 @@ class SDL2ExtWindowTest(unittest.TestCase):
         window = sdl2ext.Window("Test Maximize Window", size=(200, 200),
                                 flags=video.SDL_WINDOW_RESIZABLE)
         window.show()
-        doprint("""Please check, that a window with the title
-'Test Maximize Window' is shown""")
+        doprint("Please check, that a window with the title "
+                "'Test Maximize Window' is shown")
         window.maximize()
         doprint("Please check, if the window was maximized properly")
 
@@ -71,8 +77,8 @@ class SDL2ExtWindowTest(unittest.TestCase):
     def test_Window_minimize(self):
         window = sdl2ext.Window("Test Minimize Window", size=(200, 200))
         window.show()
-        doprint("""Please check, that a window with the title
-'Test Minimize Window' is shown""")
+        doprint("Please check, that a window with the title "
+                "'Test Minimize Window' is shown")
         window.minimize()
         doprint("Please check, if the window was minimized properly")
 

@@ -1,8 +1,11 @@
 import os
 import sys
 import unittest
-from ctypes import cast, c_char_p, addressof
-from .. import filesystem, SDL_free
+from ctypes import cast, c_char_p
+try:
+    from .. import filesystem, SDL_free
+except SystemError:
+    from sdl2 import filesystem, SDL_free
 
 
 class SDLFileSystemTest(unittest.TestCase):

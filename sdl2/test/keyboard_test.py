@@ -1,10 +1,17 @@
+
+from ctypes import c_int, cast, POINTER
 import sys
 import unittest
-from .. import SDL_Init, SDL_Quit, SDL_QuitSubSystem, SDL_INIT_VIDEO
-from .. import rect, keyboard, scancode, keycode, video
-from ctypes import c_int, cast, POINTER
+try:
+    from .. import SDL_Init, SDL_Quit, SDL_QuitSubSystem, SDL_INIT_VIDEO
+    from .. import rect, keyboard, scancode, keycode, video
+except SystemError:
+    from sdl2 import SDL_Init, SDL_Quit, SDL_QuitSubSystem, SDL_INIT_VIDEO
+    from sdl2 import rect, keyboard, scancode, keycode, video
 
-byteify = lambda x: x.encode("utf-8")
+
+def byteify(x):
+    return x.encode("utf-8")
 
 
 class SDLKeyboardTest(unittest.TestCase):

@@ -1,11 +1,17 @@
+
 import sys
 import unittest
 import ctypes
-from ..stdinc import SDL_TRUE
-from .. import video, syswm, version
+try:
+    from ..stdinc import SDL_TRUE
+    from .. import video, syswm, version
+except SystemError:
+    from sdl2 import video, syswm, version
+    from sdl2.stdinc import SDL_TRUE
 
 
 class SDLSysWMTest(unittest.TestCase):
+
     __tags__ = ["sdl"]
 
     def setUp(self):

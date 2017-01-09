@@ -1,9 +1,15 @@
+
 import os
 import sys
 import ctypes
 import unittest
-from .. import SDL_Init, SDL_Quit, version, surface, rwops, render
-from .. import sdlimage
+try:
+    from .. import SDL_Init, SDL_Quit, version, surface, rwops, render
+    from .. import sdlimage
+except SystemError:
+    from sdl2 import SDL_Init, SDL_Quit, version, surface, rwops, render
+    from sdl2 import sdlimage
+
 
 formats = ["bmp",
            "cur",

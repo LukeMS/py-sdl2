@@ -1,6 +1,10 @@
+
 import sys
 import unittest
-from .. import cpuinfo
+try:
+    from .. import cpuinfo
+except SystemError:
+    from sdl2 import cpuinfo
 
 _HASMP = True
 try:

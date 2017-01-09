@@ -80,7 +80,7 @@ class Manager(object):
             sprite.TEXTURE, renderer=self.renderer)
 
         # pass the name of the resource to the sdl2.ext.Resources instance
-        fname = self.resources.get("DejaVuSansMono-Bold32.png")
+        fname = self.resources.get_path("DejaVuSansMono-Bold32.png")
 
         # use the pysdl2 factory to create a tileset sprite from an image
         tileset = self.factory.from_image(fname)

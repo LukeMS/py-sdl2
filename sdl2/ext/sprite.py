@@ -179,7 +179,7 @@ class Renderer(object):
         if isinstance(src, TextureSprite):
             texture = src.texture
             angle = angle or src.angle
-            center = center or src.center
+            center = (center or src.sdl_center)
             flip = flip or src.flip
         elif isinstance(src, render.SDL_Texture):
             texture = src
@@ -396,7 +396,7 @@ class SoftwareSprite(Sprite):
 
     _releaser = surface.SDL_FreeSurface
 
-    def __init__(self, imgsurface, free):
+    def __init__(self, imgsurface, free=True, area=None):
         """Create a new SoftwareSprite.
 
         Args:
@@ -407,7 +407,11 @@ class SoftwareSprite(Sprite):
         """
         if not isinstance(imgsurface, surface.SDL_Surface):
             raise TypeError("surface must be a SDL_Surface")
-        super().__init__(imgsurface, self.surface.w, self.surface.h, free)
+        if area:
+            w, h = NonIterableRect(area).size
+        else:
+            w, h = imgsurface.w, imgsurface.h
+        super().__init__(imgsurface, w, h, free)
 
     @property
     def surface(self):

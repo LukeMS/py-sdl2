@@ -1,9 +1,14 @@
-import sys
-import os
-import unittest
+
 from ctypes import c_int, byref
-from .. import power
-from .util.testutils import interactive, doprint
+import os
+import sys
+import unittest
+try:
+    from .. import power
+    from .util.testutils import interactive, doprint
+except SystemError:
+    from sdl2 import power
+    from sdl2.test.util.testutils import interactive, doprint
 
 
 class SDLPowerTest(unittest.TestCase):

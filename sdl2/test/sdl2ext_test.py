@@ -1,11 +1,21 @@
 import sys
 import unittest
-from .. import ext as sdl2ext
-from .. import SDL_WasInit, SDL_INIT_VIDEO, SDL_FlushEvent, SDL_USEREVENT, \
-    SDL_FIRSTEVENT, SDL_LASTEVENT, SDL_Event, SDL_UserEvent, SDL_PushEvent
+try:
+    from .. import ext as sdl2ext
+    from .. import (
+        SDL_WasInit, SDL_INIT_VIDEO, SDL_FlushEvent, SDL_USEREVENT,
+        SDL_FIRSTEVENT, SDL_LASTEVENT, SDL_Event, SDL_UserEvent,
+        SDL_PushEvent)
+except SystemError:
+    from sdl2 import ext as sdl2ext
+    from sdl2 import (
+        SDL_WasInit, SDL_INIT_VIDEO, SDL_FlushEvent, SDL_USEREVENT,
+        SDL_FIRSTEVENT, SDL_LASTEVENT, SDL_Event, SDL_UserEvent,
+        SDL_PushEvent)
 
 
 class SDL2ExtTest(unittest.TestCase):
+
     __tags__ = ["sdl", "sdl2ext"]
 
     def test_init_quit(self):

@@ -1,9 +1,13 @@
-import sys
+
 import array
 import ctypes
 import struct
+import sys
 import unittest
-from ..ext import array as sdlextarray
+try:
+    from ..ext import array as sdlextarray
+except SystemError:
+    from sdl2.ext import array as sdlextarray
 
 singlebyteseq = [x for x in range(0x100)]
 doublebyteseq = [x for x in range(0x10000)]

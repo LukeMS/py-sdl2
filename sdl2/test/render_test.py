@@ -1,11 +1,19 @@
+
 import sys
 import unittest
 from ctypes import byref, POINTER, c_int
-from .. import SDL_Init, SDL_Quit, SDL_INIT_EVERYTHING
-import itertools
-from ..stdinc import Uint8, Uint32, SDL_TRUE, SDL_FALSE
-from .. import render, video, surface, pixels, blendmode, rect
-from ..ext.pixelaccess import PixelView
+try:
+    from .. import SDL_Init, SDL_Quit, SDL_INIT_EVERYTHING
+    import itertools
+    from ..stdinc import Uint8, Uint32, SDL_TRUE, SDL_FALSE
+    from .. import render, video, surface, pixels, blendmode, rect
+    from ..ext.pixelaccess import PixelView
+except SystemError:
+    from sdl2 import SDL_Init, SDL_Quit, SDL_INIT_EVERYTHING
+    import itertools
+    from sdl2.stdinc import Uint8, Uint32, SDL_TRUE, SDL_FALSE
+    from sdl2 import render, video, surface, pixels, blendmode, rect
+    from sdl2.ext.pixelaccess import PixelView
 
 _ISPYPY = hasattr(sys, "pypy_version_info")
 if _ISPYPY:
@@ -79,24 +87,26 @@ class SDLRenderTest(unittest.TestCase):
         #self.assertIsInstance(renderer, render.SDL_Renderer)
 
     def test_SDL_CreateDestroyRenderer(self):
-        for i in range(render.SDL_GetNumRenderDrivers()):
-            window = video.SDL_CreateWindow(b"Test", 10, 10, 10, 10,
-                                            video.SDL_WINDOW_SHOWN)
-            self.assertIsInstance(window.contents, video.SDL_Window)
-            renderer = render.SDL_CreateRenderer(window, i,
-                                             render.SDL_RENDERER_ACCELERATED)
-            self.assertTrue(renderer and renderer.contents,
-                "could not create renderer for driver index %d" % i)
-            self.assertIsInstance(renderer.contents, render.SDL_Renderer)
-            render.SDL_DestroyRenderer(renderer)
+        # for i in range(render.SDL_GetNumRenderDrivers()):
+        i = -1
+        window = video.SDL_CreateWindow(b"Test", 10, 10, 10, 10,
+                                        video.SDL_WINDOW_SHOWN)
+        self.assertIsInstance(window.contents, video.SDL_Window)
+        renderer = render.SDL_CreateRenderer(
+            window, i, render.SDL_RENDERER_ACCELERATED)
+        self.assertTrue(
+            renderer and renderer.contents,
+            "could not create renderer for driver index %d" % i)
+        self.assertIsInstance(renderer.contents, render.SDL_Renderer)
+        render.SDL_DestroyRenderer(renderer)
 
-            # TODO: using -1 as index for the call below leads to random
-            # access violations on Win32
-            renderer = render.SDL_CreateRenderer(window, i,
-                                                 render.SDL_RENDERER_SOFTWARE)
-            self.assertIsInstance(renderer.contents, render.SDL_Renderer)
-            render.SDL_DestroyRenderer(renderer)
-            video.SDL_DestroyWindow(window)
+        # TODO: using -1 as index for the call below leads to random
+        # access violations on Win32
+        renderer = render.SDL_CreateRenderer(window, i,
+                                             render.SDL_RENDERER_SOFTWARE)
+        self.assertIsInstance(renderer.contents, render.SDL_Renderer)
+        render.SDL_DestroyRenderer(renderer)
+        video.SDL_DestroyWindow(window)
         dogc()
 
     def test_SDL_CreateSoftwareRenderer(self):
@@ -116,48 +126,52 @@ class SDLRenderTest(unittest.TestCase):
         #                  render.SDL_CreateSoftwareRenderer, 1234)
 
     def test_SDL_GetRenderer(self):
-        for i in range(render.SDL_GetNumRenderDrivers()):
-            window = video.SDL_CreateWindow(b"Test", 10, 10, 10, 10,
-                                            video.SDL_WINDOW_HIDDEN)
-            self.assertIsInstance(window.contents, video.SDL_Window)
-            renderer = render.SDL_GetRenderer(window)
-            self.assertFalse(renderer)
-            renderer = render.SDL_CreateRenderer(window, i,
-                                                 render.SDL_RENDERER_SOFTWARE)
-            self.assertTrue(renderer and renderer.contents,
-                "could not create renderer for driver index %d" % i)
-            ren = render.SDL_GetRenderer(window)
-            self.assertIsInstance(ren.contents, render.SDL_Renderer)
-            render.SDL_DestroyRenderer(renderer)
-            self.assertFalse(render.SDL_GetRenderer(window))
+        # for i in range(render.SDL_GetNumRenderDrivers()):
+        i = -1
+        window = video.SDL_CreateWindow(b"Test", 10, 10, 10, 10,
+                                        video.SDL_WINDOW_HIDDEN)
+        self.assertIsInstance(window.contents, video.SDL_Window)
+        renderer = render.SDL_GetRenderer(window)
+        self.assertFalse(renderer)
+        renderer = render.SDL_CreateRenderer(window, i,
+                                             render.SDL_RENDERER_SOFTWARE)
+        self.assertTrue(
+            renderer and renderer.contents,
+            "could not create renderer for driver index %d" % i)
+        ren = render.SDL_GetRenderer(window)
+        self.assertIsInstance(ren.contents, render.SDL_Renderer)
+        render.SDL_DestroyRenderer(renderer)
+        self.assertFalse(render.SDL_GetRenderer(window))
 
-            video.SDL_DestroyWindow(window)
-            self.assertFalse(render.SDL_GetRenderer(window))
-        #self.assertRaises((AttributeError, TypeError),
-        #                  render.SDL_GetRenderer, None)
-        #self.assertRaises((AttributeError, TypeError),
-        #                  render.SDL_GetRenderer, "Test")
+        video.SDL_DestroyWindow(window)
+        self.assertFalse(render.SDL_GetRenderer(window))
+        # self.assertRaises((AttributeError, TypeError),
+        #                   render.SDL_GetRenderer, None)
+        # self.assertRaises((AttributeError, TypeError),
+        #                   render.SDL_GetRenderer, "Test")
         dogc()
 
     def test_SDL_GetRendererInfo(self):
-        for i in range(render.SDL_GetNumRenderDrivers()):
-            window = video.SDL_CreateWindow(b"Test", 10, 10, 10, 10,
-                                            video.SDL_WINDOW_HIDDEN)
-            self.assertIsInstance(window.contents, video.SDL_Window)
-            renderer = render.SDL_CreateRenderer(window, i,
-                                                 render.SDL_RENDERER_SOFTWARE)
-            self.assertTrue(renderer and renderer.contents,
-                "could not create renderer for driver index %d" % i)
-            self.assertIsInstance(renderer.contents, render.SDL_Renderer)
-            info = render.SDL_RendererInfo()
-            ret = render.SDL_GetRendererInfo(renderer, byref(info))
-            self.assertEqual(ret, 0)
-            render.SDL_DestroyRenderer(renderer)
+        # for i in range(render.SDL_GetNumRenderDrivers()):
+        i = -1
+        window = video.SDL_CreateWindow(b"Test", 10, 10, 10, 10,
+                                        video.SDL_WINDOW_HIDDEN)
+        self.assertIsInstance(window.contents, video.SDL_Window)
+        renderer = render.SDL_CreateRenderer(window, i,
+                                             render.SDL_RENDERER_SOFTWARE)
+        self.assertTrue(
+            renderer and renderer.contents,
+            "could not create renderer for driver index %d" % i)
+        self.assertIsInstance(renderer.contents, render.SDL_Renderer)
+        info = render.SDL_RendererInfo()
+        ret = render.SDL_GetRendererInfo(renderer, byref(info))
+        self.assertEqual(ret, 0)
+        render.SDL_DestroyRenderer(renderer)
 
-            #self.assertRaises(sdl.SDLError, render.SDL_GetRendererInfo,
-            #                  renderer)
+        # self.assertRaises(sdl.SDLError, render.SDL_GetRendererInfo,
+        #                   renderer)
 
-            video.SDL_DestroyWindow(window)
+        video.SDL_DestroyWindow(window)
         self.assertRaises((AttributeError, TypeError),
                           render.SDL_GetRendererInfo, None)
         self.assertRaises((AttributeError, TypeError),
@@ -394,20 +408,22 @@ class SDLRenderTest(unittest.TestCase):
         pass
 
     def test_SDL_RenderTargetSupported(self):
-        for i in range(render.SDL_GetNumRenderDrivers()):
-            window = video.SDL_CreateWindow(b"Test", 10, 10, 10, 10,
-                                            video.SDL_WINDOW_HIDDEN)
-            self.assertIsInstance(window.contents, video.SDL_Window)
-            renderer = render.SDL_CreateRenderer\
-                (window, i, render.SDL_RENDERER_ACCELERATED)
-            self.assertTrue(renderer and renderer.contents,
-                "could not create renderer for driver index %d" % i)
-            self.assertIsInstance(renderer.contents, render.SDL_Renderer)
+        # for i in range(render.SDL_GetNumRenderDrivers()):
+        i = -1
+        window = video.SDL_CreateWindow(b"Test", 10, 10, 10, 10,
+                                        video.SDL_WINDOW_HIDDEN)
+        self.assertIsInstance(window.contents, video.SDL_Window)
+        renderer = render.SDL_CreateRenderer(
+            window, i, render.SDL_RENDERER_ACCELERATED)
+        self.assertTrue(
+            renderer and renderer.contents,
+            "could not create renderer for driver index %d" % i)
+        self.assertIsInstance(renderer.contents, render.SDL_Renderer)
 
-            val = render.SDL_RenderTargetSupported(renderer)
-            self.assertIn(val, (SDL_TRUE, SDL_FALSE))
-            render.SDL_DestroyRenderer(renderer)
-            video.SDL_DestroyWindow(window)
+        val = render.SDL_RenderTargetSupported(renderer)
+        self.assertIn(val, (SDL_TRUE, SDL_FALSE))
+        render.SDL_DestroyRenderer(renderer)
+        video.SDL_DestroyWindow(window)
         dogc()
 
     def test_SDL_GetSetRenderTarget(self):
@@ -416,10 +432,17 @@ class SDLRenderTest(unittest.TestCase):
             window = video.SDL_CreateWindow(b"Test", 10, 10, 10, 10,
                                             video.SDL_WINDOW_HIDDEN)
             self.assertIsInstance(window.contents, video.SDL_Window)
-            renderer = render.SDL_CreateRenderer \
-                (window, i, render.SDL_RENDERER_ACCELERATED)
-            self.assertTrue(renderer and renderer.contents,
-                "could not create renderer for driver index %d" % i)
+            renderer = render.SDL_CreateRenderer(
+                window, i, render.SDL_RENDERER_ACCELERATED)
+            try:
+                self.assertTrue(
+                    renderer and renderer.contents,
+                    "could not create renderer for driver index %d" % i)
+            except AssertionError:
+                skipcount += 1
+                del renderer
+                continue
+
             self.assertIsInstance(renderer.contents, render.SDL_Renderer)
 
             supported = render.SDL_RenderTargetSupported(renderer)
@@ -469,36 +492,38 @@ class SDLRenderTest(unittest.TestCase):
                  rect.SDL_Rect(-10, 0, 10, 10),
                  rect.SDL_Rect(0, -10, 10, 10),
                  rect.SDL_Rect(-10, -10, 10, 10),
-            )
+                 )
         failcount = 0
         port = rect.SDL_Rect()
-        for i in range(render.SDL_GetNumRenderDrivers()):
-            window = video.SDL_CreateWindow(b"Test", 10, 10, 10, 10,
-                                            video.SDL_WINDOW_HIDDEN |
-                                            video.SDL_WINDOW_BORDERLESS)
-            self.assertIsInstance(window.contents, video.SDL_Window)
-            renderer = render.SDL_CreateRenderer \
-                (window, i, render.SDL_RENDERER_ACCELERATED)
-            self.assertTrue(renderer and renderer.contents,
-                "could not create renderer for driver index %d" % i)
-            self.assertIsInstance(renderer.contents, render.SDL_Renderer)
-            ret = render.SDL_RenderSetViewport(renderer, None)
+        # for i in range(render.SDL_GetNumRenderDrivers()):
+        i = -1
+        window = video.SDL_CreateWindow(b"Test", 10, 10, 10, 10,
+                                        video.SDL_WINDOW_HIDDEN |
+                                        video.SDL_WINDOW_BORDERLESS)
+        self.assertIsInstance(window.contents, video.SDL_Window)
+        renderer = render.SDL_CreateRenderer(
+            window, i, render.SDL_RENDERER_ACCELERATED)
+        self.assertTrue(
+            renderer and renderer.contents,
+            "could not create renderer for driver index %d" % i)
+        self.assertIsInstance(renderer.contents, render.SDL_Renderer)
+        ret = render.SDL_RenderSetViewport(renderer, None)
+        self.assertEqual(ret, 0)
+        render.SDL_RenderGetViewport(renderer, byref(port))
+        self.assertEqual(port, rect.SDL_Rect(0, 0, 10, 10))
+        for r in rects:
+            if r.w == r.h == 0:
+                # http://bugzilla.libsdl.org/show_bug.cgi?id=1622
+                # OpenGL renderers cause a exception here.
+                continue
+            ret = render.SDL_RenderSetViewport(renderer, r)
             self.assertEqual(ret, 0)
             render.SDL_RenderGetViewport(renderer, byref(port))
-            self.assertEqual(port, rect.SDL_Rect(0, 0, 10, 10))
-            for r in rects:
-                if r.w == r.h == 0:
-                    # http://bugzilla.libsdl.org/show_bug.cgi?id=1622
-                    # OpenGL renderers cause a exception here.
-                    continue
-                ret = render.SDL_RenderSetViewport(renderer, r)
-                self.assertEqual(ret, 0)
-                render.SDL_RenderGetViewport(renderer, byref(port))
-                if port != r:
-                    failcount += 1
+            if port != r:
+                failcount += 1
 
-            render.SDL_DestroyRenderer(renderer)
-            video.SDL_DestroyWindow(window)
+        render.SDL_DestroyRenderer(renderer)
+        video.SDL_DestroyWindow(window)
 
         if failcount > 0:
             unittest.skip("""for some reason, even with correct values, this
@@ -506,72 +531,91 @@ seems to fail on creating the second renderer of the window, if any""")
         dogc()
 
     def test_SDL_GetSetRenderDrawColor(self):
-        for i in range(render.SDL_GetNumRenderDrivers()):
-            window = video.SDL_CreateWindow(b"Test", 10, 10, 10, 10,
-                                            video.SDL_WINDOW_HIDDEN)
-            self.assertIsInstance(window.contents, video.SDL_Window)
-            renderer = render.SDL_CreateRenderer \
-                (window, i, render.SDL_RENDERER_ACCELERATED|render.SDL_RENDERER_SOFTWARE)
-            self.assertTrue(renderer and renderer.contents,
+        # for i in range(render.SDL_GetNumRenderDrivers()):
+        i = -1
+        window = video.SDL_CreateWindow(b"Test", 10, 10, 10, 10,
+                                        video.SDL_WINDOW_HIDDEN)
+        self.assertIsInstance(window.contents, video.SDL_Window)
+        try:
+            renderer = render.SDL_CreateRenderer(
+                window, i, render.SDL_RENDERER_ACCELERATED)
+            self.assertTrue(
+                renderer and renderer.contents,
                 "could not create renderer for driver index %d" % i)
-            self.assertIsInstance(renderer.contents, render.SDL_Renderer)
+        except AssertionError:
+            renderer = render.SDL_CreateRenderer(
+                window, i, render.SDL_RENDERER_SOFTWARE)
+            self.assertTrue(
+                renderer and renderer.contents,
+                "could not create renderer for driver index %d" % i)
+        self.assertIsInstance(renderer.contents, render.SDL_Renderer)
 
-            colors = ((16, 22, 185, 217),
-                      (32, 64, 128, 255),
-                      (64, 32, 128, 255),
-                      (64, 32, 255, 128),
-                      (255, 32, 64, 128),
-                      (255, 32, 128, 64),
-                      (0, 0, 0, 0),
-                      (255, 255, 255, 255),
-                      (128, 128, 128, 255),
-                      )
-            for r, g, b, a in colors:
-                ret = render.SDL_SetRenderDrawColor(renderer, r, g, b, a)
-                self.assertEqual(ret, 0)
-                dr, dg, db, da = Uint8(), Uint8(), Uint8(), Uint8()
-                ret = render.SDL_GetRenderDrawColor(renderer, byref(dr),
-                                                    byref(dg), byref(db),
-                                                    byref(da))
-                self.assertEqual(ret, 0)
-                self.assertEqual((dr.value, dg.value, db.value, da.value),
-                                 (r, g, b, a))
-            render.SDL_DestroyRenderer(renderer)
-            #self.assertRaises(sdl.SDLError, render.SDL_SetRenderDrawColor,
-            #                  renderer, 10, 20, 30, 40)
-            #self.assertRaises(sdl.SDLError, render.SDL_GetRenderDrawColor,
-            #                  renderer)
-            video.SDL_DestroyWindow(window)
+        colors = ((16, 22, 185, 217),
+                  (32, 64, 128, 255),
+                  (64, 32, 128, 255),
+                  (64, 32, 255, 128),
+                  (255, 32, 64, 128),
+                  (255, 32, 128, 64),
+                  (0, 0, 0, 0),
+                  (255, 255, 255, 255),
+                  (128, 128, 128, 255),
+                  )
+        for r, g, b, a in colors:
+            ret = render.SDL_SetRenderDrawColor(renderer, r, g, b, a)
+            self.assertEqual(ret, 0)
+            dr, dg, db, da = Uint8(), Uint8(), Uint8(), Uint8()
+            ret = render.SDL_GetRenderDrawColor(renderer, byref(dr),
+                                                byref(dg), byref(db),
+                                                byref(da))
+            self.assertEqual(ret, 0)
+            self.assertEqual((dr.value, dg.value, db.value, da.value),
+                             (r, g, b, a))
+        render.SDL_DestroyRenderer(renderer)
+        #self.assertRaises(sdl.SDLError, render.SDL_SetRenderDrawColor,
+        #                  renderer, 10, 20, 30, 40)
+        #self.assertRaises(sdl.SDLError, render.SDL_GetRenderDrawColor,
+        #                  renderer)
+        video.SDL_DestroyWindow(window)
         dogc()
 
     def test_SDL_GetSetRenderDrawBlendMode(self):
-        for i in range(render.SDL_GetNumRenderDrivers()):
-            window = video.SDL_CreateWindow(b"Test", 10, 10, 10, 10,
-                                            video.SDL_WINDOW_HIDDEN)
-            self.assertIsInstance(window.contents, video.SDL_Window)
-            renderer = render.SDL_CreateRenderer \
-                (window, i, render.SDL_RENDERER_ACCELERATED|render.SDL_RENDERER_SOFTWARE)
-            self.assertTrue(renderer and renderer.contents,
+        # for i in range(render.SDL_GetNumRenderDrivers()):
+        i = -1
+        window = video.SDL_CreateWindow(b"Test", 10, 10, 10, 10,
+                                        video.SDL_WINDOW_HIDDEN)
+        self.assertIsInstance(window.contents, video.SDL_Window)
+        try:
+            renderer = render.SDL_CreateRenderer(
+                window, i, render.SDL_RENDERER_ACCELERATED)
+            self.assertTrue(
+                renderer and renderer.contents,
                 "could not create renderer for driver index %d" % i)
-            self.assertIsInstance(renderer.contents, render.SDL_Renderer)
+        except AssertionError:
+            renderer = render.SDL_CreateRenderer(
+                window, i, render.SDL_RENDERER_SOFTWARE)
+            self.assertTrue(
+                renderer and renderer.contents,
+                "could not create renderer for driver index %d" % i)
 
-            modes = (blendmode.SDL_BLENDMODE_NONE,
-                     blendmode.SDL_BLENDMODE_ADD,
-                     blendmode.SDL_BLENDMODE_BLEND,
-                     blendmode.SDL_BLENDMODE_MOD,
-                     )
-            for mode in modes:
-                ret = render.SDL_SetRenderDrawBlendMode(renderer, mode)
-                bmode = blendmode.SDL_BlendMode()
-                ret = render.SDL_GetRenderDrawBlendMode(renderer, byref(bmode))
-                self.assertEqual(ret, 0)
-                self.assertEqual(bmode.value, mode)
-            render.SDL_DestroyRenderer(renderer)
-            #self.assertRaises(sdl.SDLError, render.SDL_SetRenderDrawBlendMode,
-            #                  renderer, video.SDL_BLENDMODE_ADD)
-            #self.assertRaises(sdl.SDLError, render.SDL_GetRenderDrawBlendMode,
-            #                  renderer)
-            video.SDL_DestroyWindow(window)
+        self.assertIsInstance(renderer.contents, render.SDL_Renderer)
+
+        modes = (blendmode.SDL_BLENDMODE_NONE,
+                 blendmode.SDL_BLENDMODE_ADD,
+                 blendmode.SDL_BLENDMODE_BLEND,
+                 blendmode.SDL_BLENDMODE_MOD,
+                 )
+        for mode in modes:
+            ret = render.SDL_SetRenderDrawBlendMode(renderer, mode)
+            bmode = blendmode.SDL_BlendMode()
+            ret = render.SDL_GetRenderDrawBlendMode(renderer, byref(bmode))
+            self.assertEqual(ret, 0)
+            self.assertEqual(bmode.value, mode)
+        render.SDL_DestroyRenderer(renderer)
+        #self.assertRaises(sdl.SDLError, render.SDL_SetRenderDrawBlendMode,
+        #                  renderer, video.SDL_BLENDMODE_ADD)
+        #self.assertRaises(sdl.SDLError, render.SDL_GetRenderDrawBlendMode,
+        #                  renderer)
+        video.SDL_DestroyWindow(window)
         dogc()
 
     def test_SDL_RenderClear(self):
@@ -690,7 +734,8 @@ seems to fail on creating the second renderer of the window, if any""")
         magenta = 255, 0, 255, 255
         green = 0, 255, 0, 255
 
-        magenta_int = sum(c << (i * 8) for i, c in enumerate(reversed(magenta)))
+        magenta_int = sum(
+            c << (i * 8) for i, c in enumerate(reversed(magenta)))
         green_int = sum(c << (i * 8) for i, c in enumerate(reversed(green)))
 
         def clear_green():
@@ -773,7 +818,8 @@ seems to fail on creating the second renderer of the window, if any""")
         draw_magenta_pixel(0, 0)
         for x, y in itertools.product(range(w), range(h)):
             if x < 10 and y < 10:
-                self.assertEqual(view[y][x], magenta_int,
+                self.assertEqual(
+                    view[y][x], magenta_int,
                     'Top-left 10 x 10 pixel block should be magenta')
             else:
                 self.assertEqual(view[y][x], green_int,
@@ -802,13 +848,20 @@ seems to fail on creating the second renderer of the window, if any""")
                                           0x000000FF)
         renderer = render.SDL_CreateSoftwareRenderer(sf)
         self.assertIsInstance(renderer.contents, render.SDL_Renderer)
-        self.assertEqual(render.SDL_RenderGetIntegerScale(renderer), SDL_FALSE)
-        self.assertEqual(render.SDL_RenderSetIntegerScale(renderer, SDL_FALSE), 0)
-        self.assertEqual(render.SDL_RenderGetIntegerScale(renderer), SDL_FALSE)
-        self.assertEqual(render.SDL_RenderSetIntegerScale(renderer, SDL_TRUE), 0)
-        self.assertEqual(render.SDL_RenderGetIntegerScale(renderer), SDL_TRUE)
-        self.assertEqual(render.SDL_RenderSetIntegerScale(renderer, SDL_FALSE), 0)
-        self.assertEqual(render.SDL_RenderGetIntegerScale(renderer), SDL_FALSE)
+        self.assertEqual(
+            render.SDL_RenderGetIntegerScale(renderer), SDL_FALSE)
+        self.assertEqual(
+            render.SDL_RenderSetIntegerScale(renderer, SDL_FALSE), 0)
+        self.assertEqual(
+            render.SDL_RenderGetIntegerScale(renderer), SDL_FALSE)
+        self.assertEqual(
+            render.SDL_RenderSetIntegerScale(renderer, SDL_TRUE), 0)
+        self.assertEqual(
+            render.SDL_RenderGetIntegerScale(renderer), SDL_TRUE)
+        self.assertEqual(
+            render.SDL_RenderSetIntegerScale(renderer, SDL_FALSE), 0)
+        self.assertEqual(
+            render.SDL_RenderGetIntegerScale(renderer), SDL_FALSE)
         render.SDL_DestroyRenderer(renderer)
         surface.SDL_FreeSurface(sf)
 

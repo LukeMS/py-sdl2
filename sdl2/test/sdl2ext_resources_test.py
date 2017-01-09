@@ -2,11 +2,11 @@ import os
 import sys
 import unittest
 import urllib
-if sys.version_info[0] < 3:
-    import urllib2
-else:
-    import urllib.request as urllib2
-from ..ext import resources
+import urllib.request as urllib2
+try:
+    from ..ext import resources
+except SystemError:
+    from sdl2.ext import resources
 
 
 class SDL2ExtResourcesTest(unittest.TestCase):

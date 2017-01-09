@@ -1,9 +1,14 @@
+
 import sys
 import unittest
-from .. import platform
+try:
+    from .. import platform
+except SystemError:
+    from sdl2 import platform
 
 
 class SDLPlatformTest(unittest.TestCase):
+
     __tags__ = ["sdl"]
 
     def test_SDL_GetPlatform(self):

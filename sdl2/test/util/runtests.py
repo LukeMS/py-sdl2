@@ -271,7 +271,8 @@ def run():
 
     maxcount = 0
     for suite in testsuites:
-        maxcount += suite.countTestCases()
+        if suite:
+            maxcount += suite.countTestCases()
 
     class writerunning:
         def __init__(self, maxcount, verbose):
@@ -292,9 +293,10 @@ def run():
     runwrite = writerunning(maxcount, options.verbose)
 
     for suite in testsuites:
-        result = runner.run(suite, runwrite)
-        timetaken += result.duration
-        results.append(result)
+        if suite:
+            result = runner.run(suite, runwrite)
+            timetaken += result.duration
+            results.append(result)
     writer.writeline()
     testcount, errors, failures, skips, ok = prepare_results(results)
 

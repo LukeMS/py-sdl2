@@ -9,9 +9,8 @@ import time
 
 
 class TagTestLoader(TestLoader):
-    """A TestLoader which handles additional __tags__ attributes for
-    test functions.
-    """
+    """Handles additional __tags__ attributes for test functions."""
+
     def __init__(self, excludetags, randomizer=None):
         TestLoader.__init__(self)
         self.excludetags = excludetags

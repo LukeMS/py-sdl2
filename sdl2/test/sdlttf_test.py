@@ -1,13 +1,18 @@
+
 import os
 import sys
 import unittest
-from .. import SDL_Init, SDL_Quit, sdlttf, rwops
+try:
+    from .. import SDL_Init, SDL_Quit, sdlttf, rwops
+except SystemError:
+    from sdl2 import SDL_Init, SDL_Quit, sdlttf, rwops
 
 fontfile = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                         "resources", "tuffy.ttf").encode("utf-8")
 
 
 class SDLTTFTest(unittest.TestCase):
+
     __tags__ = ["sdl", "sdlttf"]
 
     def setUp(self):

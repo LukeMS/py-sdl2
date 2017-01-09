@@ -3,14 +3,16 @@ import sys
 import ctypes
 import unittest
 from io import BytesIO
-from .. import rwops
 
-if sys.version_info[0] >= 3:
-    byteify = bytes
-    stringify = lambda x, enc: x.decode(enc)
-else:
-    byteify = lambda x, enc: x.encode(enc)
-    stringify = lambda x, enc: str(x)
+try:
+    from .. import rwops
+except SystemError:
+    from sdl2 import rwops
+
+
+def stringify(x, enc):
+    return x.decode(enc)
+
 
 testfile = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                         "resources", "rwopstest.txt")
@@ -37,8 +39,8 @@ class SDLRWopsTest(unittest.TestCase):
             # we read in 2 characters at a time. This means that the first
             # character is always stored in the lo byte.
             ch = rwops.SDL_ReadLE16(rw)
-            buf.write(byteify(chr(ch & 0x00FF), "utf-8"))
-            buf.write(byteify(chr(ch >> 8), "utf-8"))
+            buf.write(bytes(chr(ch & 0x00FF), "utf-8"))
+            buf.write(bytes(chr(ch >> 8), "utf-8"))
             length -= 2
         self.assertEqual(stringify(buf.getvalue(), "utf-8"),
                          "This is a test file for  sdl2.rwops!")
@@ -61,7 +63,7 @@ class SDLRWopsTest(unittest.TestCase):
         self.assertIsInstance(rw, rwops.SDL_RWops)
 
         for s in("Test", "Test", "Test", "Banana"):
-            buf.write(byteify(s, "utf-8"))
+            buf.write(bytes(s, "utf-8"))
             length = rwops.SDL_RWseek(rw, 0, rwops.RW_SEEK_END)
             rwops.SDL_RWseek(rw, 0, rwops.RW_SEEK_SET)
             self.assertEqual(len(buf.getvalue()), length)
@@ -71,7 +73,7 @@ class SDLRWopsTest(unittest.TestCase):
         self.assertRaises(ValueError, buf.getvalue)
 
     def test_SDL_RWSeekTell(self):
-        data = byteify("A Teststring of length 25", "utf-8")
+        data = bytes("A Teststring of length 25", "utf-8")
         buf = BytesIO(data)
         rw = rwops.rw_from_object(buf)
         self.assertIsInstance(rw, rwops.SDL_RWops)
@@ -101,13 +103,13 @@ class SDLRWopsTest(unittest.TestCase):
         self.assertTrue(pos == buf.tell() == len(data) + 12)
 
     def test_SDL_RWread(self):
-        data = byteify("A Teststring of length 25", "utf-8")
+        data = bytes("A Teststring of length 25", "utf-8")
         buf = BytesIO(data)
         rw = rwops.rw_from_object(buf)
         self.assertIsInstance(rw, rwops.SDL_RWops)
-        
+
         readbuf = ctypes.create_string_buffer(2)
-        
+
         read = rwops.SDL_RWread(rw, readbuf, 1, 2)
         self.assertEqual(read, 2)
         self.assertEqual(readbuf.raw, b"A ")
@@ -117,7 +119,7 @@ class SDLRWopsTest(unittest.TestCase):
         self.assertEqual(readbuf.raw, b"Teststring")
 
     def test_SDL_RWwrite(self):
-        data = byteify("A Teststring of length 25", "utf-8")
+        data = bytes("A Teststring of length 25", "utf-8")
         buf = BytesIO(data)
         rw = rwops.rw_from_object(buf)
         self.assertIsInstance(rw, rwops.SDL_RWops)
@@ -126,15 +128,15 @@ class SDLRWopsTest(unittest.TestCase):
         written = rwops.SDL_RWwrite(rw, writebuf, 1, 2)
         self.assertEqual(written, 2)
         self.assertEqual(buf.getvalue(), b"XQTeststring of length 25")
-        
+
         writebuf = ctypes.create_string_buffer(b"banana")
         rwops.SDL_RWseek(rw, 14, rwops.RW_SEEK_CUR)
         written = rwops.SDL_RWwrite(rw, writebuf, 1, 6)
         self.assertEqual(written, 6)
         self.assertEqual(buf.getvalue(), b"XQTeststring of banana 25")
-       
+
     def test_SDL_RWclose(self):
-        data = byteify("A Teststring", "utf-8")
+        data = bytes("A Teststring", "utf-8")
         buf = BytesIO(data)
         rw = rwops.rw_from_object(buf)
         self.assertIsInstance(rw, rwops.SDL_RWops)
@@ -148,7 +150,7 @@ class SDLRWopsTest(unittest.TestCase):
         pass
 
     def test_SDL_ReadLE16(self):
-        data = byteify("A Teststring", "utf-8")
+        data = bytes("A Teststring", "utf-8")
         buf = BytesIO(data)
         rw = rwops.rw_from_object(buf)
         self.assertIsInstance(rw, rwops.SDL_RWops)
@@ -164,7 +166,7 @@ class SDLRWopsTest(unittest.TestCase):
         self.assertEqual(chr(ch >> 8), "i")
 
     def test_SDL_ReadBE16(self):
-        data = byteify("A Teststring", "utf-8")
+        data = bytes("A Teststring", "utf-8")
         buf = BytesIO(data)
         rw = rwops.rw_from_object(buf)
         self.assertIsInstance(rw, rwops.SDL_RWops)
@@ -180,7 +182,7 @@ class SDLRWopsTest(unittest.TestCase):
         self.assertEqual(chr(ch >> 8), "r")
 
     def test_SDL_ReadLE32(self):
-        data = byteify("A Teststring", "utf-8")
+        data = bytes("A Teststring", "utf-8")
         buf = BytesIO(data)
         rw = rwops.rw_from_object(buf)
         self.assertIsInstance(rw, rwops.SDL_RWops)
@@ -200,7 +202,7 @@ class SDLRWopsTest(unittest.TestCase):
         self.assertEqual(chr((ch & 0xFF000000) >> 24), "g")
 
     def test_SDL_ReadBE32(self):
-        data = byteify("A Teststring", "utf-8")
+        data = bytes("A Teststring", "utf-8")
         buf = BytesIO(data)
         rw = rwops.rw_from_object(buf)
         self.assertIsInstance(rw, rwops.SDL_RWops)
@@ -220,7 +222,7 @@ class SDLRWopsTest(unittest.TestCase):
         self.assertEqual(chr((ch & 0xFF000000) >> 24), "r")
 
     def test_SDL_ReadLE64(self):
-        data = byteify("A Teststring 64b", "utf-8")
+        data = bytes("A Teststring 64b", "utf-8")
         buf = BytesIO(data)
         rw = rwops.rw_from_object(buf)
         self.assertIsInstance(rw, rwops.SDL_RWops)
@@ -248,7 +250,7 @@ class SDLRWopsTest(unittest.TestCase):
         self.assertEqual(chr((ch & 0xFF00000000000000) >> 56), "b")
 
     def test_SDL_ReadBE64(self):
-        data = byteify("A Teststring 64b", "utf-8")
+        data = bytes("A Teststring 64b", "utf-8")
         buf = BytesIO(data)
         rw = rwops.rw_from_object(buf)
         self.assertIsInstance(rw, rwops.SDL_RWops)
@@ -276,7 +278,7 @@ class SDLRWopsTest(unittest.TestCase):
         self.assertEqual(chr((ch & 0xFF00000000000000) >> 56), "r")
 
     def test_SDL_WriteLE16(self):
-        data = byteify("A Teststring", "utf-8")
+        data = bytes("A Teststring", "utf-8")
         buf = BytesIO(data)
         rw = rwops.rw_from_object(buf)
         self.assertIsInstance(rw, rwops.SDL_RWops)
@@ -290,7 +292,7 @@ class SDLRWopsTest(unittest.TestCase):
         self.assertEqual(stringify(buf.getvalue(), "utf-8"), "%qTest%qring")
 
     def test_SDL_WriteBE16(self):
-        data = byteify("A Teststring", "utf-8")
+        data = bytes("A Teststring", "utf-8")
         buf = BytesIO(data)
         rw = rwops.rw_from_object(buf)
         self.assertIsInstance(rw, rwops.SDL_RWops)
@@ -304,7 +306,7 @@ class SDLRWopsTest(unittest.TestCase):
         self.assertEqual(stringify(buf.getvalue(), "utf-8"), "q%Testq%ring")
 
     def test_SDL_WriteLE32(self):
-        data = byteify("A Teststring", "utf-8")
+        data = bytes("A Teststring", "utf-8")
         buf = BytesIO(data)
         rw = rwops.rw_from_object(buf)
         self.assertIsInstance(rw, rwops.SDL_RWops)
@@ -322,7 +324,7 @@ class SDLRWopsTest(unittest.TestCase):
         self.assertEqual(stringify(buf.getvalue(), "utf-8"), "zfcastzfcang")
 
     def test_SDL_WriteBE32(self):
-        data = byteify("A Teststring", "utf-8")
+        data = bytes("A Teststring", "utf-8")
         buf = BytesIO(data)
         rw = rwops.rw_from_object(buf)
         self.assertIsInstance(rw, rwops.SDL_RWops)
@@ -340,7 +342,7 @@ class SDLRWopsTest(unittest.TestCase):
         self.assertEqual(stringify(buf.getvalue(), "utf-8"), "acfzstacfzng")
 
     def test_SDL_WriteLE64(self):
-        data = byteify("A Teststring", "utf-8")
+        data = bytes("A Teststring", "utf-8")
         buf = BytesIO(data)
         rw = rwops.rw_from_object(buf)
         self.assertIsInstance(rw, rwops.SDL_RWops)
@@ -363,7 +365,7 @@ class SDLRWopsTest(unittest.TestCase):
         self.assertEqual(stringify(buf.getvalue(), "utf-8"), "zfcazfcakbwq")
 
     def test_SDL_WriteBE64(self):
-        data = byteify("A Teststring", "utf-8")
+        data = bytes("A Teststring", "utf-8")
         buf = BytesIO(data)
         rw = rwops.rw_from_object(buf)
         self.assertIsInstance(rw, rwops.SDL_RWops)

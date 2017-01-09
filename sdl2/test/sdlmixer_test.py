@@ -1,11 +1,15 @@
-import os
+
 import sys
 import unittest
-import ctypes
-from .. import SDL_Init, SDL_Quit, sdlmixer, rwops, version
+
+try:
+    from .. import sdlmixer, version
+except SystemError:
+    from sdl2 import sdlmixer, version
 
 
 class SDLMixerTest(unittest.TestCase):
+
     __tags__ = ["sdl", "sdlmixer"]
 
     def setUp(self):
