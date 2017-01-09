@@ -12,8 +12,10 @@ python:
   # PyPy versions
   # - "pypy3" # Pypy3 2.4.0
 
-before_install:
-  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1024x768x32"
+before_script:
+  - export DISPLAY=:99.0;
+  - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1280x720x24 -ac +extension GLX;
+  - export PYTHONPATH=$PYTHONPATH:$(pwd);
 
 install:
   # install library requirements
@@ -28,7 +30,6 @@ script:
   - export SDL2DIR="/home/travis/sdl2install"
   - export PYSDL2_DLL_PATH="$SDL2DIR/lib"
   - export PATH="$PATH:$PYSDL2_DLL_PATH"
-  
   - coverage run --source=sdl2 setup.py test
   
 after_success:
