@@ -41,7 +41,7 @@ if __name__ == "__main__":
                      "sdl2.test.util",
                      "sdl2.examples"
                      ],
-        "test_suite"= "sdl2.test",
+        "test_suite": "sdl2.test",
         "classifiers": [
             "Development Status :: 4 - Beta",
             "Intended Audience :: Developers",
