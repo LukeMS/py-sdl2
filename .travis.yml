@@ -13,7 +13,7 @@ python:
   # - "pypy3" # Pypy3 2.4.0
 
 before_install:
-  - sudo add-apt-repository ppa:zoogie/sdl2-snapshots;
+  - yes | sudo add-apt-repository ppa:zoogie/sdl2-snapshots;
   - sudo apt-get update;
   - sudo apt-get -y -f install libsdl2-dev libsdl2-ttf-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-gfx-dev;
   - sudo apt-get -y -f install libpng-dev zlib1g-dev libjpeg-dev libtiff4-dev libportmidi-dev;
