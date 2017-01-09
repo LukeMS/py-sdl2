@@ -15,13 +15,13 @@ python:
 before_install:
   # - yes | sudo add-apt-repository ppa:zoogie/sdl2-snapshots;
   - sudo apt-get update;
-  - sudo apt-get -y install aptitude
-  - sudo aptitude -y install synaptic
+  - sudo apt-get -y install aptitude;
+  - sudo aptitude -y install synaptic;
   # - sudo apt-get -y -f install libsdl2-dev libsdl2-ttf-dev libsdl2-image-dev libsdl2-mixer-dev;
   - sudo aptitude -y install libv4l-dev libtool libsdl2-dev libsdl2-ttf-dev libsdl2-gfx-dev libsdl2-image-dev libsdl2-mixer-dev;
-  # - sudo aptitude -y install libv4l-dev libtool libsdl2-dev libsdl2-ttf-dev libsdl2-gfx-dev
+  # - sudo aptitude -y install libv4l-dev libtool libsdl2-dev libsdl2-ttf-dev libsdl2-gfx-dev;
   - sudo apt-get -y -f install libpng-dev zlib1g-dev libjpeg-dev libtiff4-dev libportmidi-dev;
-  - sudo apt-get -y -f install libx11-6 libX11-dev xfonts-base xfonts-100dpi xfonts-75dpi xfonts-cyrillic
+  - sudo apt-get -y -f install libx11-6 libX11-dev xfonts-base xfonts-100dpi xfonts-75dpi xfonts-cyrillic;
   - sudo apt-get -y -f install xvfb;
 
 install:
@@ -39,10 +39,10 @@ before_script:
 
 # command to run tests
 script:
-  # - export SDL2DIR="/home/travis/sdl2install"
-  # - export PYSDL2_DLL_PATH="$SDL2DIR/lib"
-  # - export PATH="$PATH:$PYSDL2_DLL_PATH"
-  - coverage run --source=sdl2 setup.py test
+  # - export SDL2DIR="/home/travis/sdl2install";
+  # - export PYSDL2_DLL_PATH="$SDL2DIR/lib";
+  # - export PATH="$PATH:$PYSDL2_DLL_PATH";
+  - coverage run --source=sdl2 setup.py test;
   
 after_success:
   - coveralls
