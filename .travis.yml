@@ -21,6 +21,7 @@ install:
     
   # install python requirements
   - "pip install -r requirements.txt"
+  - "pip install coveralls"
 
 # command to run tests
 script:
@@ -28,7 +29,7 @@ script:
   - export PYSDL2_DLL_PATH="$SDL2DIR/lib"
   - export PATH="$PATH:$PYSDL2_DLL_PATH"
   
-  - find $SDL2DIR -name *.so -print0
+  - coverage run --source=sdl2 setup.py test
   
-  # - make runtest
-  - python setup.py test
+after_success:
+  - coveralls
