@@ -12,10 +12,8 @@ python:
   # PyPy versions
   # - "pypy3" # Pypy3 2.4.0
 
-before_script:
-  - export DISPLAY=:99.0;
-  - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1280x720x24 -ac +extension GLX;
-  - export PYTHONPATH=$PYTHONPATH:$(pwd);
+before_install:
+  - sudo apt-get install libportmidi-dev libjpeg-dev libtiff4-dev libx11-6 libX11-dev xfonts-base xfonts-100dpi xfonts-75dpi xfonts-cyrillic;
 
 install:
   # install library requirements
@@ -24,6 +22,11 @@ install:
   # install python requirements
   - "pip install -r requirements.txt"
   - "pip install coveralls"
+
+before_script:
+  - export DISPLAY=:99.0;
+  - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1280x720x24 -ac +extension GLX;
+  - export PYTHONPATH=$PYTHONPATH:$(pwd);
 
 # command to run tests
 script:
