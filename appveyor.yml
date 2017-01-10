@@ -1,24 +1,73 @@
+version: 0.10.{build}
 environment:
-
+  SDL2_BUILD_DIR: C:\sdl2
+  SDL2_VERSION: 2.0.5
+  SDL2_image_VERSION: 2.0.1
+  SDL2_ttf_VERSION: 2.0.14
+  SDL2_mixer_VERSION: 2.0.1
+  SDL2_gfx_VERSION: 1.0.1
   matrix:
-    - PYTHON: "C:\\Python35"
-      PYTHON_VERSION: "3.5.2"
-      PYTHON_ARCH: "32"
-init:
-  - "ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
-
+  - PYVER: 35
+    BITTNESS: 32
 install:
-  - "powershell appveyor.ps1"
+- ps: >-
+    iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/matham/packaging/master/check_error.ps1'))
 
-build: off
+    $old_pypath = $env:PYTHONPATH
 
+    $env:PYTHONPATH = "$env:APPVEYOR_BUILD_FOLDER;$env:PYTHONPATH"
+
+    if ($env:BITTNESS -eq "64") {
+      $PYTHON_ROOT = "C:\Python$env:PYVER-x64"
+      $SDL2_URL = "https://www.libsdl.org/release/SDL2-2.0.5-win32-x64.zip"
+      $SDL2_image_URL: "https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.1-win32-x64.zip"
+      $SDL2_ttf_URL: "https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.14-win32-x64.zip"
+      $SDL2_mixer_URL: "https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.1-win32-x64.zip"
+    } else {
+      $PYTHON_ROOT = "C:\Python$env:PYVER"
+      $SDL2_URL = "https://www.libsdl.org/release/SDL2-2.0.5-win32-x86.zip"
+      $SDL2_image_URL: "https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.1-win32-x86.zip"
+      $SDL2_ttf_URL: "https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.14-win32-x86.zip"
+      $SDL2_mixer_URL: "https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.1-win32-x86.zip"
+    }
+    $SDL2_gfx_URL: "http://www.ferzkopp.net/Software/SDL2_gfx/SDL2_gfx-1.0.1.zip"
+
+    $env:PATH = "$PYTHON_ROOT;$PYTHON_ROOT\Scripts;$env:PATH;C:\Program Files\7-Zip"
+    python -c "import sys;print('Python version is {}'.format(sys.version))"
+    Check-Error
+
+    mkdir "$env:SDL2_BUILD_DIR"
+    Check-Error
+    cd "$env:SDL2_BUILD_DIR"
+
+    Invoke-WebRequest $SDL2_URL -OutFile "SDL2.zip"
+    Check-Error
+    7z x "SDL2.zip"
+    Check-Error
+    
+    Invoke-WebRequest $SDL2_image_URL -OutFile "SDL2_image.zip"
+    Check-Error
+    7z x "SDL2_image.zip"
+    Check-Error
+    
+    Invoke-WebRequest $SDL2_ttf_URL -OutFile "SDL2_ttf.zip"
+    Check-Error
+    7z x "SDL2_ttf.zip"
+    Check-Error
+    
+    Invoke-WebRequest $SDL2_mixer_URL -OutFile "SDL2_mixer.zip"
+    Check-Error
+    7z x "SDL2_mixer.zip"
+    Check-Error
+    
+    $env:PYSDL2_DLL_PATH=$env:SDL2_BUILD_DIR
+    
 test_script:
-  - "hg clone https://bitbucket.org/dholth/sdl2_lib win"
-  - "%WITH_COMPILER% %PYTHON%/python -m pip install cffi apipkg"
-  - "%WITH_COMPILER% %PYTHON%/python setup.py bdist_wheel"
-
-artifacts:
-  - path: dist\*
-
-#on_success:
-#  - TODO: upload the content of dist/*.whl to a public wheelhouse
+- ps: >-
+    python -m pip install pip wheel setuptools pillow coveralls --upgrade
+    Check-Error
+    
+    coverage run --source=sdl2 setup.py test
+on_success:
+- ps: >-
+    coveralls
