@@ -2,7 +2,7 @@
    :target: https://ci.appveyor.com/project/LukeMS/py-sdl2
 
 .. image:: https://coveralls.io/repos/github/LukeMS/py-sdl2/badge.svg?branch=HEAD
-:target: https://coveralls.io/github/LukeMS/py-sdl2?branch=HEAD
+   :target: https://coveralls.io/github/LukeMS/py-sdl2?branch=HEAD
    
 .. image:: https://landscape.io/github/LukeMS/py-sdl2/master/landscape.svg?style=flat
    :target: https://landscape.io/github/LukeMS/py-sdl2/master
