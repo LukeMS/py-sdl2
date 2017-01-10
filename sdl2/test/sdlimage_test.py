@@ -28,7 +28,7 @@ formats = ["bmp",
            "webp",
            "xcf",
            "xpm",
-           #"xv",
+           # "xv",
            ]
 
 
@@ -58,10 +58,15 @@ class SDLImageTest(unittest.TestCase):
     def test_IMG_Load(self):
         fname = "surfacetest.%s"
         for fmt in formats:
-            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                    "resources", fname % fmt)
+            filename = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                "resources", fname % fmt)
+            self.assertTrue(os.path.isfile(filename),
+                            "can't find file %s" % filename)
+
             sf = sdlimage.IMG_Load(filename.encode("utf-8"))
-            self.assertIsInstance(sf.contents, surface.SDL_Surface)
+            self.assertIsInstance(sf.contents, surface.SDL_Surface,
+                                  "assert fail for format %s" % fmt)
             surface.SDL_FreeSurface(sf)
 
     def test_IMG_Load_RW(self):
@@ -84,26 +89,29 @@ class SDLImageTest(unittest.TestCase):
 
         fname = "surfacetest.%s"
         for fmt in formats:
-            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                    "resources", fname % fmt)
+            filename = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                "resources", fname % fmt)
             tex = sdlimage.IMG_LoadTexture(rd, filename.encode("utf-8"))
             self.assertIsInstance(tex.contents, render.SDL_Texture)
             render.SDL_DestroyTexture(tex)
 
-        #self.assertRaises(sdl.SDLError, sdlimage.load_texture, rd,
-        #                  RESOURCES.get_path("rwopstest.txt"))
+        """
+        self.assertRaises(sdl.SDLError, sdlimage.load_texture, rd,
+                          RESOURCES.get_path("rwopstest.txt"))
 
-        #self.assertRaises(sdl.SDLError, sdlimage.load_texture, rd, None)
-        #self.assertRaises(sdl.SDLError, sdlimage.load_texture, rd, 1234)
-        #self.assertRaises((AttributeError, TypeError),
-        #                  sdlimage.load_texture, None,
-        #                  RESOURCES.get_path("surfacetest.bmp"))
-        #self.assertRaises((AttributeError, TypeError),
-        #                  sdlimage.load_texture, "Test",
-        #                  RESOURCES.get_path("surfacetest.bmp"))
-        #self.assertRaises((AttributeError, TypeError),
-        #                  sdlimage.load_texture, 1234,
-        #                  RESOURCES.get_path("surfacetest.bmp"))
+        self.assertRaises(sdl.SDLError, sdlimage.load_texture, rd, None)
+        self.assertRaises(sdl.SDLError, sdlimage.load_texture, rd, 1234)
+        self.assertRaises((AttributeError, TypeError),
+                          sdlimage.load_texture, None,
+                          RESOURCES.get_path("surfacetest.bmp"))
+        self.assertRaises((AttributeError, TypeError),
+                          sdlimage.load_texture, "Test",
+                          RESOURCES.get_path("surfacetest.bmp"))
+        self.assertRaises((AttributeError, TypeError),
+                          sdlimage.load_texture, 1234,
+                          RESOURCES.get_path("surfacetest.bmp"))
+        """
 
         render.SDL_DestroyRenderer(rd)
         surface.SDL_FreeSurface(sf)
@@ -283,8 +291,9 @@ class SDLImageTest(unittest.TestCase):
     def test_IMG_isBMP(self):
         fname = "surfacetest.%s"
         for fmt in formats:
-            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                    "resources", fname % fmt)
+            filename = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                "resources", fname % fmt)
             fp = open(filename, "rb")
             imgrw = rwops.rw_from_object(fp)
             if fmt == "bmp":
@@ -296,8 +305,9 @@ class SDLImageTest(unittest.TestCase):
     def test_IMG_isCUR(self):
         fname = "surfacetest.%s"
         for fmt in formats:
-            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                     "resources", fname % fmt)
+            filename = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                "resources", fname % fmt)
             fp = open(filename, "rb")
             imgrw = rwops.rw_from_object(fp)
             if fmt == "cur":
@@ -309,8 +319,9 @@ class SDLImageTest(unittest.TestCase):
     def test_IMG_isGIF(self):
         fname = "surfacetest.%s"
         for fmt in formats:
-            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                    "resources", fname % fmt)
+            filename = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                "resources", fname % fmt)
             fp = open(filename, "rb")
             imgrw = rwops.rw_from_object(fp)
             if fmt == "gif":
@@ -322,8 +333,9 @@ class SDLImageTest(unittest.TestCase):
     def test_IMG_isICO(self):
         fname = "surfacetest.%s"
         for fmt in formats:
-            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                    "resources", fname % fmt)
+            filename = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                "resources", fname % fmt)
             fp = open(filename, "rb")
             imgrw = rwops.rw_from_object(fp)
             if fmt == "ico":
@@ -335,8 +347,9 @@ class SDLImageTest(unittest.TestCase):
     def test_IMG_isJPG(self):
         fname = "surfacetest.%s"
         for fmt in formats:
-            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                    "resources", fname % fmt)
+            filename = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                "resources", fname % fmt)
             fp = open(filename, "rb")
             imgrw = rwops.rw_from_object(fp)
             if fmt == "jpg":
@@ -348,8 +361,9 @@ class SDLImageTest(unittest.TestCase):
     def test_IMG_isLBM(self):
         fname = "surfacetest.%s"
         for fmt in formats:
-            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                    "resources", fname % fmt)
+            filename = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                "resources", fname % fmt)
             fp = open(filename, "rb")
             imgrw = rwops.rw_from_object(fp)
             if fmt == "lbm":
@@ -361,8 +375,9 @@ class SDLImageTest(unittest.TestCase):
     def test_IMG_isPCX(self):
         fname = "surfacetest.%s"
         for fmt in formats:
-            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                    "resources", fname % fmt)
+            filename = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                "resources", fname % fmt)
             fp = open(filename, "rb")
             imgrw = rwops.rw_from_object(fp)
             if fmt == "pcx":
@@ -374,8 +389,9 @@ class SDLImageTest(unittest.TestCase):
     def test_IMG_isPNG(self):
         fname = "surfacetest.%s"
         for fmt in formats:
-            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                    "resources", fname % fmt)
+            filename = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                "resources", fname % fmt)
             fp = open(filename, "rb")
             imgrw = rwops.rw_from_object(fp)
             if fmt == "png":
@@ -387,8 +403,9 @@ class SDLImageTest(unittest.TestCase):
     def test_IMG_isPNM(self):
         fname = "surfacetest.%s"
         for fmt in formats:
-            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                    "resources", fname % fmt)
+            filename = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                "resources", fname % fmt)
             fp = open(filename, "rb")
             imgrw = rwops.rw_from_object(fp)
             if fmt in ("pnm", "pbm", "ppm", "pgm"):
@@ -400,8 +417,9 @@ class SDLImageTest(unittest.TestCase):
     def test_IMG_isTIF(self):
         fname = "surfacetest.%s"
         for fmt in formats:
-            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                    "resources", fname % fmt)
+            filename = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                "resources", fname % fmt)
             fp = open(filename, "rb")
             imgrw = rwops.rw_from_object(fp)
             if fmt == "tif":
@@ -413,8 +431,9 @@ class SDLImageTest(unittest.TestCase):
     def test_IMG_isWEBP(self):
         fname = "surfacetest.%s"
         for fmt in formats:
-            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                    "resources", fname % fmt)
+            filename = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                "resources", fname % fmt)
             fp = open(filename, "rb")
             imgrw = rwops.rw_from_object(fp)
             if fmt == "webp":
@@ -426,8 +445,9 @@ class SDLImageTest(unittest.TestCase):
     def test_IMG_isXCF(self):
         fname = "surfacetest.%s"
         for fmt in formats:
-            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                    "resources", fname % fmt)
+            filename = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                "resources", fname % fmt)
             fp = open(filename, "rb")
             imgrw = rwops.rw_from_object(fp)
             if fmt == "xcf":
@@ -439,8 +459,9 @@ class SDLImageTest(unittest.TestCase):
     def test_IMG_isXPM(self):
         fname = "surfacetest.%s"
         for fmt in formats:
-            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                    "resources", fname % fmt)
+            filename = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                "resources", fname % fmt)
             fp = open(filename, "rb")
             imgrw = rwops.rw_from_object(fp)
             if fmt == "xpm":
@@ -453,8 +474,9 @@ class SDLImageTest(unittest.TestCase):
     def test_IMG_isXV(self):
         fname = "surfacetest.%s"
         for fmt in formats:
-            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                    "resources", fname % fmt)
+            filename = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                "resources", fname % fmt)
             fp = open(filename, "rb")
             imgrw = rwops.rw_from_object(fp)
             if fmt == "xv":
