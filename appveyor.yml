@@ -46,7 +46,7 @@ install:
     
     Check-Error
     
-    7z x "SDL2.zip"
+    7z e -y "SDL2.zip"
     
     Check-Error
     
@@ -55,7 +55,7 @@ install:
     
     Check-Error
     
-    7z x "SDL2_image.zip"
+    7z e -y "SDL2_image.zip"
     
     Check-Error
     
@@ -64,7 +64,7 @@ install:
     
     Check-Error
     
-    7z x "SDL2_ttf.zip"
+    7z e -y "SDL2_ttf.zip"
     
     Check-Error
     
@@ -73,7 +73,7 @@ install:
     
     Check-Error
     
-    7z x "SDL2_mixer.zip"
+    7z e -y "SDL2_mixer.zip"
     
     Check-Error
     
