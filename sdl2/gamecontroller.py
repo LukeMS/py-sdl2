@@ -62,6 +62,7 @@ class _gcvalue(Union):
 
 
 class SDL_GameControllerButtonBind(Structure):
+
     _fields_ = [("bindType", SDL_GameControllerBindType), ("value", _gcvalue)]
 
 SDL_GameControllerAddMapping = _bind(
