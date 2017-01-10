@@ -1,5 +1,5 @@
-.. image:: https://travis-ci.org/LukeMS/py-sdl2.svg?branch=master
-   :target: https://travis-ci.org/LukeMS/py-sdl2
+.. image:: https://ci.appveyor.com/api/projects/status/69a5silb1no9j3kn?svg=true
+   :target: https://ci.appveyor.com/project/LukeMS/py-sdl2
 
 .. image:: https://coveralls.io/repos/github/LukeMS/py-sdl2/badge.svg
    :target: https://coveralls.io/github/LukeMS/py-sdl2
