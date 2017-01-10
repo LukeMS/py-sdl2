@@ -85,6 +85,7 @@ install:
 - python -m pip install pip wheel setuptools pillow coveralls --upgrade
 - cd C:\projects\py-sdl2
 
+build: off
     
 test_script:
 - coverage run --source=sdl2 setup.py test
