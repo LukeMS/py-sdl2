@@ -64,7 +64,7 @@ class Entity(object):
         Work as a interface to ctype components.
         """
         if name in ("_id", "_world"):
-            return object.__getattr__(self, name)
+            return object.__getattribute__(self, name)
         try:
             ctype = self._world._componenttypes[name]
         except KeyError:
