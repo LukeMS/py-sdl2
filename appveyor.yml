@@ -86,14 +86,13 @@ install:
 
     
 test_script:
-  - coverage run --source=sdl2 setup.py test
+- coverage run --source=sdl2 setup.py test
   
 after_test:
-  - python setup.py bdist_wheel
+- python setup.py bdist_wheel
   
 artifacts:
-  # bdist_wheel puts your built wheel in the dist directory
-  - path: dist\*
+- path: dist\*
     
 on_success:
-  - coveralls
+- coveralls
