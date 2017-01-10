@@ -29,6 +29,7 @@ SDL_SYSWM_VIVANTE = 10
 # once this has been fixed properly in Python 2.7+
 HWND = c_void_p
 HDC = c_void_p
+HINSTANCE = c_void_p
 UINT = c_uint
 if sizeof(c_long) == sizeof(c_void_p):
     WPARAM = c_ulong
@@ -81,7 +82,9 @@ class SDL_SysWMmsg(Structure):
 
 class _wininfo(Structure):
     _fields_ = [("window", HWND),
-                ("hdc", HDC)]
+                ("hdc", HDC),
+                ("hinstance", HINSTANCE)
+                ]
 
 
 class _winrtinfo(Structure):
