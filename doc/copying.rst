@@ -13,7 +13,8 @@ License
   software, this software can be licensed under the zlib license as
   stated below:
 
-  Copyright (C) 2012-2014 Marcus von Appen <marcus@sysfault.org>
+  pysdl2e Copyright (C) 2017 Lucas Siqueira <lucas.morais.siqueira@gmail.com>
+  pysdl2 Copyright (C) 2012-2014 Marcus von Appen <marcus@sysfault.org>
 
   This software is provided 'as-is', without any express or implied
   warranty. In no event will the authors be held liable for any damages
