@@ -82,11 +82,11 @@ install:
     $env:PYSDL2_DLL_PATH = $env:SDL2_BUILD_DIR
 
 
-    $env:PYTHON\python -m pip install pip wheel setuptools pillow coveralls --upgrade
+- $env:PYTHON\python.ee -m pip install pip wheel setuptools pillow coveralls --upgrade
 
     
 test_script:
-  - $env:PYTHON\Scripts\coverage run --source=sdl2 setup.py test
+  - $env:PYTHON\Scripts\coverage.exe run --source=sdl2 setup.py test
   
 after_test:
   - $env:PYTHON\python.exe setup.py bdist_wheel
@@ -96,4 +96,4 @@ artifacts:
   - path: dist\*
     
 on_success:
-  - $env:PYTHON\Scripts\coveralls
+  - $env:PYTHON\Scripts\coveralls.exe
