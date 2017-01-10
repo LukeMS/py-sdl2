@@ -83,6 +83,7 @@ install:
 
 
 - python -m pip install pip wheel setuptools pillow coveralls --upgrade
+- cd C:\projects\py-sdl2
 
     
 test_script:
