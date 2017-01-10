@@ -1,8 +1,8 @@
 .. image:: https://ci.appveyor.com/api/projects/status/69a5silb1no9j3kn?svg=true
    :target: https://ci.appveyor.com/project/LukeMS/py-sdl2
 
-.. image:: https://coveralls.io/repos/github/LukeMS/py-sdl2/badge.svg
-   :target: https://coveralls.io/github/LukeMS/py-sdl2
+.. image:: https://coveralls.io/repos/github/LukeMS/py-sdl2/badge.svg?branch=HEAD
+:target: https://coveralls.io/github/LukeMS/py-sdl2?branch=HEAD
    
 .. image:: https://landscape.io/github/LukeMS/py-sdl2/master/landscape.svg?style=flat
    :target: https://landscape.io/github/LukeMS/py-sdl2/master
