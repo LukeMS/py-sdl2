@@ -82,7 +82,7 @@ install:
     $env:PYSDL2_DLL_PATH = $env:SDL2_BUILD_DIR
 
 
-- $env:PYTHON\python.ee -m pip install pip wheel setuptools pillow coveralls --upgrade
+- $env:PYTHON\python.exe -m pip install pip wheel setuptools pillow coveralls --upgrade
 
     
 test_script:
