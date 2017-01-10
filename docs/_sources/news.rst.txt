@@ -30,8 +30,6 @@ Released on 2017-01-06
 
 * :mod:`sdl2.ext.sprite`
 
-  - :class:`sdl2.ext.sprite.TextureGuestSprite` |new|
-
     * doens't free/delete its texture when deleted;
     * makes use of the :func:`sdl2.ext.sprite.Sprite.frame_rect` property to store a logical sub-area of the texture to be rendered.
 
@@ -49,21 +47,32 @@ Released on 2017-01-06
 
   - :class:`sdl2.ext.sprite.SpriteFactory`
 
-    * :func:`sdl2.ext.sprite.SpriteFactory.from_tileset` |new|
-
-      - create a sprite from an area of the loaded tileset
-
     * :func:`sdl2.ext.sprite.SpriteFactory.load_tileset` |new|
 
       - load a default tileset on the factory so that it can be used later on
 
+    * :func:`sdl2.ext.sprite.SpriteFactory.get_char_sprite` |new|
+
+      - create a character sprite from a tileset (bitmap font)
+
   - :class:`sdl2.ext.sprite.TextureSprite`
 
-    * :func:`sdl2.ext.sprite.Sprite.set_animation` |new|
+    * :func:`sdl2.ext.sprite.TextureSprite.__init__`
+
+      - added optional parameter `free`. When set to True (default behavior for this and prior versions), on destruction/garbage colleting of the sprite, the texture will be destroyed. When set to False, the texture will be kept.
+        This is useful for TextureSprite's that share a texture, such as a tileset.
+
+    * :func:`sdl2.ext.sprite.TextureSprite.set_animation` |new|
+
       - set parameters for a animated (multi-framed) sprite
 
-    * :func:`sdl2.ext.sprite.Sprite.step`  |new|
-      - step `n` rows or columns according to the animation parameters previously defined, wrapping it to respect those its boundaries
+    * :func:`sdl2.ext.sprite.TextureSprite.step` |new|
+
+      - step `n` rows or columns according to the animation parameters previously defined, wrapping it to respect its boundaries
+
+    * :func:`sdl2.ext.sprite.TextureSprite.subsprite` |new|
+
+      - create a TextureSprite from the same texture of the sprite, sharing it, considering an area of it to be used when rendering.
 
 * :mod:`sdl2.dll`, :mod:`sdl2.sdlgfx`, :mod:`sdl2.sdlimage`, :mod:`sdl2.sdlmixer`, :mod:`sdl2.sdlttf`
 

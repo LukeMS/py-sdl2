@@ -36,6 +36,8 @@ Indices and tables
 Documentation TODOs
 ===================
 
-.. todolist::
+.. todo::
+
+   Expand docstrings.
 
 Last generated on: |today|

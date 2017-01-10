@@ -97,13 +97,13 @@ freely, subject to the following restrictions:
 <dl class="class">
 <dt id="sdl2.ext.rect.IterableRect">
 <em class="property">class </em><code class="descclassname">sdl2.ext.rect.</code><code class="descname">IterableRect</code><a class="headerlink" href="#sdl2.ext.rect.IterableRect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#sdl2.ext.rect.RectAbstract" title="sdl2.ext.rect.RectAbstract"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.rect.RectAbstract</span></code></a></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="sdl2.ext.rect.NonIterableRect">
 <em class="property">class </em><code class="descclassname">sdl2.ext.rect.</code><code class="descname">NonIterableRect</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.NonIterableRect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#sdl2.ext.rect.RectAbstract" title="sdl2.ext.rect.RectAbstract"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.rect.RectAbstract</span></code></a></p>
 <p>Object for storing rectangular coordinates.</p>
 <dl class="method">
 <dt id="sdl2.ext.rect.NonIterableRect.__init__">
@@ -753,6 +753,12 @@ passed as argument, operating in place.</p>
 <dd><p>Bases: <a class="reference internal" href="#sdl2.ext.rect.NonIterableRect" title="sdl2.ext.rect.NonIterableRect"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.rect.NonIterableRect</span></code></a>, <a class="reference internal" href="#sdl2.ext.rect.IterableRect" title="sdl2.ext.rect.IterableRect"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.rect.IterableRect</span></code></a></p>
 </dd></dl>
 
+<dl class="class">
+<dt id="sdl2.ext.rect.RectAbstract">
+<em class="property">class </em><code class="descclassname">sdl2.ext.rect.</code><code class="descname">RectAbstract</code><a class="headerlink" href="#sdl2.ext.rect.RectAbstract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
 <dl class="function">
 <dt id="sdl2.ext.rect.flatten">
 <code class="descclassname">sdl2.ext.rect.</code><code class="descname">flatten</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.rect.flatten" title="Permalink to this definition">¶</a></dt>
@@ -840,7 +846,7 @@ representing of representing x, y, w and h.</td>
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright (original) 2013-2016, Marcus von Appen; (modified) 2017, Lucas Siqueira.
+        &#169; Copyright pysdl2e 2017, Lucas Siqueira; pysdl2 2013-2017, Marcus von Appen.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
