@@ -12,7 +12,7 @@ environment:
     BITTNESS: 32
     
 install:
-  - ps: >-
+- ps: >-
     iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/matham/packaging/master/check_error.ps1'))
 
     if ($env:BITTNESS -eq "64") {
@@ -82,18 +82,18 @@ install:
     $env:PYSDL2_DLL_PATH = $env:SDL2_BUILD_DIR
 
 
-    %PYTHON%\\python -m pip install pip wheel setuptools pillow coveralls --upgrade
+    $env:PYTHON\python -m pip install pip wheel setuptools pillow coveralls --upgrade
 
     
 test_script:
-  - %PYTHON%\\Scripts\coverage run --source=sdl2 setup.py test
+  - $env:PYTHON\Scripts\coverage run --source=sdl2 setup.py test
   
 after_test:
-  - "%PYTHON%\\python.exe setup.py bdist_wheel"
+  - $env:PYTHON\python.exe setup.py bdist_wheel
   
 artifacts:
   # bdist_wheel puts your built wheel in the dist directory
   - path: dist\*
     
 on_success:
-  - %PYTHON%\\Scripts\coveralls
+  - $env:PYTHON\Scripts\coveralls
