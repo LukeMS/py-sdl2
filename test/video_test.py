@@ -9,9 +9,8 @@ import unittest
 
 from sdl2 import video, rect, surface
 from sdl2.stdinc import SDL_FALSE, SDL_TRUE
-from _test_utils import interactive, doprint
-
 from sdl2.util import get_cfg
+from sdl2.util.test_utils import interactive, doprint
 
 INTERACTIVE = get_cfg(
     path=os.path.join(

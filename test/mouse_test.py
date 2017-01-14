@@ -1,4 +1,5 @@
 
+import os
 import sys
 import unittest
 
@@ -6,10 +7,8 @@ from sdl2 import mouse, events
 from sdl2.ext import common
 from sdl2.ext import events as ext_events
 from sdl2 import ext as sdl2ext
-
 from sdl2.util import get_cfg
-
-from _test_utils import interactive, doprint
+from sdl2.util.test_utils import interactive, doprint
 
 INTERACTIVE = get_cfg(
     path=os.path.join(

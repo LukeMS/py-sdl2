@@ -5,10 +5,8 @@ import sys
 import unittest
 
 from sdl2 import power
-
 from sdl2.util import get_cfg
-
-from _test_utils import interactive, doprint
+from sdl2.util.test_utils import interactive, doprint
 
 INTERACTIVE = get_cfg(
     path=os.path.join(

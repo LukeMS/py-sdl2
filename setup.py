@@ -37,9 +37,11 @@ if __name__ == "__main__":
             VERSION = VERSION.replace("-alpha", "a")
             VERSION = VERSION.replace("-beta", "b")
             VERSION = VERSION.replace("-rc", "r")
+        """
         ext_modules = cythonize(cythonizeable())
         ext_modules = [distutils.extension.Extension(**module.__dict__)
                        for module in ext_modules]
+        """
     elif "test" in sys.argv:
         ext_modules = None
 
@@ -70,13 +72,13 @@ if __name__ == "__main__":
                      "sdl2.sdlimage",
                      "sdl2.sdlmixer",
                      "sdl2.sdlttf",
-                     # "sdl2.ext",
+                     "sdl2.ext",
                      "sdl2.test",
                      "sdl2.examples",
                      "sdl2.examples.ext",
                      "sdl2.examples.ext.rl"
                      ],
-        "ext_modules": ext_modules,
+        # "ext_modules": ext_modules,
         "test_suite": "test",
         "classifiers": [
             "Development Status :: 4 - Beta",

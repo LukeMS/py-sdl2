@@ -6,5 +6,3 @@ unit tests using
     python -c "import sdl2.test; sdl2.test.run()"
 
 """
-
-from ._test_utils import *
