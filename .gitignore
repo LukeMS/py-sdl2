@@ -12,3 +12,8 @@ run_tests.py
 *.c
 *.pyc
 *.stackdump
+*.log
+setyp_cython.py
+.travis.yml
+install-dependencies.sh
+.hgignore

@@ -8,8 +8,6 @@ environment:
   SDL2_mixer_VERSION: 2.0.1
   SDL2_gfx_VERSION: 1.0.1
   matrix:
-  - PYVER: 27
-    BITTNESS: 32
   - PYVER: 33
     BITTNESS: 32
   - PYVER: 34
