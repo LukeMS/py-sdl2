@@ -90,7 +90,7 @@ install:
     $env:PYSDL2_DLL_PATH = $env:SDL2_BUILD_DIR
 
 
-- python -m pip install pip wheel setuptools pillow coveralls --upgrade
+- python -m pip install pip wheel setuptools future pillow coveralls --upgrade
 - cd C:\projects\py-sdl2
 
 build: off
