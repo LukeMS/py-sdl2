@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Window routines to manage on-screen windows &#8212; PySDL2 0.10.0 documentation</title>
+    <title>sdl2.ext.window - Window routines to manage on-screen windows &#8212; PySDL2 0.10.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -56,93 +56,128 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="window-routines-to-manage-on-screen-windows">
-<h1>Window routines to manage on-screen windows<a class="headerlink" href="#window-routines-to-manage-on-screen-windows" title="Permalink to this headline">¶</a></h1>
+  <span class="target" id="module-sdl2.ext.window"></span><div class="section" id="module-sdl2.ext.window">
+<span id="sdl2-ext-window-window-routines-to-manage-on-screen-windows"></span><h1>sdl2.ext.window - Window routines to manage on-screen windows<a class="headerlink" href="#module-sdl2.ext.window" title="Permalink to this headline">¶</a></h1>
+<p>Window routines to manage on-screen windows.</p>
 <dl class="class">
-<dt id="sdl2.ext.Window">
-<em class="property">class </em><code class="descclassname">sdl2.ext.</code><code class="descname">Window</code><span class="sig-paren">(</span><em>title : string</em>, <em>size : iterable</em><span class="optional">[</span>, <em>position=None</em><span class="optional">[</span>, <em>flags=None</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.Window" title="Permalink to this definition">¶</a></dt>
-<dd><p>The Window class represents a visible on-screen object with an optional
-border and <em>title</em> text. It represents an area on the screen that can be
-accessed by the application for displaying graphics and receive and
-process user input.</p>
-<p>The position to show the Window at is undefined by default, letting
-the operating system or window manager pick the best location. The
-behaviour can be adjusted through the <code class="docutils literal"><span class="pre">DEFAULTPOS</span></code> class variable.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Window</span><span class="o">.</span><span class="n">DEFAULTPOS</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The created Window is hidden by default, which can be overridden at
-the time of creation by providing other SDL window flags through the
-<em>flags</em> parameter. The default flags for creating Window instances
-can be adjusted through the <code class="docutils literal"><span class="pre">DEFAULTFLAGS</span></code> class variable.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Window</span><span class="o">.</span><span class="n">DEFAULTFLAGS</span> <span class="o">=</span> <span class="n">sdl2</span><span class="o">.</span><span class="n">SDL_WINDOW_SHOWN</span>
-</pre></div>
-</div>
+<dt id="sdl2.ext.window.Window">
+<em class="property">class </em><code class="descclassname">sdl2.ext.window.</code><code class="descname">Window</code><span class="sig-paren">(</span><em>title</em>, <em>size</em>, <em>position=None</em>, <em>flags=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.window.Window" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A visible on-screen object with an optional border and title text.</p>
+<p>It represents an area on the screen that can be accessed by the
+application for displaying graphics and receive and process user
+input.</p>
 <dl class="attribute">
-<dt id="sdl2.ext.Window.window">
-<code class="descname">window</code><a class="headerlink" href="#sdl2.ext.Window.window" title="Permalink to this definition">¶</a></dt>
-<dd><p>The used <code class="xref py py-class docutils literal"><span class="pre">sdl2.SDL_Window</span></code>.</p>
-</dd></dl>
+<dt id="sdl2.ext.window.Window.DEFAULTFLAGS">
+<code class="descname">DEFAULTFLAGS</code><em class="property"> = 8</em><a class="headerlink" href="#sdl2.ext.window.Window.DEFAULTFLAGS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.Window.title">
-<code class="descname">title</code><a class="headerlink" href="#sdl2.ext.Window.title" title="Permalink to this definition">¶</a></dt>
-<dd><p>The title of the <a class="reference internal" href="#sdl2.ext.Window" title="sdl2.ext.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a>.</p>
+<dt id="sdl2.ext.window.Window.DEFAULTPOS">
+<code class="descname">DEFAULTPOS</code><em class="property"> = (536805376, 536805376)</em><a class="headerlink" href="#sdl2.ext.window.Window.DEFAULTPOS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.window.Window.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>title</em>, <em>size</em>, <em>position=None</em>, <em>flags=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.window.Window.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Window with a specific size and title.</p>
+<p>The position to show the Window at is undefined by default,
+letting the operating system or window manager pick the best
+location. The behaviour can be adjusted through the DEFAULTPOS
+class variable:</p>
+<blockquote>
+<div>Window.DEFAULTPOS = (10, 10)</div></blockquote>
+<p>The created Window is hidden by default, which can be overridden
+at the time of creation by providing other SDL window flags
+through the flags parameter.</p>
+<p>The default flags for creating Window instances can be adjusted
+through the DEFAULTFLAGS class variable:</p>
+<blockquote>
+<div>Window.DEFAULTFLAGS = sdl2.video.SDL_WINDOW_SHOWN</div></blockquote>
+<dl class="attribute">
+<dt id="sdl2.ext.window.Window.window">
+<code class="descname">window</code><a class="headerlink" href="#sdl2.ext.window.Window.window" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>sdl2.SDL_Window</em> &#8211; The used SDL_Window.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.window.Window.get_surface">
+<code class="descname">get_surface</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.window.Window.get_surface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the SDL_Surface used by the Window to display 2D pixel data.</p>
+<p>Using this method will make the usage of GL operations, such
+as texture handling, or using SDL renderers impossible.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">sdl2.SDL_Surface</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.window.Window.hide">
+<code class="descname">hide</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.window.Window.hide" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hide the window.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.window.Window.maximize">
+<code class="descname">maximize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.window.Window.maximize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximize the window to the display&#8217;s dimensions.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.window.Window.minimize">
+<code class="descname">minimize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.window.Window.minimize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Minimize the window to an iconified state in the system tray.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.window.Window.refresh">
+<code class="descname">refresh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.window.Window.refresh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refresh the entire window surface.</p>
+<p>This only needs to be called, if a SDL_Surface was acquired via
+get_surface() and is used to display contents.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.window.Window.show">
+<code class="descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.window.Window.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the window on the display.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="sdl2.ext.Window.size">
-<code class="descname">size</code><a class="headerlink" href="#sdl2.ext.Window.size" title="Permalink to this definition">¶</a></dt>
-<dd><p>The size of the <a class="reference internal" href="#sdl2.ext.Window" title="sdl2.ext.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a>.</p>
+<dt id="sdl2.ext.window.Window.size">
+<code class="descname">size</code><a class="headerlink" href="#sdl2.ext.window.Window.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>The size of the window.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="sdl2.ext.Window.show">
-<code class="descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; None<a class="headerlink" href="#sdl2.ext.Window.show" title="Permalink to this definition">¶</a></dt>
-<dd><p>Show the <a class="reference internal" href="#sdl2.ext.Window" title="sdl2.ext.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a> on the display.</p>
+<dl class="attribute">
+<dt id="sdl2.ext.window.Window.title">
+<code class="descname">title</code><a class="headerlink" href="#sdl2.ext.window.Window.title" title="Permalink to this definition">¶</a></dt>
+<dd><p>The title of the window.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="sdl2.ext.Window.hide">
-<code class="descname">hide</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; None<a class="headerlink" href="#sdl2.ext.Window.hide" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hide the <a class="reference internal" href="#sdl2.ext.Window" title="sdl2.ext.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a>.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="sdl2.ext.Window.maximize">
-<code class="descname">maximize</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; None<a class="headerlink" href="#sdl2.ext.Window.maximize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Maximizes the <a class="reference internal" href="#sdl2.ext.Window" title="sdl2.ext.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a> to the display&#8217;s dimensions.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="sdl2.ext.Window.minimize">
-<code class="descname">minimize</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; None<a class="headerlink" href="#sdl2.ext.Window.minimize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Minimizes the <a class="reference internal" href="#sdl2.ext.Window" title="sdl2.ext.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a> to an iconified state in the system tray.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="sdl2.ext.Window.refresh">
-<code class="descname">refresh</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; None<a class="headerlink" href="#sdl2.ext.Window.refresh" title="Permalink to this definition">¶</a></dt>
-<dd><p>Refreshes the entire <a class="reference internal" href="#sdl2.ext.Window" title="sdl2.ext.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a> surface.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This only needs to be called, if a SDL_Surface was acquired via
-<a class="reference internal" href="#sdl2.ext.Window.get_surface" title="sdl2.ext.Window.get_surface"><code class="xref py py-meth docutils literal"><span class="pre">get_surface()</span></code></a> and is used to display contents.</p>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="sdl2.ext.Window.get_surface">
-<code class="descname">get_surface</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; SDL_Surface<a class="headerlink" href="#sdl2.ext.Window.get_surface" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the <code class="xref py py-class docutils literal"><span class="pre">sdl2.SDL_Surface</span></code> used by the <a class="reference internal" href="#sdl2.ext.Window" title="sdl2.ext.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a> to
-display 2D pixel data.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Using this method will make the usage of GL operations, such as
-texture handling or the usage of SDL renderers impossible.</p>
-</div>
-</dd></dl>
-
+<dl class="function">
+<dt id="sdl2.ext.window.get_display_mode">
+<code class="descclassname">sdl2.ext.window.</code><code class="descname">get_display_mode</code><span class="sig-paren">(</span><em>index=0</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.window.get_display_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get information about the desktop display mode.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; the index of the display to query. default to 0.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>

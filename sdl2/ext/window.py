@@ -4,23 +4,37 @@ from .compat import byteify, stringify
 from .common import SDLError
 from .. import video
 
-__all__ = ["Window"]
+__all__ = ["Window", "get_display_mode"]
+
+
+def get_display_mode(index=0):
+    """Get information about the desktop display mode.
+
+    Args:
+        index (int): the index of the display to query. default to 0.
+    Returns:
+        tuple
+    """
+    dmode = video.SDL_DisplayMode()
+    if video.SDL_GetDesktopDisplayMode(index, byref(dmode)):
+        raise SDLError()
+    return (dmode.w, dmode.h)
 
 
 class Window(object):
-    """The Window class represents a visible on-screen object with an
-    optional border and title text.
+    """A visible on-screen object with an optional border and title text.
 
     It represents an area on the screen that can be accessed by the
     application for displaying graphics and receive and process user
     input.
     """
+
     DEFAULTFLAGS = video.SDL_WINDOW_HIDDEN
     DEFAULTPOS = (video.SDL_WINDOWPOS_UNDEFINED,
                   video.SDL_WINDOWPOS_UNDEFINED)
 
     def __init__(self, title, size, position=None, flags=None):
-        """Creates a Window with a specific size and title.
+        """Create a Window with a specific size and title.
 
         The position to show the Window at is undefined by default,
         letting the operating system or window manager pick the best
@@ -29,7 +43,7 @@ class Window(object):
 
             Window.DEFAULTPOS = (10, 10)
 
-        The created Window is hidden by default, which can be overriden
+        The created Window is hidden by default, which can be overridden
         at the time of creation by providing other SDL window flags
         through the flags parameter.
 
@@ -37,6 +51,11 @@ class Window(object):
         through the DEFAULTFLAGS class variable:
 
             Window.DEFAULTFLAGS = sdl2.video.SDL_WINDOW_SHOWN
+
+        Attributes:
+            window (sdl2.SDL_Window): The used SDL_Window.
+
+
         """
         if position is None:
             position = self.DEFAULTPOS
@@ -78,19 +97,19 @@ class Window(object):
         video.SDL_ShowWindow(self.window)
 
     def hide(self):
-        """Hides the window."""
+        """Hide the window."""
         video.SDL_HideWindow(self.window)
 
     def maximize(self):
-        """Maximizes the window to the display's dimensions."""
+        """Maximize the window to the display's dimensions."""
         video.SDL_MaximizeWindow(self.window)
 
     def minimize(self):
-        """Minimizes the window to an iconified state in the system tray."""
+        """Minimize the window to an iconified state in the system tray."""
         video.SDL_MinimizeWindow(self.window)
 
     def refresh(self):
-        """Refreshes the entire window surface.
+        """Refresh the entire window surface.
 
         This only needs to be called, if a SDL_Surface was acquired via
         get_surface() and is used to display contents.
@@ -98,11 +117,13 @@ class Window(object):
         video.SDL_UpdateWindowSurface(self.window)
 
     def get_surface(self):
-        """Gets the SDL_Surface used by the Window to display 2D pixel
-        data.
+        """Get the SDL_Surface used by the Window to display 2D pixel data.
 
         Using this method will make the usage of GL operations, such
         as texture handling, or using SDL renderers impossible.
+
+        Returns:
+            sdl2.SDL_Surface
         """
         sf = video.SDL_GetWindowSurface(self.window)
         if not sf:

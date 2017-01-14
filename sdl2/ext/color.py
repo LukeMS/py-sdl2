@@ -1,8 +1,14 @@
-"""
-color module for color creation and conversion operations.
-"""
+"""Color module for color creation and conversion operations."""
+# support for Python 2.6, 2.7
+from __future__ import (absolute_import, division,
+                        print_function, unicode_literals)
+from future.standard_library import install_aliases
+install_aliases()
+import struct
+from builtins import *
+from future.utils import raise_from
+
 from math import floor
-from .compat import *
 
 
 __all__ = ["Color", "is_rgb_color", "is_rgba_color", "argb_to_color", "ARGB",
@@ -12,35 +18,35 @@ __all__ = ["Color", "is_rgb_color", "is_rgba_color", "argb_to_color", "ARGB",
 
 class Color(object):
     """A simple RGBA-based color implementation."""
+
+    __slots__ = ("_r", "_g", "_b", "_a")
+
     def __init__(self, r=255, g=255, b=255, a=255):
-        """Creates a Color with the specified RGBA values."""
-        if r < 0 or r > 255:
-            raise ValueError("r must be in the range [0; 255]")
-        if g < 0 or g > 255:
-            raise ValueError("r must be in the range [0; 255]")
-        if b < 0 or b > 255:
-            raise ValueError("r must be in the range [0; 255]")
-        if a < 0 or a > 255:
-            raise ValueError("r must be in the range [0; 255]")
+        """Create a Color with the specified RGBA values."""
+        try:
+            for c in (r, g, b, a):
+                assert 0 <= c <= 255
+        except AssertionError as e:
+            raise_from(ValueError("r must be in the range [0; 255]"), e)
         self._r = int(r)
         self._g = int(g)
         self._b = int(b)
         self._a = int(a)
 
     def __repr__(self):
-        return "Color(r=%d, g=%d, b=%d, a=%d)" % \
-            (self.r, self.g, self.b, self.a)
+        return ("Color(r=%d, g=%d, b=%d, a=%d)" %
+                (self.r, self.g, self.b, self.a))
 
     def __copy__(self):
         return Color(self.r, self.g, self.b, self.a)
 
     def __eq__(self, color):
-        return self.r == color.r and self.g == color.g and \
-            self.b == color.b and self.a == color.a
+        return (self.r == color.r and self.g == color.g and
+                self.b == color.b and self.a == color.a)
 
     def __ne__(self, color):
-        return self.r != color.r or self.g != color.g or \
-            self.b != color.b or self.a != color.a
+        return (self.r != color.r or self.g != color.g or
+                self.b != color.b or self.a != color.a)
 
     def __int__(self):
         return (self.r << 24 | self.g << 16 | self.b << 8 | self.a)
@@ -469,7 +475,6 @@ def argb_to_color(v):
     """Converts an integer value to a Color, assuming the integer
     represents a 32-bit ARGB value.
     """
-    v = long(v)
 
     a = ((v & 0xFF000000) >> 24)
     r = ((v & 0x00FF0000) >> 16)
@@ -498,48 +503,33 @@ RGBA = rgba_to_color
 
 
 def string_to_color(s):
-    """Converts a hex color string or color name to a Color value.
+    """Convert a hex color string or color name to a Color value.
 
     Supported hex values are:
-
+    RGB
+    RGBA
+    RRGGBB
+    RRGGBBAA
     #RGB
     #RGBA
     #RRGGBB
     #RRGGBBAA
-
     0xRGB
     0xRGBA
     0xRRGGBB
     0xRRGGBBAA
     """
-    if type(s) is not str:
-        raise TypeError("s must be a string")
+    s = s.replace("0x", "", 1).replace("#", "", 1)
 
-    if not(s.startswith("#") or s.startswith("0x")):
-        raise ValueError("value is not Color-compatible")
-
-    if s.startswith("#"):
-        s = s[1:]
-    else:
-        s = s[2:]
-
-    r, g, b, a = 255, 255, 255, 255
-    if len(s) in (3, 4):
-        # A triple/quadruple in the form #ead == #eeaadd
-        r = int(s[0], 16) << 4 | int(s[0], 16)
-        g = int(s[1], 16) << 4 | int(s[1], 16)
-        b = int(s[2], 16) << 4 | int(s[2], 16)
-        if len(s) == 4:
-            a = int(s[3], 16) << 4 | int(s[3], 16)
-    elif len(s) in (6, 8):
-        r = int(s[0], 16) << 4 | int(s[1], 16)
-        g = int(s[2], 16) << 4 | int(s[3], 16)
-        b = int(s[4], 16) << 4 | int(s[5], 16)
-        if len(s) == 8:
-            a = int(s[6], 16) << 4 | int(s[7], 16)
-    else:
-        raise ValueError("value is not Color-compatible")
-    return Color(r, g, b, a)
+    s_len = len(s)
+    if s_len == 3:
+        s = "".join((s, "f"))
+        s = "".join(c for ab in zip(s, s) for c in ab)
+    elif s_len == 4:
+        s = "".join(c for ab in zip(s, s) for c in ab)
+    elif s_len == 6:
+        s = "".join((s, "ff"))
+    return Color(*struct.unpack('BBBB', bytes.fromhex(s)))
 
 
 def convert_to_color(v):
@@ -549,10 +539,9 @@ def convert_to_color(v):
     """
     if isinstance(v, Color):
         return v
-
-    if type(v) is str:
+    if isinstance(v, str):
         return string_to_color(v)
-    if type(v) in (int, long):
+    if isinstance(v, int):
         return argb_to_color(v)
 
     r, g, b, a = 0, 0, 0, 0
@@ -574,8 +563,11 @@ def convert_to_color(v):
         raise ValueError("value is not Color-compatible")
     if length < 3:
         raise ValueError("value is not Color-compatible")
-    if 0 <= int(v[0]) <= 255 and 0 <= int(v[1]) <= 255 and \
-            0 <= int(v[2]) <= 255:
+    if (
+        0 <= int(v[0]) <= 255 and
+        0 <= int(v[1]) <= 255 and
+        0 <= int(v[2]) <= 255
+    ):
         r = int(v[0])
         g = int(v[1])
         b = int(v[2])
@@ -587,3 +579,41 @@ def convert_to_color(v):
 
 
 COLOR = convert_to_color
+
+if __name__ == '__main__':
+
+    """
+    from timeit import Timer
+
+    EMPTY_O = (
+        "0x000",      "#000",
+        "0x000f",     "#000f",
+        "0x000000",   "#000000",
+        "0x000000ff", "#000000ff"
+    )
+    EMPTY_A = (
+        "0x0000",     "#0000",
+        "0x00000000", "#00000000"
+    )
+
+    FULL_O = (
+        "0xfff",      "#fff",
+        "0xffff",     "#ffff",
+        "0xffffff",   "#ffffff",
+        "0xffffffff", "#ffffffff"
+    )
+    FULL_A = (
+        "0xfff0",     "#fff0",
+        "0xffffff00", "#ffffff00"
+    )
+    fn = {"string_to_color", "string_to_color_2"}
+    results = {f: 0 for f in fn}
+    for g in (EMPTY_O, EMPTY_A, FULL_O, FULL_A):
+        for c in g:
+            for f in fn:
+                t = Timer(
+                    setup=('from __main__ import %s' % f),
+                    stmt="%s('%s')" % (f, c))
+                results[f] += t.timeit(number=5000)
+    print(results)
+    """

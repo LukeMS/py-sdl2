@@ -1,0 +1,515 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Complete Roguelike Tutorial, using python 3 + pysdl2e 0.10 &#8212; PySDL2 0.10.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.10.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API reference" href="../modules/index.html" />
+    <link rel="prev" title="PySDL2 for Pygamers" href="pygamers.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../modules/index.html" title="API reference"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pygamers.html" title="PySDL2 for Pygamers"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PySDL2 0.10.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Learn to fly - the tutorials</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="complete-roguelike-tutorial-using-python-3-pysdl2e-0-10">
+<span id="rl-tutorial"></span><h1>Complete Roguelike Tutorial, using python 3 + pysdl2e 0.10<a class="headerlink" href="#complete-roguelike-tutorial-using-python-3-pysdl2e-0-10" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="welcome-to-the-complete-roguelike-tutorial">
+<h2>Welcome to the Complete Roguelike Tutorial!<a class="headerlink" href="#welcome-to-the-complete-roguelike-tutorial" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="about-this-tutorial">
+<h3>About this tutorial<a class="headerlink" href="#about-this-tutorial" title="Permalink to this headline">¶</a></h3>
+<p>The goal of this tutorial is to have a one-stop-shop for most of the info you need on how to build a Roguelike game from scratch. We hope you find it useful! We&#8217;ll start with some quick Q&amp;A. If you already know about Python, SDL2, pydl2, pysdl2e and/or is only interested in the implementation you can skip to <a class="reference internal" href="#complete-roguelike-tutorial-part-1">Complete Roguelike Tutorial - Part 1</a>.</p>
+</div>
+<div class="section" id="inspiration">
+<h3>Inspiration<a class="headerlink" href="#inspiration" title="Permalink to this headline">¶</a></h3>
+<p>This tutorial is heavily inspired by Jotaf&#8217;s excellent <a class="reference external" href="http://www.roguebasin.com/index.php?title=Complete_Roguelike_Tutorial,_using_python%2Blibtcod">Complete roguelike tutorial using python + libtcod</a>.</p>
+</div>
+</div>
+<div class="section" id="why-python">
+<h2>Why Python?<a class="headerlink" href="#why-python" title="Permalink to this headline">¶</a></h2>
+<p>Most people familiar with this language will tell you it&#8217;s fun! Python aims to be simple but powerful, and very accessible to beginners. This tutorial would probably be much harder without it. We insist that you install/use Python 3.x and go through at least the first parts of the <a class="reference external" href="https://docs.python.org/tutorial">Python Tutorial</a>. This tutorial will be much easier if you&#8217;ve experimented with the language first. Remember that the <a class="reference external" href="https://docs.python.org/library/index.html">Python Library Reference</a> is your friend &#8211; the standard library has everything you might need and when programming you should be ready to search it for help on any unknown function you might encounter.</p>
+<p>If you choose to use earlier versions of Python 3, you may encounter problems you need to overcome. File an <a href="#id1"><span class="problematic" id="id2">issue_</span></a> about it and we&#8217;ll work to fix tutorial or pysd2le.
+If you choose to use Python 2, however, be aware this tutorial is not compatible with it, and there are no plans to support it.</p>
+</div>
+<div class="section" id="why-sdl2">
+<h2>Why SDL2?<a class="headerlink" href="#why-sdl2" title="Permalink to this headline">¶</a></h2>
+<p>Simple DirectMedia Layer is a cross-platform development library designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware via OpenGL and Direct3D. It is used by video playback software, emulators, and popular games including <a class="reference external" href="https://valvesoftware.com/">Valve</a>&#8216;s award winning catalog and many Humble Bundle games.
+SDL officially supports Windows, Mac OS X, Linux, iOS, and Android. Support for other platforms may be found in the source code.
+SDL is written in C, works natively with C++, and there are bindings available for several other languages, including C# and <strong>Python</strong>.
+SDL 2.0 is distributed under the zlib license. This license allows you to use SDL <em>`freely in any software`_</em>.</p>
+<p>SDL is extensively used in the industry in both large and small projects: <a class="reference external" href="https://www.mobygames.com/game-group/middleware-sdl/offset,0/so,4d/">MobyGames listed 141 games using SDL</a> in 2017; the <cite>SDL website itself listed around 700 games</cite> in 2012; important commercial examples are <a class="reference external" href="https://en.wikipedia.org/wiki/Angry_Birds">Angry Birds</a> or <a href="#id3"><span class="problematic" id="id4">`Unreal Tournament`_</span></a>; Open Source examples are <a class="reference external" href="https://en.wikipedia.org/wiki/OpenTTD">OpenTTD</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/The_Battle_for_Wesnoth">The Battle for Wesnoth</a> or <a class="reference external" href="https://en.wikipedia.org/wiki/Freeciv">Freeciv</a>; the PC game <a class="reference external" href="https://en.wikipedia.org/wiki/Homeworld">Homeworld</a> was ported to the Pandora handheld and <a class="reference external" href="https://en.wikipedia.org/wiki/Jagged_Alliance_2">Jagged Alliance 2</a> to Android via SDL; applications like the emulators <a href="#id5"><span class="problematic" id="id6">DOSBox_</span></a>, <a class="reference external" href="https://en.wikipedia.org/wiki/VisualBoyAdvance">VisualBoyAdvance</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/ZSNES">ZSNES</a> all use SDL; the <a class="reference external" href="https://en.wikipedia.org/wiki/Source_(game_engine)">Source Engine</a> (on its Linux and Mac versions) and the <a class="reference external" href="https://en.wikipedia.org/wiki/CryEngine">CryEngine</a> uses SDL.</p>
+<p>A common misconception is that SDL is a game engine, but this is not true. However, the library is well-suited for building an engine on top of it. PySDL2 is a python wrapper for it, with much added functionalities. PySDL2e extends it, adding even functionalities that we will require to build our roguelike.</p>
+</div>
+<div class="section" id="what-are-pysdl2-and-pysdl2e">
+<h2>What are PySDL2 and PySDL2e?<a class="headerlink" href="#what-are-pysdl2-and-pysdl2e" title="Permalink to this headline">¶</a></h2>
+<p><strong>PySDL2</strong> is a wrapper around the SDL2 library. It has no licensing restrictions, nor does it rely on C code, but uses ctypes instead (considering that ctypes is part of Python&#8217;s standard library, all you need is a python installation and <a class="reference external" href="https://www.libsdl.org/download-2.0.php">SDL2 runtime binaries</a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In this tutorial we&#8217;re using SDL2 version 2.0.5.</p>
+</div>
+<p>Other versions could work, but this tutorial do not guarantee compatibility with other versions - you&#8217;re on your own for it.</p>
+<p><strong>PySDL2e</strong> is built on top of PySDL2, providing some extra functionalities that will make our journey through this tutorial a smooth one.</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="complete-roguelike-tutorial-part-0">
+<h1>Complete Roguelike Tutorial - Part 0<a class="headerlink" href="#complete-roguelike-tutorial-part-0" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="python">
+<h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
+<p>If you haven&#8217;t already done so, <a class="reference external" href="https://www.python.org/downloads/release/python-352/">download and install Python 3.5</a>. Any version of Python 3.x up to 3.5.x should be fine, but its not guaranteed to work.</p>
+<p>PySDL2e is currently not working with Python 3.6.</p>
+<p>It is advisable to go with those versions for compatibility&#8217;s sake.</p>
+</div>
+<div class="section" id="pysdl2">
+<h2>PySDL2<a class="headerlink" href="#pysdl2" title="Permalink to this headline">¶</a></h2>
+<p>The easiest way to install PySDL2 is using pip:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>python -m pip install https://github.com/LukeMS/py-sdl2/archive/master.zip
+</pre></div>
+</div>
+<p>If you would like another form of installation you can look for it at <a class="reference external" href="http://pysdl2.readthedocs.io/en/rel_0_9_5/install.html">PySDL2e instrunctions</a>,</p>
+</div>
+<div class="section" id="sdl2">
+<h2>SDL2<a class="headerlink" href="#sdl2" title="Permalink to this headline">¶</a></h2>
+<p>Download the <a class="reference external" href="https://www.libsdl.org/download-2.0.php">latest release of SDL2</a> and extract it somewhere. Be warned that both Python and SDL2 must either be <strong>both 32 bit</strong>, or <strong>both 64 bit</strong>.  If you get dll loading errors, getting this wrong is the most likely cause.
+See <cite>this page on PySDL2 documentation and choose a way to make you library visible</cite> for PySDL2e.</p>
+</div>
+<div class="section" id="choice-of-code-editor">
+<h2>Choice of code editor<a class="headerlink" href="#choice-of-code-editor" title="Permalink to this headline">¶</a></h2>
+<p>If you&#8217;re just starting out with Python, you&#8217;ll find that many Python coders just use a simple editor and run their scripts from a console to see any debugging output. Most Python coders don&#8217;t feel the need to use a fancy IDE! On Windows, Notepad++ is an excellent bet; most Linux programmers already have an editor of choice. Almost all editors allow you to configure shortcut keys (like F5 for instance) to quickly run the script you&#8217;re editing, without having to switch to a console.</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="complete-roguelike-tutorial-part-1">
+<h1>Complete Roguelike Tutorial - Part 1<a class="headerlink" href="#complete-roguelike-tutorial-part-1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="setting-up-your-project">
+<h2>Setting up your project<a class="headerlink" href="#setting-up-your-project" title="Permalink to this headline">¶</a></h2>
+<p>Create your project&#8217;s folder. Inside it, create an empty files named &#8216;&#8217;rl.py&#8217;&#8216;. It&#8217;ll make the tutorial easier to just use the same names for now, and you can always rename it later.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>+-roguelike-tutorial/
+  |
+  +-rl.py
+</pre></div>
+</div>
+<p>If you chose to keep the SDL2 library at the project folder, it should now look like this:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>+-roguelike-tutorial/
+  |
+  +-rl.py
+  |
+  +-SDL2-2.0.5.dll or libSDL2-2.0.5.so
+</pre></div>
+</div>
+</div>
+<div class="section" id="making-sure-everything-is-running">
+<h2>Making sure everything is running<a class="headerlink" href="#making-sure-everything-is-running" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s test PySDL2e&#8217;s scene manager and an empty scene. This is just an example, when we implement our own scene we&#8217;kk go into more details.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Shows a blank (green) scene.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">sdl2.ext</span> <span class="kn">import</span> <span class="n">manager</span>
+
+
+<span class="c1"># the window&#39;s background color (RGBA, from 0-255)</span>
+<span class="n">WINDOW_COLOR</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">Manager</span><span class="p">(</span><span class="n">window_color</span><span class="o">=</span><span class="n">WINDOW_COLOR</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">set_scene</span><span class="p">(</span><span class="n">manager</span><span class="o">.</span><span class="n">SceneBase</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>If it runs and looks green, we&#8217;re ready to start!</p>
+</div>
+<div class="section" id="showing-the-on-screen">
+<h2>Showing the &#64; on screen<a class="headerlink" href="#showing-the-on-screen" title="Permalink to this headline">¶</a></h2>
+<p>Our game is going to be based on PySDL2e&#8217;s scene manager.
+A scene manager keeps track of the scenes in a game, allowing us to switch between them. It provides a centralized place to load and unload the scenes, keeping track of which one is active and handling the unloading of inactive scenes.
+Some possible scenes for a simple game would be: a title scene (or main menu scene); an options scene; a game scene; etc.
+First we import the the <a class="reference internal" href="../modules/sdl2ext_manager.html#module-sdl2.ext.manager" title="sdl2.ext.manager"><code class="xref py py-mod docutils literal"><span class="pre">sdl2.ext.manager</span></code></a> module. It contains the <code class="code docutils literal"><span class="pre">Manager</span></code> and a basic scene (<code class="code docutils literal"><span class="pre">SceneBase</span></code>) which we will subclass. Our new scene class will be named <code class="code docutils literal"><span class="pre">SceneRogueLike</span></code>. At its initialization we&#8217;ll create the sprite (stored as the attribute <code class="xref py py-class docutils literal"><span class="pre">at</span></code>) and move it a little.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;A roguelike implementation.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sdl2</span>
+<span class="kn">from</span> <span class="nn">sdl2.ext</span> <span class="kn">import</span> <span class="n">manager</span>
+
+
+<span class="k">class</span> <span class="nc">SceneRogueLike</span><span class="p">(</span><span class="n">manager</span><span class="o">.</span><span class="n">SceneBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A roguelike game scene.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialization.&quot;&quot;&quot;</span>
+        <span class="c1"># create a character using the factory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">at</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">get_char_sprite</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)</span>
+        <span class="c1"># change its position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">at</span><span class="o">.</span><span class="n">move_ip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To create the sprite we used an instance of <a class="reference internal" href="../modules/sdl2ext_sprite.html#sdl2.ext.sprite.SpriteFactory" title="sdl2.ext.sprite.SpriteFactory"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.sprite.SpriteFactory</span></code></a> that both the <code class="code docutils literal"><span class="pre">Manager</span></code> and <code class="code docutils literal"><span class="pre">class</span> <span class="pre">SceneBase</span></code> carries at the attribute <code class="code docutils literal"><span class="pre">factory</span></code>, for our convenience.
+Nothing will be show on the screen, however, until we create our <code class="code docutils literal"><span class="pre">on_update</span></code> function on the scene. It is the function intended to contain the graphical logic we write. One line of code inside the function should do the trick:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">on_update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Graphical logic.&quot;&quot;&quot;</span>
+        <span class="c1"># render it</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spriterenderer</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">sprites</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">at</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To render the sprite we&#8217;ve used an instance of <a class="reference internal" href="../modules/sdl2ext_sprite.html#sdl2.ext.sprite.SpriteRenderSystem" title="sdl2.ext.sprite.SpriteRenderSystem"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.sprite.SpriteRenderSystem</span></code></a> that the <code class="code docutils literal"><span class="pre">Manager</span></code> creates at its initialization. As we&#8217;ve seen with the <code class="code docutils literal"><span class="pre">factory</span></code>, both the <code class="code docutils literal"><span class="pre">Manager</span></code> and the <code class="code docutils literal"><span class="pre">SceneBase</span></code> keep it as an attribute.</p>
+<p>After instantiating :class:Manager, we pass it our new :class:SceneRoguelike and tell it to run:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">Manager</span><span class="p">()</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">set_scene</span><span class="p">(</span><span class="n">SceneRogueLike</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Ta-da! You&#8217;re done. Run that code and see our <cite>&#8220;&#64;&#8221;</cite> at the screen. It doesn&#8217;t move yet, but we&#8217;re getting there.
+The source of what we&#8217;ve done so far can be found <a class="reference external" href="https://github.com/LukeMS/py-sdl2/tree/master/examples/ext/rl/part1/rl_0.py">here</a>.</p>
+</div>
+<div class="section" id="moving-around">
+<h2>Moving around<a class="headerlink" href="#moving-around" title="Permalink to this headline">¶</a></h2>
+<p>That was pretty neat, huh? Now we&#8217;re going to move around that &#64; with the keys!
+We&#8217;ll create the <code class="code docutils literal"><span class="pre">SceneRogueLike.on_key_release</span></code> function. At each loop the <code class="code docutils literal"><span class="pre">Manager</span></code> dispatches events to the active scene, and we&#8217;re going to catch some of those:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">on_key_release</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">sym</span><span class="p">,</span> <span class="n">mod</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Called on keyboard input, when a key is **released**.&quot;&quot;&quot;</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">tile_size</span>
+        <span class="k">if</span> <span class="n">sym</span> <span class="o">==</span> <span class="n">sdl2</span><span class="o">.</span><span class="n">SDLK_ESCAPE</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">sym</span> <span class="o">==</span> <span class="n">sdl2</span><span class="o">.</span><span class="n">SDLK_DOWN</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">at</span><span class="o">.</span><span class="n">move_ip</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">sym</span> <span class="o">==</span> <span class="n">sdl2</span><span class="o">.</span><span class="n">SDLK_UP</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">at</span><span class="o">.</span><span class="n">move_ip</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">k</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">sym</span> <span class="o">==</span> <span class="n">sdl2</span><span class="o">.</span><span class="n">SDLK_RIGHT</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">at</span><span class="o">.</span><span class="n">move_ip</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">sym</span> <span class="o">==</span> <span class="n">sdl2</span><span class="o">.</span><span class="n">SDLK_LEFT</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">at</span><span class="o">.</span><span class="n">move_ip</span><span class="p">(</span><span class="o">-</span><span class="n">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Done! We having a responsive &#64;.</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="complete-roguelike-tutorial-part-2">
+<h1>Complete Roguelike Tutorial - Part 2<a class="headerlink" href="#complete-roguelike-tutorial-part-2" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-none"><div class="highlight"><pre><span></span>Off-screen consoles
+-------------------
+
+There&#39;s one small thing we need to get out of the way before we can continue. Notice that the drawing functions we called (console_set_default_foreground and console_put_char) have their first argument set to 0, meaning that they draw on the root console. This is the buffer that is shown directly on screen.
+It can be useful, however, to have other buffers to store the results of drawing functions without automatically showing them to the player. This is akin to drawing surfaces or buffers in other graphics libraries; but instead of pixels they store characters and colors so you can modify them at will. Some uses of these off-screen consoles include semi-transparency or fading effects and composing GUI panels by blitting them to different portions of the root console. We&#39;re going to draw on an off-screen console from now on. The main reason is that not doing so would mean that later on you can&#39;t compose different GUI panels as easily, or add certain effects.
+First, create a new off-screen console, which for now will occupy the whole screen, but this can be changed later. We&#39;ll use a simple name like con because it will be used a lot! You can put this in the initialization, right after console_init_root.
+
+&gt;&gt;&gt;   con = libtcod.console_new(SCREEN_WIDTH, SCREEN_HEIGHT)
+
+Now change the first argument of console_put_char (there are 2 calls to this function) and console_set_default_foreground, from 0 to con. They&#39;re now drawing on the new console.
+Finally, just before console_flush(), blit the contents of the new console to the root console, to display them. The parameters may look a bit mysterious at first, but they&#39;re just saying that the source rectangle has its top-left corner at coordinates (0, 0) and is the same size as the screen; the destination coordinates are (0, 0) as well. Check the documentation on the console_blit function for more details.
+
+&gt;&gt;&gt; libtcod.console_blit(con, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0)
+
+That was a lot of talk for so little code and no visible change! The next section will surely be much more interesting, as we&#39;ll introduce our first dummy NPC among other things. Remember to check back the above documentation page when you get to coding your GUI.
+</pre></div>
+</div>
+<div class="section" id="generalizing">
+<h2>Generalizing<a class="headerlink" href="#generalizing" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have the &#64; walking around, it would be a good idea to step back and think a bit about the design. Dealing directly with the <a class="reference internal" href="../modules/sdl2ext_sprite.html#sdl2.ext.sprite.Sprite" title="sdl2.ext.sprite.Sprite"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.sprite.Sprite</span></code></a> as our player worked so far, but it can quickly get out of control when you&#8217;re defining things such as HP, bonuses, and inventory. We&#8217;re going to take the opportunity to generalize a bit.
+Now, there can be such a thing as over-generalization, but we&#8217;ll try not to fall in that trap. What we&#8217;re going to do is define the player as a <code class="code docutils literal"><span class="pre">GameObject</span></code>, by creating that class. It will act as a container for components and a interface to the sprite (now a component itself).
+The neat thing is that the player will just be one instance of the <code class="code docutils literal"><span class="pre">GameObject</span></code> class &#8211; it&#8217;s general enough that you can re-use it to define items on the floor, monsters, doors, stairs; anything representable by a character on the screen. Here&#8217;s the class, with the initialization, and two common methods <code class="code docutils literal"><span class="pre">move</span></code>, and <code class="code docutils literal"><span class="pre">render</span></code>. The code for rendering looks like the one we used on <code class="code docutils literal"><span class="pre">SceneRogueLike</span></code>, with a few changes.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">GameObject</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generic game object.</span>
+
+<span class="sd">    It can represent the player, a monster, an item, the stairs, etc.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">char</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialization.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scene (manager.SceneBase): the game scene.</span>
+<span class="sd">            x (int): horizontal grid-relative position</span>
+<span class="sd">            y (int): vertical grid-relative position</span>
+<span class="sd">            char (str): string of one character to be rendered</span>
+<span class="sd">            color (tuple): 3 rgb color int values between 0 and 255</span>
+<span class="sd">            alpha (int): integer between 0 and 255</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">           sprite (sdl2.ext.sprite.Sprite): the drawn sprite</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span> <span class="o">=</span> <span class="n">scene</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">get_char_sprite</span><span class="p">(</span>
+            <span class="n">char</span><span class="p">,</span> <span class="n">alpha_mod</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">color_mod</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">char</span> <span class="o">=</span> <span class="n">char</span>
+
+        <span class="c1"># perform a move to set up the initial position</span>
+        <span class="n">tile_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">tile_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">move_ip</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">tile_size</span><span class="p">,</span> <span class="n">y</span> <span class="o">*</span> <span class="n">tile_size</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Move by the given amount.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            dx (int): horizontal grid-relative distance</span>
+<span class="sd">            dy (int): vertical grid-relative distance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tile_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">tile_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">move_ip</span><span class="p">(</span><span class="n">dx</span> <span class="o">*</span> <span class="n">tile_size</span><span class="p">,</span> <span class="n">dy</span> <span class="o">*</span> <span class="n">tile_size</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Render the sprite to the buffer.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">set_alpha_mod</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">set_color_mod</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">spriterenderer</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we create the player as <code class="code docutils literal"><span class="pre">GameObject</span></code> instead of a Sprite. We&#8217;ll also add it to a list that will hold all objects that are in the game. While we&#8217;re at it we&#8217;ll add a yellow &#8216;&#64;&#8217; that represents a non-playing character, like in an RPG, just to test it out!
+Here is our updated <code class="code docutils literal"><span class="pre">SceneRogueLike.__init__</span></code> function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialization.&quot;&quot;&quot;</span>
+        <span class="c1"># create a character using the factory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player</span> <span class="o">=</span> <span class="n">GameObject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;@&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">))</span>
+        <span class="n">npc</span> <span class="o">=</span> <span class="n">GameObject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;@&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">,</span> <span class="n">npc</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>And here is our modified <code class="code docutils literal"><span class="pre">SceneRogueLike.on_update</span></code> function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">on_update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Graphical logic.&quot;&quot;&quot;</span>
+        <span class="c1"># render it</span>
+        <span class="p">[</span><span class="n">obj</span><span class="o">.</span><span class="n">render</span><span class="p">()</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>You can see the whole source code of our game below, if you want, or jump to <a class="reference internal" href="#complete-roguelike-tutorial-part-3">Complete Roguelike Tutorial - Part 3</a>.</p>
+</div>
+<div class="section" id="source-code-up-to-this-part">
+<h2>Source code up to this part<a class="headerlink" href="#source-code-up-to-this-part" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;A roguelike implementation.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sdl2</span>
+<span class="kn">from</span> <span class="nn">sdl2.ext</span> <span class="kn">import</span> <span class="n">manager</span>
+
+
+<span class="k">class</span> <span class="nc">SceneRogueLike</span><span class="p">(</span><span class="n">manager</span><span class="o">.</span><span class="n">SceneBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A roguelike game scene.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialization.&quot;&quot;&quot;</span>
+        <span class="c1"># create a character using the factory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player</span> <span class="o">=</span> <span class="n">GameObject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;@&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">))</span>
+        <span class="n">npc</span> <span class="o">=</span> <span class="n">GameObject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;@&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">,</span> <span class="n">npc</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">on_update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Graphical logic.&quot;&quot;&quot;</span>
+        <span class="c1"># render it</span>
+        <span class="p">[</span><span class="n">obj</span><span class="o">.</span><span class="n">render</span><span class="p">()</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">on_key_release</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">sym</span><span class="p">,</span> <span class="n">mod</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Called on keyboard input, when a key is **released**.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">sym</span> <span class="o">==</span> <span class="n">sdl2</span><span class="o">.</span><span class="n">SDLK_ESCAPE</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">sym</span> <span class="o">==</span> <span class="n">sdl2</span><span class="o">.</span><span class="n">SDLK_DOWN</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">sym</span> <span class="o">==</span> <span class="n">sdl2</span><span class="o">.</span><span class="n">SDLK_UP</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">sym</span> <span class="o">==</span> <span class="n">sdl2</span><span class="o">.</span><span class="n">SDLK_RIGHT</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">sym</span> <span class="o">==</span> <span class="n">sdl2</span><span class="o">.</span><span class="n">SDLK_LEFT</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">GameObject</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generic game object.</span>
+
+<span class="sd">    It can represent the player, a monster, an item, the stairs, etc.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">char</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialization.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scene (manager.SceneBase): the game scene.</span>
+<span class="sd">            x (int): horizontal grid-relative position</span>
+<span class="sd">            y (int): vertical grid-relative position</span>
+<span class="sd">            char (str): string of one character to be rendered</span>
+<span class="sd">            color (tuple): 3 rgb color int values between 0 and 255</span>
+<span class="sd">            alpha (int): integer between 0 and 255</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">           sprite (sdl2.ext.sprite.Sprite): the drawn sprite</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span> <span class="o">=</span> <span class="n">scene</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">get_char_sprite</span><span class="p">(</span>
+            <span class="n">char</span><span class="p">,</span> <span class="n">alpha_mod</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">color_mod</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">char</span> <span class="o">=</span> <span class="n">char</span>
+
+        <span class="c1"># perform a move to set up the initial position</span>
+        <span class="n">tile_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">tile_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">move_ip</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">tile_size</span><span class="p">,</span> <span class="n">y</span> <span class="o">*</span> <span class="n">tile_size</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Move by the given amount.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            dx (int): horizontal grid-relative distance</span>
+<span class="sd">            dy (int): vertical grid-relative distance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tile_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">tile_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">move_ip</span><span class="p">(</span><span class="n">dx</span> <span class="o">*</span> <span class="n">tile_size</span><span class="p">,</span> <span class="n">dy</span> <span class="o">*</span> <span class="n">tile_size</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Render the sprite to the buffer.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">set_alpha_mod</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">set_color_mod</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">spriterenderer</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sprite</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">Manager</span><span class="p">()</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">set_scene</span><span class="p">(</span><span class="n">SceneRogueLike</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="complete-roguelike-tutorial-part-3">
+<h1>Complete Roguelike Tutorial - Part 3<a class="headerlink" href="#complete-roguelike-tutorial-part-3" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-map">
+<h2>The Map<a class="headerlink" href="#the-map" title="Permalink to this headline">¶</a></h2>
+<p>Just like how you generalized the concept of the player object, you&#8217;ll now do the same thing with the dungeon map. After testing a few types I&#8217;ve concluded that nested lists provide good performance for the operations we&#8217;re going to need to do over the map. So, internally, our <code class="code docutils literal"><span class="pre">Map</span></code> will store things as nested lists, but we&#8217;re going to create a small interface to act over it.
+We&#8217;ll use a
+We&#8217;ll start by defining its size at the top of the file. We&#8217;ll try to make this as configurable as possible, this should suffice for now!</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Complete Roguelike Tutorial, using python 3 + pysdl2e 0.10</a><ul>
+<li><a class="reference internal" href="#welcome-to-the-complete-roguelike-tutorial">Welcome to the Complete Roguelike Tutorial!</a><ul>
+<li><a class="reference internal" href="#about-this-tutorial">About this tutorial</a></li>
+<li><a class="reference internal" href="#inspiration">Inspiration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#why-python">Why Python?</a></li>
+<li><a class="reference internal" href="#why-sdl2">Why SDL2?</a></li>
+<li><a class="reference internal" href="#what-are-pysdl2-and-pysdl2e">What are PySDL2 and PySDL2e?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#complete-roguelike-tutorial-part-0">Complete Roguelike Tutorial - Part 0</a><ul>
+<li><a class="reference internal" href="#python">Python</a></li>
+<li><a class="reference internal" href="#pysdl2">PySDL2</a></li>
+<li><a class="reference internal" href="#sdl2">SDL2</a></li>
+<li><a class="reference internal" href="#choice-of-code-editor">Choice of code editor</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#complete-roguelike-tutorial-part-1">Complete Roguelike Tutorial - Part 1</a><ul>
+<li><a class="reference internal" href="#setting-up-your-project">Setting up your project</a></li>
+<li><a class="reference internal" href="#making-sure-everything-is-running">Making sure everything is running</a></li>
+<li><a class="reference internal" href="#showing-the-on-screen">Showing the &#64; on screen</a></li>
+<li><a class="reference internal" href="#moving-around">Moving around</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#complete-roguelike-tutorial-part-2">Complete Roguelike Tutorial - Part 2</a><ul>
+<li><a class="reference internal" href="#generalizing">Generalizing</a></li>
+<li><a class="reference internal" href="#source-code-up-to-this-part">Source code up to this part</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#complete-roguelike-tutorial-part-3">Complete Roguelike Tutorial - Part 3</a><ul>
+<li><a class="reference internal" href="#the-map">The Map</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pygamers.html"
+                        title="previous chapter">PySDL2 for Pygamers</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../modules/index.html"
+                        title="next chapter">API reference</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorial/rl.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../modules/index.html" title="API reference"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pygamers.html" title="PySDL2 for Pygamers"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PySDL2 0.10.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Learn to fly - the tutorials</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright pysdl2e 2017, Lucas Siqueira; pysdl2 2013-2017, Marcus von Appen.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+    </div>
+  </body>
+</html>

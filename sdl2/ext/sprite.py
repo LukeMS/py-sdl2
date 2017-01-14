@@ -7,17 +7,22 @@ Attributes:
         creation is wanted.
 """
 
-from ctypes import byref, cast, POINTER, c_int, c_float
+from __future__ import (absolute_import, division,
+                        print_function, unicode_literals)
+from builtins import *
+
+from ctypes import byref, cast, POINTER, c_int, c_float, c_uint8
 import warnings
 
 from .. import blendmode, surface, rect, video, pixels, render, rwops
 from ..stdinc import Uint8, Uint32
+from ..util import iter_nested
 
 from .common import SDLError
 from .color import convert_to_color
 from .ebs import System
 from .surface import subsurface
-from .window import Window
+from .window import Window, get_display_mode
 from .image import load_image
 from .rect import to_sdl_rect, NonIterableRect
 
@@ -284,16 +289,18 @@ class Renderer(object):
                 tmp = self.color
                 self.color = color
             x, y, w, h = rects
-            ret = render.SDL_RenderDrawRect(self.sdlrenderer, SDL_Rect(x, y, w, h))
+            ret = render.SDL_RenderDrawRect(
+                self.sdlrenderer, SDL_Rect(x, y, w, h))
             if color is not None:
                 self.color = tmp
             if ret == -1:
                 raise SDLError()
         else:
             x = 0
+            rects = list(iter_nested(rects))
             rlist = (SDL_Rect * len(rects))()
             for idx, r in enumerate(rects):
-                rlist[idx] = SDL_Rect(r[0], r[1], r[2], r[3])
+                rlist[idx] = SDL_Rect(*r)
             if color is not None:
                 tmp = self.color
                 self.color = color
@@ -314,16 +321,18 @@ class Renderer(object):
                 tmp = self.color
                 self.color = color
             x, y, w, h = rects
-            ret = render.SDL_RenderFillRect(self.sdlrenderer, SDL_Rect(x, y, w, h))
+            ret = render.SDL_RenderFillRect(
+                self.sdlrenderer, SDL_Rect(x, y, w, h))
             if color is not None:
                 self.color = tmp
             if ret == -1:
                 raise SDLError()
         else:
             x = 0
+            rects = list(iter_nested(rects))
             rlist = (SDL_Rect * len(rects))()
             for idx, r in enumerate(rects):
-                rlist[idx] = SDL_Rect(r[0], r[1], r[2], r[3])
+                rlist[idx] = SDL_Rect(*r)
             if color is not None:
                 tmp = self.color
                 self.color = color
@@ -366,7 +375,9 @@ class Sprite(NonIterableRect):
     @property
     def area(self):
         """The rectangular area occupied by the sprite."""
-        return (*self.topleft, *self.bottomright)
+        return tuple((p
+                      for pos in (self.topleft, self.bottomright)
+                      for p in pos))
 
     @property
     def position(self):
@@ -386,9 +397,12 @@ class Sprite(NonIterableRect):
         Only if :attr:`sdl2.ext.sprite.SoftwareSprite.free` is `True`.
         """
         pixel_data = self._pixel_data
-        if self.free and pixel_data is not None:
+        if getattr(self, "free", None) and pixel_data is not None:
             self._releaser(pixel_data)
         self._pixel_data = None
+
+    def __repr__(self):
+        return "%s(area=%s)" % (self.__class__.__name__, self.area)
 
 
 class SoftwareSprite(Sprite):
@@ -439,17 +453,15 @@ class SoftwareSprite(Sprite):
             ssprite._parent = self
         return ssprite
 
-    def __repr__(self):
-        return "SoftwareSprite(size=%s, bpp=%d)" % \
-            (self.size, self.surface.format.contents.BitsPerPixel)
-
 
 class TextureSprite(Sprite):
     """A simple, visible, texture-based 2D object, using a renderer."""
 
     _releaser = render.SDL_DestroyTexture
+    alpha_mod = None
+    color_mod = None
 
-    def __init__(self, texture, free=True, area=None):
+    def __init__(self, texture, free=True, area=None, **kwargs):
         """Create a new TextureSprite.
 
         Args:
@@ -457,6 +469,8 @@ class TextureSprite(Sprite):
                 pixel data.
             free (bool): when set to `True` the texture is released when the
                 sprite is deleted/garbage collected.
+            kwargs (dict): additional kwargs are unpacked to the instance
+                __dict__ before processing the other arguments.
 
         Attributes:
             angle (int): The rotation angle for the :class:`TextureSprite`.
@@ -466,19 +480,24 @@ class TextureSprite(Sprite):
                 appropriate SDL_FLIP_* value.
             texture (sdl2.SDL_Texture): the texture containing the sprite
                 pixel data.
+            color_mod (tuple): 3 rgb color int values between 0 and 255,
+                the default color_mod for this sprite.
+            alpha_mod (int): integer between 0 and 255, the default alpha_mod
+                for this sprite.
         """
+        self.__dict__.update(kwargs)
         self._pixel_data = texture
         if area:
             w, h = NonIterableRect(area).size
-            super().__init__(texture, w, h, free=free)
+            super().__init__(texture, w, h, free)
             self.frame_rect = area
         else:
             flags = Uint32()
             access = c_int()
             w = c_int()
             h = c_int()
-            ret = render.SDL_QueryTexture(texture, byref(flags), byref(access),
-                                          byref(w), byref(h))
+            ret = render.SDL_QueryTexture(
+                texture, byref(flags), byref(access), byref(w), byref(h))
             if ret == -1:
                 raise SDLError()
             super().__init__(texture, w.value, h.value, free)
@@ -490,7 +509,7 @@ class TextureSprite(Sprite):
         """`sdl2.SDL_Texture` containing pixel data."""
         return self._pixel_data
 
-    def subsprite(self, area):
+    def subsprite(self, area, **kwargs):
         """Create another sprite from part of this sprite's pixel data.
 
         The two sprites share pixel data, so if the parent sprite's surface is
@@ -500,12 +519,14 @@ class TextureSprite(Sprite):
         Args:
             area (tuple): x, y, w, h (position and size) of the area,
                 in pixels.
+            kwargs (dict): additional kwargs are passed forward to the
+                TextureSprite initialization.
 
         Returns:
             TextureSprite
         """
         data = self._pixel_data
-        return TextureSprite(data, False, area)
+        return TextureSprite(data, False, area, **kwargs)
 
     @property
     def sdl_center(self):
@@ -568,18 +589,73 @@ class TextureSprite(Sprite):
             self.row = self.row % self.rows
         self.set_current_rect()
 
-    def __repr__(self):
-        flags = Uint32()
-        access = c_int()
-        w = c_int()
-        h = c_int()
-        ret = render.SDL_QueryTexture(self.texture, byref(flags),
-                                      byref(access), byref(w), byref(h))
-        if ret == -1:
+    def get_alpha_mod(self):
+        """Get the alpha value multiplier for render copy operations.
+
+        This is the value currently set for the texture. If a texture is used
+        by more then one sprite, the modifier as defined on its last copy
+        operation will be returned.
+
+        Returns:
+            (int): integer alpha value.
+        """
+        alpha = c_uint8(0)
+        render.SDL_GetTextureAlphaMod(self.texture, byref(alpha))
+        return alpha.value
+
+    def get_color_mod(self):
+        """Get the color value multiplier for render copy operations.
+
+        This is the value currently set for the texture. If a texture is used
+        by more then one sprite, the modifier as defined on its last copy
+        operation will be returned.
+
+        Returns:
+            (int), (int), (int): 3-tuple of rgb integer values (RGB).
+        """
+        r = c_uint8(0)
+        g = c_uint8(0)
+        b = c_uint8(0)
+        if render.SDL_GetTextureAlphaMod(
+                self.texture, byref(r), byref(g), byref(b)):
             raise SDLError()
-        return "TextureSprite(format=%d, access=%d, size=%s, angle=%f, center=%s)" % \
-            (flags.value, access.value, (w.value, h.value), self.angle,
-             (self.center.x, self.center.y))
+
+        return r.value, g.value, b.value
+
+    def set_alpha_mod(self, alpha=None):
+        """Set a alpha value multiplier for render copy operations.
+
+        When this texture is rendered, during the copy operation the source
+        alpha value is modulated by this alpha value according to the
+        following formula:
+            srcA = srcA * (alpha / 255)
+
+        Args:
+            alpha (int): integer between 0 and 255
+        """
+        alpha = alpha or self.alpha_mod or 255
+        if render.SDL_SetTextureAlphaMod(self.texture, alpha):
+            raise SDLError()
+
+    def set_color_mod(self, color=None):
+        """Set a color value multiplier for render copy operations.
+
+        When this texture is rendered, during the copy operation each source
+        color channel is modulated by the appropriate color value according
+        to the following formula:
+            srcC = srcC * (color / 255)
+
+        Args:
+            color (3-tuple of ints): rgb color with values between 0 and 255
+        """
+        if isinstance(color, float):
+            color = tuple(
+                min(max(int(255 * color), 0), 255) for i in range(3))
+        else:
+            color = color or self.color_mod or (255, 255, 255)
+
+        if render.SDL_SetTextureColorMod(self.texture, *color):
+            raise SDLError()
 
 
 class SpriteFactory(object):
@@ -617,11 +693,15 @@ class SpriteFactory(object):
     def create_sprite_render_system(self, *args, **kwargs):
         """Create a new SpriteRenderSystem.
 
-        For TEXTURE mode, the passed args and kwargs are ignored and the
-        Renderer or SDL_Renderer passed to the SpriteFactory is used.
+        For TEXTURE mode, the passed args are ignored.
+        The renderer can be passed as kwarg and defaults to the SDL_Renderer
+        passed to the SpriteFactory during its creation.
         """
         if self.sprite_type == TEXTURE:
-            return TextureSpriteRenderSystem(self.default_args["renderer"])
+            default = self.default_args.copy()
+            default.update(kwargs)
+            target = default.pop("renderer")
+            return TextureSpriteRenderSystem(target, **default)
         else:
             return SoftwareSpriteRenderSystem(*args, **kwargs)
 
@@ -631,14 +711,20 @@ class SpriteFactory(object):
         self._tileset_w, self._tileset_h = self._tileset.size
         self._tile_size = tile_size
 
-    def get_char_sprite(self, char):
-        """Get."""
+    def get_char_sprite(self, char, **kwargs):
+        """Get the passed character from the current tileset, as a sprite.
+
+        Args:
+            char (str): string of one character to be rendered
+            kwargs (dict): additional kwargs are passed forward to the
+                subsprite functione of the tileset sprite.
+        """
         _id = ord(char)
         tile_size = self._tile_size
         row = _id // (self._tileset_w // tile_size)
         col = _id % (self._tileset_w // tile_size)
         area = (col * tile_size, row * tile_size, tile_size, tile_size)
-        return self._tileset.subsprite(area)
+        return self._tileset.subsprite(area, **kwargs)
 
     def from_image(self, fname):
         """Create a Sprite from the passed image file."""
@@ -918,7 +1004,7 @@ class TextureSpriteRenderSystem(SpriteRenderSystem):
     The TextureSpriteRenderSystem class uses a SDL_Renderer as drawing
     device to display TextureSprite objects.
     """
-    def __init__(self, target, present=True):
+    def __init__(self, target, present=True, *args, **kwargs):
         """Creates a new TextureSpriteRenderSystem.
 
         target can be a Window, SDL_Window, Renderer or SDL_Renderer.
@@ -939,6 +1025,7 @@ class TextureSpriteRenderSystem(SpriteRenderSystem):
         self.sdlrenderer = sdlrenderer
         self.componenttypes = (TextureSprite,)
         self.present = present
+        self.max_x, self.max_y = get_display_mode()
 
     def render(self, sprites, x=None, y=None, present=None):
         """Draw the passed sprites (or sprite).
@@ -958,6 +1045,9 @@ class TextureSpriteRenderSystem(SpriteRenderSystem):
         Raises:
             SDLError (if sdl2.render.SDL_RenderCopyEx fails)
         """
+        def out_of_bounds(r):
+            return ((r.x + r.w) > self.max_x) or ((r.y + r.h) > self.max_y)
+
         r = rect.SDL_Rect(0, 0, 0, 0)
         rcopy = render.SDL_RenderCopyEx
 
@@ -973,6 +1063,8 @@ class TextureSpriteRenderSystem(SpriteRenderSystem):
                 # get the frame_rect of a sprite if it has one
                 frame_rect = sprite.frame_rect or None
                 # pass the frame_rect as argument instead of None
+                if out_of_bounds(r):
+                    continue
                 if rcopy(
                     renderer, sprite.texture, frame_rect, r, sprite.angle,
                     sprite.sdl_center, sprite.flip
@@ -988,6 +1080,8 @@ class TextureSpriteRenderSystem(SpriteRenderSystem):
             # get the frame_rect of a sprite if it has one
             frame_rect = sprites.frame_rect or None
             # pass the frame_rect as argument instead of None
+            if out_of_bounds(r):
+                return
             if rcopy(
                 self.sdlrenderer, sprites.texture, frame_rect, r,
                 sprites.angle, sprites.sdl_center, sprites.flip

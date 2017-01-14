@@ -27,7 +27,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="PySDL2 FAQ" href="../faq.html" />
-    <link rel="prev" title="Window routines to manage on-screen windows" href="sdl2ext_window.html" /> 
+    <link rel="prev" title="sdl2.ext.window - Window routines to manage on-screen windows" href="sdl2ext_window.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -43,7 +43,7 @@
           <a href="../faq.html" title="PySDL2 FAQ"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="sdl2ext_window.html" title="Window routines to manage on-screen windows"
+          <a href="sdl2ext_window.html" title="sdl2.ext.window - Window routines to manage on-screen windows"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">PySDL2 0.10.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">API reference</a> &#187;</li> 
@@ -79,7 +79,7 @@
 
 <dl class="function">
 <dt id="sdl2.util.get_cfg">
-<code class="descclassname">sdl2.util.</code><code class="descname">get_cfg</code><span class="sig-paren">(</span><em>section</em>, <em>option</em>, <em>convert=False</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.util.get_cfg" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">sdl2.util.</code><code class="descname">get_cfg</code><span class="sig-paren">(</span><em>section</em>, <em>option</em>, <em>convert=False</em>, <em>path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.util.get_cfg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interface for ConfigParser.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -111,6 +111,33 @@ None (if the option/key is not found)</td>
 </table>
 </dd></dl>
 
+<dl class="function">
+<dt id="sdl2.util.iter_nested">
+<code class="descclassname">sdl2.util.</code><code class="descname">iter_nested</code><span class="sig-paren">(</span><em>iterables</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.util.iter_nested" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate over a iterable of depth one or two.</p>
+<p>In both cases yield one item at a time.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>iterables</strong> (<em>iterable</em>) &#8211; a iterable or a iterable of iterables.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">nested_or_not</span><span class="p">(((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))))</span>
+<span class="go">[(0, 0, 10, 10), (20, 20, 10, 10)]</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">nested_or_not</span><span class="p">((</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)))</span>
+<span class="go">[(30, 30, 10, 10)]</span>
+</pre></div>
+</div>
+<p># in both cases this would work:
+# for tup in nested_or_not():
+#   do something</p>
+</dd></dl>
+
 </div>
 
 
@@ -121,7 +148,7 @@ None (if the option/key is not found)</td>
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="sdl2ext_window.html"
-                        title="previous chapter">Window routines to manage on-screen windows</a></p>
+                        title="previous chapter">sdl2.ext.window - Window routines to manage on-screen windows</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="../faq.html"
                         title="next chapter">PySDL2 FAQ</a></p>
@@ -159,7 +186,7 @@ None (if the option/key is not found)</td>
           <a href="../faq.html" title="PySDL2 FAQ"
              >next</a> |</li>
         <li class="right" >
-          <a href="sdl2ext_window.html" title="Window routines to manage on-screen windows"
+          <a href="sdl2ext_window.html" title="sdl2.ext.window - Window routines to manage on-screen windows"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">PySDL2 0.10.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" >API reference</a> &#187;</li> 

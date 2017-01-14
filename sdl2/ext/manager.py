@@ -2,7 +2,7 @@
 
 import ctypes
 
-from . import common, resources, sprite, time, window
+from . import common, font, resources, sprite, time, window
 from .. import events, keycode, mouse, render, video
 from ..util import get_cfg, sdl2_path
 
@@ -24,8 +24,12 @@ class Manager(object):
         """Initialization.
 
         Args:
-            width (int): the width of the screen in pixels.
-            height (int): the height of the screen in pixels.
+            width (int): the width of the screen in pixels. default to
+                sdl2.cfg[MANAGER][SCREEN_WIDTH] or, if unavailable, the
+                desktop width.
+            height (int): the height of the screen in pixels. default to
+                sdl2.cfg[MANAGER][SCREEN_HEIGHT] or, if unavailable, the
+                desktop height.
             tile_size (int): size of a (square) tile's side in pixels.
             limit_fps (int): maximum frames per second that should be drawn.
             window_color (4-tuple): the window's background color, as a tuple
@@ -37,9 +41,21 @@ class Manager(object):
             m.set_scene(SceneBase)  # set a scene. This is a blank base scene
             m.execute()  # call the main loop
         """
+        # Initialize the video system - this implicitly initializes some
+        # necessary parts within the SDL2 DLL used by the video module.
+        #
+        # You SHOULD call this before using any video related methods or
+        # classes.
+        common.init()
+
         # Set the default arguments
-        self.width = width or get_cfg("MANAGER", "SCREEN_WIDTH", True)
-        self.height = height or get_cfg("MANAGER", "SCREEN_HEIGHT", True)
+        desk_x, desk_y = window.get_display_mode()
+        self.width = (width or
+                      get_cfg("MANAGER", "SCREEN_WIDTH", True) or
+                      desk_x)
+        self.height = (height or
+                       get_cfg("MANAGER", "SCREEN_HEIGHT", True) or
+                       desk_y)
         self.tile_size = tile_size or get_cfg("MANAGER", "TILE_SIZE", True)
         self.limit_fps = limit_fps or get_cfg("MANAGER", "LIMIT_FPS", True)
         self.window_color = window_color or get_cfg("MANAGER",
@@ -51,13 +67,6 @@ class Manager(object):
 
         # Initialize with no scene
         self.scene = None
-
-        # Initialize the video system - this implicitly initializes some
-        # necessary parts within the SDL2 DLL used by the video module.
-        #
-        # You SHOULD call this before using any video related methods or
-        # classes.
-        common.init()
 
         # Create a new window (like your browser window or editor window,
         # etc.) and give it a meaningful title and size. We definitely need
@@ -74,10 +83,13 @@ class Manager(object):
         self.resources.scan(sdl2_path("resources"))
         self.resources.scan(path=resources_path)
 
+        font_path = self.resources.get_path("Cousine-Regular.ttf")
+        fontmanager = font.FontManager(font_path, size=12)
+
         # Create a sprite factory that allows us to create visible 2D elements
         # easily.
         self.factory = sprite.SpriteFactory(
-            sprite.TEXTURE, renderer=self.renderer)
+            sprite.TEXTURE, renderer=self.renderer, fontmanager=fontmanager)
 
         # pass the name of the resource to the sdl2.ext.Resources instance
         fname = self.resources.get_path("DejaVuSansMono-Bold32.png")
@@ -91,7 +103,7 @@ class Manager(object):
         # Creates a simple rendering system for the Window. The
         # SpriteRenderSystem can draw Sprite objects on the window.
         self.spriterenderer = self.factory.create_sprite_render_system(
-            self.window)
+            present=False)
 
         # By default, every Window is hidden, not shown on the screen right
         # after creation. Thus we need to tell it to be shown now.
@@ -138,10 +150,21 @@ class Manager(object):
     def run(self):
         """Main loop handling events and updates."""
         while self.alive:
-            self.clock.tick(self.limit_fps)
             self.on_event()
+            self.clock.tick(self.limit_fps)
             self.on_update()
         return common.quit()
+
+    def draw_fps(self):
+        """Draw the fps display."""
+        try:
+            ms = self.clock.get_fps()
+        except ZeroDivisionError:
+            return
+        text = "FPS: %.3d" % ms
+        fps_sprite = self.factory.from_text(text, color=(127, 225, 127))
+        fps_sprite.topright = self.width, 0
+        self.spriterenderer.render(fps_sprite)
 
     def on_event(self):
         """Handle the events and pass them to the active scene."""
@@ -218,13 +241,15 @@ class Manager(object):
         """Update the active scene."""
         scene = self.scene
         if self.alive:
-            # clear the window with its color
-            self.renderer.clear(self.window_color)
             if scene:
-                # call the active scene's on_update
-                scene.on_update()
-            # present what we have to the screen
-            self.present()
+                if not scene.ignore_regular_update:
+                    # clear the window with its color
+                    self.renderer.clear(self.window_color)
+                    # call the active scene's on_update
+                    scene.on_update()
+                    self.draw_fps()
+                    # present what we have to the screen
+                    self.present()
 
     def present(self):
         """Flip the GPU buffer."""

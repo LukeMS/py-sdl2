@@ -1,22 +1,17 @@
-"""
-Resource management methods.
-"""
-import sys
+"""Resource management methods."""
+
+from future.standard_library import install_aliases
+install_aliases()
+
 import os
 import re
 import zipfile
 import tarfile
 import io
+import urllib.parse as urlparse
+import urllib.request as urllib2
 
 __all__ = ["open_zipfile", "open_tarfile", "open_url", "Resources"]
-
-# Python 3.x workarounds for the changed urllib modules.
-if sys.version_info[0] >= 3:
-    import urllib.parse as urlparse
-    import urllib.request as urllib2
-else:
-    import urlparse
-    import urllib2
 
 
 def open_zipfile(archive, filename, directory=None):

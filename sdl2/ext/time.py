@@ -155,7 +155,7 @@ class Clock:
     def get_fps(self):
         """Compute the clock framerate.
 
-        Compute your game’s framerate (in frames per second). It is computed
+        Compute your game's framerate (in frames per second). It is computed
         by averaging the last ten calls to Clock.tick().
 
         Usage:

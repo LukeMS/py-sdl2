@@ -1,5 +1,11 @@
 """General purpose event handling routines."""
 
+# support for Python 2.6, 2.7
+from __future__ import (absolute_import, division,
+                        print_function, unicode_literals)
+from builtins import *
+
+# regular imports
 import ctypes
 
 from .compat import *
@@ -107,7 +113,7 @@ class PushEvent(object):
         events.SDL_PushEvent(ctypes.byref(self))
 
 
-class PushMouseMotionEvent(events.SDL_Event):
+class PushMouseMotionEvent(events.SDL_Event, PushEvent):
 
     def __init__(self, type=events.SDL_MOUSEMOTION, **kwargs):
         """
@@ -129,4 +135,4 @@ class PushMouseMotionEvent(events.SDL_Event):
         super().__init__(type=type)
         _set = self.motion.__setattr__
         [_set(k, v) for k, v in kwargs.items()]
-        PushEvent.push(self)
+        self.push()

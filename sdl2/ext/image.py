@@ -1,4 +1,8 @@
 """Image loaders."""
+
+from future.utils import raise_with_traceback
+import sys
+
 from .common import SDLError
 from .compat import UnsupportedError, byteify
 from .. import endian, surface, pixels
@@ -78,7 +82,12 @@ def load_image(fname, enforce=None):
             imgsurface = imgsurface.contents
 
     if enforce != "SDL" and _HASPIL and not imgsurface:
-        image = Image.open(fname)
+        try:
+            image = Image.open(fname)
+        except AttributeError:
+            _type, value, traceback = sys.exc_info()
+            raise_with_traceback(
+                ValueError("Invalid 'fname' arg: %s" % fname, _type, value))
         mode = image.mode
         width, height = image.size
         rmask = gmask = bmask = amask = 0

@@ -167,12 +167,12 @@ in pixels.</td>
 
 <dl class="class">
 <dt id="sdl2.ext.sprite.TextureSprite">
-<em class="property">class </em><code class="descclassname">sdl2.ext.sprite.</code><code class="descname">TextureSprite</code><span class="sig-paren">(</span><em>texture</em>, <em>free=True</em>, <em>area=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSprite" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">sdl2.ext.sprite.</code><code class="descname">TextureSprite</code><span class="sig-paren">(</span><em>texture</em>, <em>free=True</em>, <em>area=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSprite" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#sdl2.ext.sprite.Sprite" title="sdl2.ext.sprite.Sprite"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.sprite.Sprite</span></code></a></p>
 <p>A simple, visible, texture-based 2D object, using a renderer.</p>
 <dl class="method">
 <dt id="sdl2.ext.sprite.TextureSprite.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>texture</em>, <em>free=True</em>, <em>area=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSprite.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>texture</em>, <em>free=True</em>, <em>area=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSprite.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a new TextureSprite.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -183,6 +183,8 @@ in pixels.</td>
 pixel data.</li>
 <li><strong>free</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; when set to <cite>True</cite> the texture is released when the
 sprite is deleted/garbage collected.</li>
+<li><strong>kwargs</strong> (<a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; additional kwargs are unpacked to the instance
+__dict__ before processing the other arguments.</li>
 </ul>
 </td>
 </tr>
@@ -209,12 +211,93 @@ appropriate SDL_FLIP_* value.</p>
 pixel data.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="sdl2.ext.sprite.TextureSprite.color_mod">
+<code class="descname">color_mod</code><a class="headerlink" href="#sdl2.ext.sprite.TextureSprite.color_mod" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>tuple</em> &#8211; 3 rgb color int values between 0 and 255,
+the default color_mod for this sprite.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sdl2.ext.sprite.TextureSprite.alpha_mod">
+<code class="descname">alpha_mod</code><a class="headerlink" href="#sdl2.ext.sprite.TextureSprite.alpha_mod" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; integer between 0 and 255, the default alpha_mod
+for this sprite.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">alpha_mod</code><em class="property"> = None</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">color_mod</code><em class="property"> = None</em></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.sprite.TextureSprite.get_alpha_mod">
+<code class="descname">get_alpha_mod</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSprite.get_alpha_mod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the alpha value multiplier for render copy operations.</p>
+<p>This is the value currently set for the texture. If a texture is used
+by more then one sprite, the modifier as defined on its last copy
+operation will be returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">integer alpha value.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">(<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)">int</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.sprite.TextureSprite.get_color_mod">
+<code class="descname">get_color_mod</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSprite.get_color_mod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the color value multiplier for render copy operations.</p>
+<p>This is the value currently set for the texture. If a texture is used
+by more then one sprite, the modifier as defined on its last copy
+operation will be returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">3-tuple of rgb integer values (RGB).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">(<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)">int</a>), (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)">int</a>), (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)">int</a>)</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="sdl2.ext.sprite.TextureSprite.sdl_center">
 <code class="descname">sdl_center</code><a class="headerlink" href="#sdl2.ext.sprite.TextureSprite.sdl_center" title="Permalink to this definition">¶</a></dt>
 <dd><p>The center of the TextureSprite as tuple.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.sprite.TextureSprite.set_alpha_mod">
+<code class="descname">set_alpha_mod</code><span class="sig-paren">(</span><em>alpha=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSprite.set_alpha_mod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a alpha value multiplier for render copy operations.</p>
+<p>When this texture is rendered, during the copy operation the source
+alpha value is modulated by this alpha value according to the
+following formula:</p>
+<blockquote>
+<div>srcA = srcA * (alpha / 255)</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>alpha</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; integer between 0 and 255</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -254,6 +337,25 @@ object creation (see Usage below) as a one liner.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="sdl2.ext.sprite.TextureSprite.set_color_mod">
+<code class="descname">set_color_mod</code><span class="sig-paren">(</span><em>color=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSprite.set_color_mod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a color value multiplier for render copy operations.</p>
+<p>When this texture is rendered, during the copy operation each source
+color channel is modulated by the appropriate color value according
+to the following formula:</p>
+<blockquote>
+<div>srcC = srcC * (color / 255)</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>color</strong> (<em>3-tuple of ints</em>) &#8211; rgb color with values between 0 and 255</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="sdl2.ext.sprite.TextureSprite.set_current_rect">
 <code class="descname">set_current_rect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSprite.set_current_rect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply the current animation parameters to the frame_rect.</p>
@@ -267,7 +369,7 @@ object creation (see Usage below) as a one liner.</p>
 
 <dl class="method">
 <dt id="sdl2.ext.sprite.TextureSprite.subsprite">
-<code class="descname">subsprite</code><span class="sig-paren">(</span><em>area</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSprite.subsprite" title="Permalink to this definition">¶</a></dt>
+<code class="descname">subsprite</code><span class="sig-paren">(</span><em>area</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSprite.subsprite" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create another sprite from part of this sprite&#8217;s pixel data.</p>
 <p>The two sprites share pixel data, so if the parent sprite&#8217;s surface is
 not managed by the sprite (<code class="docutils literal"><span class="pre">free</span></code> is False), you will need to keep
@@ -276,10 +378,16 @@ it alive while the subsprite exists.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>area</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#tuple" title="(in Python v2.7)"><em>tuple</em></a>) &#8211; x, y, w, h (position and size) of the area,
-in pixels.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>area</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#tuple" title="(in Python v2.7)"><em>tuple</em></a>) &#8211; x, y, w, h (position and size) of the area,
+in pixels.</li>
+<li><strong>kwargs</strong> (<a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; additional kwargs are passed forward to the
+TextureSprite initialization.</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TextureSprite</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">TextureSprite</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -331,8 +439,9 @@ default arguments.</p>
 <dt id="sdl2.ext.sprite.SpriteFactory.create_sprite_render_system">
 <code class="descname">create_sprite_render_system</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.SpriteFactory.create_sprite_render_system" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a new SpriteRenderSystem.</p>
-<p>For TEXTURE mode, the passed args and kwargs are ignored and the
-Renderer or SDL_Renderer passed to the SpriteFactory is used.</p>
+<p>For TEXTURE mode, the passed args are ignored.
+The renderer can be passed as kwarg and defaults to the SDL_Renderer
+passed to the SpriteFactory during its creation.</p>
 </dd></dl>
 
 <dl class="method">
@@ -408,8 +517,21 @@ automatically.</p>
 
 <dl class="method">
 <dt id="sdl2.ext.sprite.SpriteFactory.get_char_sprite">
-<code class="descname">get_char_sprite</code><span class="sig-paren">(</span><em>char</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.SpriteFactory.get_char_sprite" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get.</p>
+<code class="descname">get_char_sprite</code><span class="sig-paren">(</span><em>char</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.SpriteFactory.get_char_sprite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the passed character from the current tileset, as a sprite.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>char</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; string of one character to be rendered</li>
+<li><strong>kwargs</strong> (<a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; additional kwargs are passed forward to the
+subsprite functione of the tileset sprite.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -497,14 +619,14 @@ sprites with higher depth values.</p>
 
 <dl class="class">
 <dt id="sdl2.ext.sprite.TextureSpriteRenderSystem">
-<em class="property">class </em><code class="descclassname">sdl2.ext.sprite.</code><code class="descname">TextureSpriteRenderSystem</code><span class="sig-paren">(</span><em>target</em>, <em>present=True</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSpriteRenderSystem" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">sdl2.ext.sprite.</code><code class="descname">TextureSpriteRenderSystem</code><span class="sig-paren">(</span><em>target</em>, <em>present=True</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSpriteRenderSystem" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#sdl2.ext.sprite.SpriteRenderSystem" title="sdl2.ext.sprite.SpriteRenderSystem"><code class="xref py py-class docutils literal"><span class="pre">sdl2.ext.sprite.SpriteRenderSystem</span></code></a></p>
 <p>A rendering system for TextureSprite components.</p>
 <p>The TextureSpriteRenderSystem class uses a SDL_Renderer as drawing
 device to display TextureSprite objects.</p>
 <dl class="method">
 <dt id="sdl2.ext.sprite.TextureSpriteRenderSystem.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>target</em>, <em>present=True</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSpriteRenderSystem.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>target</em>, <em>present=True</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.sprite.TextureSpriteRenderSystem.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new TextureSpriteRenderSystem.</p>
 <p>target can be a Window, SDL_Window, Renderer or SDL_Renderer.
 If it is a Window or SDL_Window instance, a Renderer will be

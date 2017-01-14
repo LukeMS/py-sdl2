@@ -75,8 +75,12 @@ update method is called.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>width</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; the width of the screen in pixels.</li>
-<li><strong>height</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; the height of the screen in pixels.</li>
+<li><strong>width</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; the width of the screen in pixels. default to
+sdl2.cfg[MANAGER][SCREEN_WIDTH] or, if unavailable, the
+desktop width.</li>
+<li><strong>height</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; the height of the screen in pixels. default to
+sdl2.cfg[MANAGER][SCREEN_HEIGHT] or, if unavailable, the
+desktop height.</li>
 <li><strong>tile_size</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; size of a (square) tile&#8217;s side in pixels.</li>
 <li><strong>limit_fps</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; maximum frames per second that should be drawn.</li>
 <li><strong>window_color</strong> (<em>4-tuple</em>) &#8211; the window&#8217;s background color, as a tuple
@@ -93,6 +97,12 @@ of 4 integers representing Red, Greehn, Blue and Alpha values
 m.set_scene(SceneBase)  # set a scene. This is a blank base scene
 m.execute()  # call the main loop</dd>
 </dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="sdl2.ext.manager.Manager.draw_fps">
+<code class="descname">draw_fps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sdl2.ext.manager.Manager.draw_fps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the fps display.</p>
 </dd></dl>
 
 <dl class="method">

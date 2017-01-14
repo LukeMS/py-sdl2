@@ -83,13 +83,13 @@ class NonIterableRect(RectAbstract):
         Rect objects are used to store and manipulate rectangular areas. A
         Rect can be created from a combination of left, top, width, and
         height values. Rects can also be created from python objects that are
-        already a Rect or have an attribute named “rect”.
+        already a Rect or have an attribute named `rect`.
 
         The Rect functions that change the position or size of a Rect return
         a new copy of the Rect with the affected changes. The original Rect
-        is not modified. Some methods have an alternate “in-place” version
-        that returns None but effects the original Rect. These “in-place”
-        methods are denoted with the “ip” suffix.
+        is not modified. Some methods have an alternate `in-place` version
+        that returns None but effects the original Rect. These `in-place`
+        methods are denoted with the `ip` suffix.
 
         The Rect object has several virtual attributes which can be used to
         move and align the Rect:
@@ -123,14 +123,14 @@ class NonIterableRect(RectAbstract):
         Rect.
 
         The area covered by a Rect does not include the right- and bottom-
-        most edge of pixels. If one Rect’s bottom border is another Rect’s
+        most edge of pixels. If one Rect's bottom border is another Rect's
         top border (i.e., rect1.bottom=rect2.top), the two meet exactly on
         the screen but do not overlap, and rect1.colliderect(rect2) returns
         false.
 
         The Rect class can be subclassed. Methods such as copy() and move()
         will recognize this and return instances of the subclass. However,
-        the subclass’s __init__() method is not called, and __new__() is
+        the subclass's __init__() method is not called, and __new__() is
         assumed to take no arguments. So these methods should be overridden
         if any extra attributes need to be copied.
 
